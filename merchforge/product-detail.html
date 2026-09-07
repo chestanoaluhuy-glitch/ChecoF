@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Detail Menu — Checoff</title>
+    <meta
+        name="description"
+        content="Lihat detail menu Checoff Coffee Shop."
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="container nav-container">
+
+        <a href="index.html" class="logo">
+            <img
+                src="assets/images/checoff-logo.jpg"
+                alt="Checoff Coffee Shop"
+            >
+        </a>
+
+        <nav class="nav-menu">
+            <a href="index.html">Home</a>
+            <a href="products.html">Menu</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+
+        <a href="cart.html" class="cart-button">
+            Cart
+            <span id="cart-count">0</span>
+        </a>
+
+    </div>
+</header>
+
+
+<main>
+
+    <section class="product-detail-section">
+
+        <div class="container">
+
+            <a href="products.html" class="back-link">
+                ← Back to Menu
+            </a>
+
+            <div id="product-detail" class="product-detail">
+
+                <div class="loading">
+                    <p>Loading menu...</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-container">
+
+        <div>
+
+            <a href="index.html" class="logo">
+                <img
+                    src="assets/images/checoff-logo.jpg"
+                    alt="Checoff Coffee Shop"
+                >
+            </a>
+
+            <p>
+                Coffee, drinks & good moments.
+            </p>
+
+        </div>
+
+        <div class="footer-links">
+
+            <a href="index.html">Home</a>
+            <a href="products.html">Menu</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#contact">Contact</a>
+
+        </div>
+
+        <div class="footer-copy">
+
+            <p>
+                © 2026 Checoff. All rights reserved.
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/product-detail.js"></script>
+
+</body>
+</html>

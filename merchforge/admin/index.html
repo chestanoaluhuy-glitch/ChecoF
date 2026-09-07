@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard — Checoff</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .admin-page {
+            padding: 120px 0 80px;
+        }
+
+        .admin-header {
+            margin-bottom: 40px;
+        }
+
+        .admin-header h1 {
+            margin-bottom: 10px;
+        }
+
+        .admin-header p {
+            opacity: 0.7;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .admin-stat {
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .admin-stat span {
+            display: block;
+            font-size: 13px;
+            opacity: 0.6;
+            margin-bottom: 10px;
+        }
+
+        .admin-stat strong {
+            font-size: 32px;
+        }
+
+        .admin-section {
+            margin-bottom: 50px;
+        }
+
+        .admin-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-table-wrapper {
+            overflow-x: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .admin-table th {
+            font-size: 13px;
+            opacity: 0.6;
+            text-transform: uppercase;
+        }
+
+        .admin-table td {
+            font-size: 14px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.15);
+        }
+
+        .status-processing {
+            background: rgba(33, 150, 243, 0.15);
+        }
+
+        .status-completed {
+            background: rgba(76, 175, 80, 0.15);
+        }
+
+        .status-cancelled {
+            background: rgba(244, 67, 54, 0.15);
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .admin-btn {
+            padding: 8px 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .admin-btn:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .empty-admin {
+            padding: 50px;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .order-detail {
+            margin-top: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: none;
+        }
+
+        .order-detail.active {
+            display: block;
+        }
+
+        .order-items {
+            margin-top: 15px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        @media (max-width: 900px) {
+            .admin-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .admin-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-page {
+                padding-top: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="container nav-container">
+
+        <a href="../index.html" class="logo">
+            CHE<span>COFF</span>
+        </a>
+
+        <nav class="nav-menu">
+
+            <a href="../index.html">
+                Website
+            </a>
+
+            <a href="index.html" class="active">
+                Dashboard
+            </a>
+
+            <a href="products.html">
+                Produk
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section class="admin-page">
+
+<div class="container">
+
+    <div class="admin-header">
+
+        <p class="section-label">
+            CHECOFF ADMIN
+        </p>
+
+        <h1>
+            DASHBOARD
+        </h1>
+
+        <p>
+            Kelola pesanan dan produk Checoff.
+        </p>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- STATISTICS -->
+    <!-- ========================= -->
+
+    <div class="admin-stats">
+
+        <div class="admin-stat">
+
+            <span>
+                TOTAL PESANAN
+            </span>
+
+            <strong id="total-orders">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="admin-stat">
+
+            <span>
+                PENDING
+            </span>
+
+            <strong id="pending-orders">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="admin-stat">
+
+            <span>
+                PROCESSING
+            </span>
+
+            <strong id="processing-orders">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="admin-stat">
+
+            <span>
+                SELESAI
+            </span>
+
+            <strong id="completed-orders">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ORDERS -->
+    <!-- ========================= -->
+
+    <section class="admin-section">
+
+        <div class="admin-section-header">
+
+            <div>
+
+                <p class="section-label">
+                    ORDER MANAGEMENT
+                </p>
+
+                <h2>
+                    PESANAN TERBARU
+                </h2>
+
+            </div>
+
+            <button
+                type="button"
+                class="admin-btn"
+                onclick="loadOrders()"
+            >
+                REFRESH
+            </button>
+
+        </div>
+
+
+        <div class="admin-table-wrapper">
+
+            <table class="admin-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Order
+                        </th>
+
+                        <th>
+                            Customer
+                        </th>
+
+                        <th>
+                            WhatsApp
+                        </th>
+
+                        <th>
+                            Total
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Tanggal
+                        </th>
+
+                        <th>
+                            Aksi
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="orders-table">
+
+                    <tr>
+
+                        <td colspan="7">
+
+                            <div class="empty-admin">
+                                Memuat pesanan...
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- ORDER DETAIL -->
+    <!-- ========================= -->
+
+    <section class="admin-section">
+
+        <div class="admin-section-header">
+
+            <div>
+
+                <p class="section-label">
+                    ORDER DETAIL
+                </p>
+
+                <h2>
+                    DETAIL PESANAN
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div id="order-detail" class="order-detail">
+
+            Pilih pesanan untuk melihat detail.
+
+        </div>
+
+    </section>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container">
+
+        <p>
+            © 2026 Checoff Admin Dashboard.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- ========================= -->
+<!-- SUPABASE -->
+<!-- ========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../js/supabase.js"></script>
+
+
+<script>
+
+let orders = [];
+
+
+// ===============================
+// FORMAT RUPIAH
+// ===============================
+
+function formatPrice(price) {
+
+    return new Intl.NumberFormat("id-ID", {
+
+        style: "currency",
+
+        currency: "IDR",
+
+        maximumFractionDigits: 0
+
+    }).format(Number(price) || 0);
+
+}
+
+
+// ===============================
+// LOAD ORDERS
+// ===============================
+
+async function loadOrders() {
+
+    const table =
+        document.getElementById("orders-table");
+
+    table.innerHTML = `
+        <tr>
+            <td colspan="7">
+                <div class="empty-admin">
+                    Memuat pesanan...
+                </div>
+            </td>
+        </tr>
+    `;
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+
+        .from("orders")
+
+        .select("*")
+
+        .order("created_at", {
+            ascending: false
+        });
+
+
+    if (error) {
+
+        console.error(
+            "Gagal mengambil orders:",
+            error
+        );
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    <div class="empty-admin">
+                        Gagal mengambil data pesanan.
+                    </div>
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    orders = data || [];
+
+
+    updateStatistics();
+
+    renderOrders();
+
+}
+
+
+// ===============================
+// STATISTICS
+// ===============================
+
+function updateStatistics() {
+
+    document.getElementById("total-orders")
+        .textContent = orders.length;
+
+
+    document.getElementById("pending-orders")
+        .textContent =
+        orders.filter(
+            order => order.status === "pending"
+        ).length;
+
+
+    document.getElementById("processing-orders")
+        .textContent =
+        orders.filter(
+            order => order.status === "processing"
+        ).length;
+
+
+    document.getElementById("completed-orders")
+        .textContent =
+        orders.filter(
+            order => order.status === "completed"
+        ).length;
+
+}
+
+
+// ===============================
+// RENDER ORDERS
+// ===============================
+
+function renderOrders() {
+
+    const table =
+        document.getElementById("orders-table");
+
+
+    if (orders.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7">
+
+                    <div class="empty-admin">
+
+                        Belum ada pesanan.
+
+                    </div>
+
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    table.innerHTML = "";
+
+
+    orders.forEach(order => {
+
+        const date =
+            new Date(
+                order.created_at
+            ).toLocaleString(
+                "id-ID"
+            );
+
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>
+                    <strong>
+                        ${order.order_number}
+                    </strong>
+                </td>
+
+
+                <td>
+                    ${order.customer_name}
+                </td>
+
+
+                <td>
+                    ${order.phone}
+                </td>
+
+
+                <td>
+                    ${formatPrice(order.total)}
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="status status-${order.status}"
+                    >
+                        ${order.status}
+                    </span>
+
+                </td>
+
+
+                <td>
+                    ${date}
+                </td>
+
+
+                <td>
+
+                    <div class="admin-actions">
+
+                        <button
+                            class="admin-btn"
+                            onclick="viewOrder(${order.id})"
+                        >
+                            DETAIL
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+// ===============================
+// VIEW ORDER
+// ===============================
+
+async function viewOrder(orderId) {
+
+    const detail =
+        document.getElementById(
+            "order-detail"
+        );
+
+
+    detail.classList.add("active");
+
+
+    detail.innerHTML = `
+        Memuat detail pesanan...
+    `;
+
+
+    const {
+
+        data,
+
+        error
+
+    } = await supabaseClient
+
+        .from("order_items")
+
+        .select("*")
+
+        .eq("order_id", orderId);
+
+
+    if (error) {
+
+        console.error(
+            "Gagal mengambil order items:",
+            error
+        );
+
+        detail.innerHTML =
+            "Gagal mengambil detail pesanan.";
+
+        return;
+    }
+
+
+    const order =
+        orders.find(
+            item =>
+                Number(item.id) ===
+                Number(orderId)
+        );
+
+
+    if (!order) return;
+
+
+    let itemsHTML = "";
+
+
+    data.forEach(item => {
+
+        itemsHTML += `
+
+            <div class="order-item">
+
+                <div>
+
+                    <strong>
+                        ${item.product_name}
+                    </strong>
+
+                    <br>
+
+                    <small>
+                        ${item.quantity} ×
+                        ${formatPrice(item.price)}
+                    </small>
+
+                </div>
+
+
+                <strong>
+                    ${formatPrice(item.subtotal)}
+                </strong>
+
+            </div>
+
+        `;
+
+    });
+
+
+    detail.innerHTML = `
+
+        <h3>
+            ${order.order_number}
+        </h3>
+
+        <p>
+            <strong>Customer:</strong>
+            ${order.customer_name}
+        </p>
+
+        <p>
+            <strong>WhatsApp:</strong>
+            ${order.phone}
+        </p>
+
+        <p>
+            <strong>Catatan:</strong>
+            ${order.notes || "-"}
+        </p>
+
+
+        <div class="order-items">
+
+            ${itemsHTML}
+
+        </div>
+
+
+        <br>
+
+
+        <h3>
+            Total:
+            ${formatPrice(order.total)}
+        </h3>
+
+    `;
+
+}
+
+
+// ===============================
+// INIT
+// ===============================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadOrders();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

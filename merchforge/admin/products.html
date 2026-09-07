@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Kelola Produk — Checoff</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .admin-page {
+            padding: 120px 0 80px;
+        }
+
+        .admin-header {
+            margin-bottom: 40px;
+        }
+
+        .admin-header h1 {
+            margin-bottom: 10px;
+        }
+
+        .admin-header p {
+            opacity: .7;
+        }
+
+        .admin-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .admin-btn {
+            padding: 12px 18px;
+            border: 1px solid rgba(255,255,255,.15);
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .admin-btn:hover {
+            background: rgba(255,255,255,.08);
+        }
+
+        .admin-btn-primary {
+            background: #b52b32;
+            border-color: #b52b32;
+        }
+
+        .admin-btn-primary:hover {
+            background: #96242a;
+        }
+
+        .product-admin-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+
+        }
+
+        .product-admin-card {
+
+            border: 1px solid rgba(255,255,255,.1);
+
+            background:
+                rgba(255,255,255,.03);
+
+            overflow: hidden;
+
+        }
+
+        .product-admin-image {
+
+            height: 220px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+
+        }
+
+        .product-admin-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+        .no-image {
+
+            opacity: .5;
+
+        }
+
+        .product-admin-info {
+
+            padding: 20px;
+
+        }
+
+        .product-admin-category {
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            opacity: .6;
+
+            margin-bottom: 8px;
+
+        }
+
+        .product-admin-info h3 {
+
+            margin-bottom: 10px;
+
+        }
+
+        .product-admin-price {
+
+            font-weight: bold;
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+
+        }
+
+        .product-admin-stock {
+
+            font-size: 14px;
+
+            opacity: .7;
+
+            margin-bottom: 20px;
+
+        }
+
+        .product-admin-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+        .product-admin-actions button {
+
+            flex: 1;
+
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .product-form-box {
+
+            display: none;
+
+            margin-bottom: 40px;
+
+            padding: 30px;
+
+            border: 1px solid rgba(255,255,255,.1);
+
+            background:
+                rgba(255,255,255,.03);
+
+        }
+
+        .product-form-box.active {
+
+            display: block;
+
+        }
+
+        .product-form-box h2 {
+
+            margin-bottom: 25px;
+
+        }
+
+        .product-form {
+
+            display: grid;
+
+            gap: 18px;
+
+        }
+
+        .form-group {
+
+            display: grid;
+
+            gap: 8px;
+
+        }
+
+        .form-group label {
+
+            font-size: 13px;
+
+            opacity: .7;
+
+        }
+
+        .form-group input,
+
+        .form-group textarea,
+
+        .form-group select {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid rgba(255,255,255,.15);
+
+            background: rgba(0,0,0,.2);
+
+            color: inherit;
+
+            outline: none;
+
+        }
+
+        .form-group textarea {
+
+            resize: vertical;
+
+        }
+
+        .form-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            margin-top: 10px;
+
+        }
+
+        .loading-admin {
+
+            grid-column: 1 / -1;
+
+            padding: 50px;
+
+            text-align: center;
+
+            opacity: .7;
+
+        }
+
+        @media (max-width: 1000px) {
+
+            .product-admin-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .product-admin-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .admin-page {
+
+                padding-top: 100px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header class="navbar">
+
+    <div class="container nav-container">
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+            CHE<span>COFF</span>
+        </a>
+
+
+        <nav class="nav-menu">
+
+            <a href="../index.html">
+                Website
+            </a>
+
+            <a href="index.html">
+                Dashboard
+            </a>
+
+            <a
+                href="products.html"
+                class="active"
+            >
+                Produk
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+<section class="admin-page">
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="admin-header">
+
+        <p class="section-label">
+            CHECOFF ADMIN
+        </p>
+
+        <h1>
+            KELOLA PRODUK
+        </h1>
+
+        <p>
+            Tambahkan, ubah, dan hapus menu Checoff.
+        </p>
+
+    </div>
+
+
+    <!-- TOP -->
+
+    <div class="admin-top">
+
+        <h2>
+            DAFTAR MENU
+        </h2>
+
+        <button
+            type="button"
+            class="admin-btn admin-btn-primary"
+            onclick="showAddForm()"
+        >
+            + TAMBAH PRODUK
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         FORM PRODUK
+    ========================= -->
+
+    <div
+        id="product-form-box"
+        class="product-form-box"
+    >
+
+        <h2 id="form-title">
+            TAMBAH PRODUK
+        </h2>
+
+
+        <form
+            id="product-form"
+            class="product-form"
+            onsubmit="saveProduct(event)"
+        >
+
+            <input
+                type="hidden"
+                id="product-id"
+            >
+
+
+            <div class="form-group">
+
+                <label for="product-name">
+                    Nama Produk
+                </label>
+
+                <input
+                    type="text"
+                    id="product-name"
+                    placeholder="Contoh: Cafe Latte"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="product-category">
+                    Kategori
+                </label>
+
+                <select
+                    id="product-category"
+                    required
+                >
+
+                    <option value="">
+                        Pilih kategori
+                    </option>
+
+                    <option value="Coffee">
+                        Coffee
+                    </option>
+
+                    <option value="Non-Coffee">
+                        Non-Coffee
+                    </option>
+
+                    <option value="Snack">
+                        Snack
+                    </option>
+
+                    <option value="Merchandise">
+                        Merchandise
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="product-price">
+                    Harga
+                </label>
+
+                <input
+                    type="number"
+                    id="product-price"
+                    min="0"
+                    placeholder="25000"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="product-stock">
+                    Stok
+                </label>
+
+                <input
+                    type="number"
+                    id="product-stock"
+                    min="0"
+                    placeholder="10"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="product-image">
+                    URL Gambar
+                </label>
+
+                <input
+                    type="url"
+                    id="product-image"
+                    placeholder="https://..."
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="product-description">
+                    Deskripsi
+                </label>
+
+                <textarea
+                    id="product-description"
+                    rows="5"
+                    placeholder="Deskripsi produk..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="admin-btn admin-btn-primary"
+                    id="save-button"
+                >
+                    SIMPAN PRODUK
+                </button>
+
+
+                <button
+                    type="button"
+                    class="admin-btn"
+                    onclick="hideForm()"
+                >
+                    BATAL
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- =========================
+         PRODUCT LIST
+    ========================= -->
+
+    <div
+        id="product-admin-list"
+        class="product-admin-grid"
+    >
+
+        <div class="loading-admin">
+
+            Memuat produk...
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <p>
+            © 2026 Checoff Admin.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../js/supabase.js"></script>
+
+
+<script>
+
+
+// =====================================
+// VARIABLES
+// =====================================
+
+let products = [];
+
+
+// =====================================
+// FORMAT RUPIAH
+// =====================================
+
+function formatPrice(price) {
+
+    return new Intl.NumberFormat(
+        "id-ID",
+        {
+            style: "currency",
+            currency: "IDR",
+            maximumFractionDigits: 0
+        }
+    ).format(Number(price) || 0);
+
+}
+
+
+// =====================================
+// LOAD PRODUCTS
+// =====================================
+
+async function loadProducts() {
+
+    const container =
+        document.getElementById(
+            "product-admin-list"
+        );
+
+
+    container.innerHTML = `
+
+        <div class="loading-admin">
+
+            Memuat produk...
+
+        </div>
+
+    `;
+
+
+    const {
+
+        data,
+
+        error
+
+    } = await supabaseClient
+
+        .from("products")
+
+        .select("*")
+
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "Gagal mengambil produk:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="loading-admin">
+
+                Gagal mengambil produk.
+
+                <br><br>
+
+                Cek Console untuk detail error.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    products = data || [];
+
+
+    renderProducts();
+
+}
+
+
+// =====================================
+// RENDER PRODUCTS
+// =====================================
+
+function renderProducts() {
+
+    const container =
+        document.getElementById(
+            "product-admin-list"
+        );
+
+
+    if (products.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="loading-admin">
+
+                Belum ada produk.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    products.forEach(product => {
+
+
+        const imageHTML =
+
+            product.image_url
+
+            ? `
+
+                <img
+                    src="${product.image_url}"
+                    alt="${product.name}"
+                >
+
+            `
+
+            : `
+
+                <div class="no-image">
+                    CHECOFF
+                </div>
+
+            `;
+
+
+        container.innerHTML += `
+
+            <article
+                class="product-admin-card"
+            >
+
+                <div
+                    class="product-admin-image"
+                >
+
+                    ${imageHTML}
+
+                </div>
+
+
+                <div
+                    class="product-admin-info"
+                >
+
+                    <div
+                        class="product-admin-category"
+                    >
+                        ${product.category}
+                    </div>
+
+
+                    <h3>
+                        ${product.name}
+                    </h3>
+
+
+                    <div
+                        class="product-admin-price"
+                    >
+                        ${formatPrice(product.price)}
+                    </div>
+
+
+                    <div
+                        class="product-admin-stock"
+                    >
+                        Stok:
+                        <strong>
+                            ${product.stock}
+                        </strong>
+                    </div>
+
+
+                    <div
+                        class="product-admin-actions"
+                    >
+
+                        <button
+                            type="button"
+                            class="admin-btn"
+                            onclick="editProduct(${product.id})"
+                        >
+                            EDIT
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="admin-btn"
+                            onclick="deleteProduct(${product.id})"
+                        >
+                            HAPUS
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        `;
+
+    });
+
+}
+
+
+// =====================================
+// SHOW ADD FORM
+// =====================================
+
+function showAddForm() {
+
+    document.getElementById(
+        "product-form-box"
+    ).classList.add("active");
+
+
+    document.getElementById(
+        "form-title"
+    ).textContent =
+        "TAMBAH PRODUK";
+
+
+    document.getElementById(
+        "product-form"
+    ).reset();
+
+
+    document.getElementById(
+        "product-id"
+    ).value = "";
+
+
+    window.scrollTo({
+
+        top: 300,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+// =====================================
+// HIDE FORM
+// =====================================
+
+function hideForm() {
+
+    document.getElementById(
+        "product-form-box"
+    ).classList.remove("active");
+
+}
+
+
+// =====================================
+// EDIT PRODUCT
+// =====================================
+
+function editProduct(productId) {
+
+    const product =
+        products.find(
+            item =>
+                Number(item.id) ===
+                Number(productId)
+        );
+
+
+    if (!product) {
+
+        alert(
+            "Produk tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "product-form-box"
+    ).classList.add("active");
+
+
+    document.getElementById(
+        "form-title"
+    ).textContent =
+        "EDIT PRODUK";
+
+
+    document.getElementById(
+        "product-id"
+    ).value =
+        product.id;
+
+
+    document.getElementById(
+        "product-name"
+    ).value =
+        product.name || "";
+
+
+    document.getElementById(
+        "product-category"
+    ).value =
+        product.category || "";
+
+
+    document.getElementById(
+        "product-price"
+    ).value =
+        product.price || 0;
+
+
+    document.getElementById(
+        "product-stock"
+    ).value =
+        product.stock || 0;
+
+
+    document.getElementById(
+        "product-image"
+    ).value =
+        product.image_url || "";
+
+
+    document.getElementById(
+        "product-description"
+    ).value =
+        product.description || "";
+
+
+    window.scrollTo({
+
+        top: 300,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+// =====================================
+// SAVE PRODUCT
+// =====================================
+
+async function saveProduct(event) {
+
+    event.preventDefault();
+
+
+    const button =
+        document.getElementById(
+            "save-button"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "MENYIMPAN...";
+
+
+    try {
+
+
+        const id =
+            document.getElementById(
+                "product-id"
+            ).value;
+
+
+        const name =
+            document.getElementById(
+                "product-name"
+            ).value.trim();
+
+
+        const category =
+            document.getElementById(
+                "product-category"
+            ).value;
+
+
+        const price =
+            Number(
+                document.getElementById(
+                    "product-price"
+                ).value
+            );
+
+
+        const stock =
+            Number(
+                document.getElementById(
+                    "product-stock"
+                ).value
+            );
+
+
+        const imageUrl =
+            document.getElementById(
+                "product-image"
+            ).value.trim();
+
+
+        const description =
+            document.getElementById(
+                "product-description"
+            ).value.trim();
+
+
+        const productData = {
+
+            name: name,
+
+            category: category,
+
+            price: price,
+
+            stock: stock,
+
+            image_url:
+                imageUrl || null,
+
+            description:
+                description || null
+
+        };
+
+
+        // =============================
+        // UPDATE
+        // =============================
+
+        if (id) {
+
+            const {
+                error
+            } = await supabaseClient
+
+                .from("products")
+
+                .update(productData)
+
+                .eq(
+                    "id",
+                    id
+                );
+
+
+            if (error)
+                throw error;
+
+
+            alert(
+                "Produk berhasil diperbarui! ✅"
+            );
+
+        }
+
+
+        // =============================
+        // INSERT
+        // =============================
+
+        else {
+
+            const {
+                error
+            } = await supabaseClient
+
+                .from("products")
+
+                .insert([
+                    productData
+                ]);
+
+
+            if (error)
+                throw error;
+
+
+            alert(
+                "Produk berhasil ditambahkan! ✅"
+            );
+
+        }
+
+
+        hideForm();
+
+        await loadProducts();
+
+
+    } catch (error) {
+
+
+        console.error(
+            "Gagal menyimpan produk:",
+            error
+        );
+
+
+        alert(
+            "Produk gagal disimpan. Cek Console."
+        );
+
+
+    } finally {
+
+
+        button.disabled = false;
+
+        button.textContent =
+            "SIMPAN PRODUK";
+
+    }
+
+}
+
+
+// =====================================
+// DELETE PRODUCT
+// =====================================
+
+async function deleteProduct(productId) {
+
+    const product =
+        products.find(
+            item =>
+                Number(item.id) ===
+                Number(productId)
+        );
+
+
+    if (!product)
+        return;
+
+
+    const confirmed =
+        confirm(
+            `Hapus produk "${product.name}"?`
+        );
+
+
+    if (!confirmed)
+        return;
+
+
+    const {
+        error
+    } = await supabaseClient
+
+        .from("products")
+
+        .delete()
+
+        .eq(
+            "id",
+            productId
+        );
+
+
+    if (error) {
+
+        console.error(
+            "Gagal menghapus produk:",
+            error
+        );
+
+
+        alert(
+            "Produk gagal dihapus. Cek Console."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Produk berhasil dihapus! 🗑️"
+    );
+
+
+    loadProducts();
+
+}
+
+
+// =====================================
+// INIT
+// =====================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadProducts();
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
