@@ -1,121 +1,330 @@
+/* =========================================================
+   CHECOFF CART
+========================================================= */
+
 const CART_KEY = "merchforge-cart";
-const cartContainer = document.getElementById("cart-container");
 
 let currentCartProducts = [];
 let currentCartTotal = 0;
 
-// ===============================
-// FORMAT RUPIAH
-// ===============================
-function formatPrice(price) {
-    return new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        maximumFractionDigits: 0
-    }).format(Number(price) || 0);
+
+/* =========================================================
+   GET CART
+========================================================= */
+
+function getCart() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(CART_KEY)
+        ) || [];
+
+    } catch (error) {
+
+        console.error(
+            "Cart tidak dapat dibaca:",
+            error
+        );
+
+        return [];
+
+    }
+
 }
 
 
-// ===============================
-// LOAD CART
-// ===============================
+/* =========================================================
+   SAVE CART
+========================================================= */
+
+function saveCart(cart) {
+
+    localStorage.setItem(
+        CART_KEY,
+        JSON.stringify(cart)
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT PRICE
+========================================================= */
+
+function formatPrice(price) {
+
+    return new Intl.NumberFormat(
+        "id-ID",
+        {
+            style: "currency",
+            currency: "IDR",
+            maximumFractionDigits: 0
+        }
+    ).format(Number(price) || 0);
+
+}
+
+
+/* =========================================================
+   UPDATE CART COUNT
+========================================================= */
+
+function updateCartCount() {
+
+    const cartCount =
+        document.getElementById("cart-count");
+
+    if (!cartCount) return;
+
+    const cart = getCart();
+
+    const total = cart.reduce(
+        (sum, item) =>
+            sum + Number(item.quantity || 0),
+        0
+    );
+
+    cartCount.textContent = total;
+
+}
+
+
+/* =========================================================
+   LOAD CART
+========================================================= */
+
 async function loadCart() {
 
-    const cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    const cartContainer =
+        document.getElementById("cart-container");
 
-    console.log("CART:", cart);
+    if (!cartContainer) return;
+
+
+    const cart = getCart();
+
+
+    /* =====================================================
+       CART KOSONG
+    ===================================================== */
 
     if (cart.length === 0) {
 
+        currentCartProducts = [];
+        currentCartTotal = 0;
+
         cartContainer.innerHTML = `
             <div class="loading">
-                <h2>Cart kamu masih kosong 🛒</h2>
-                <p>Yuk pilih menu terlebih dahulu.</p>
 
-                <br>
+                <h2>Keranjang Kosong</h2>
 
-                <a href="products.html" class="btn btn-primary">
+                <p>
+                    Belum ada menu yang kamu pilih.
+                </p>
+
+                <a
+                    href="products.html"
+                    class="btn btn-primary"
+                >
                     LIHAT MENU →
                 </a>
+
             </div>
         `;
 
         updateCartCount();
+
         return;
+
     }
 
-    const ids = cart.map(item => Number(item.id));
 
-    console.log("ID PRODUK DI CART:", ids);
+    cartContainer.innerHTML = `
+        <div class="loading">
+            <p>Memuat keranjang...</p>
+        </div>
+    `;
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("products")
-        .select("*")
-        .in("id", ids);
 
-    if (error) {
+    try {
 
-        console.error("Gagal mengambil data cart:", error);
+        /* =================================================
+           AMBIL ID PRODUK
+        ================================================= */
+
+        const productIds =
+            cart.map(item => Number(item.id));
+
+
+        /* =================================================
+           AMBIL PRODUK DARI SUPABASE
+        ================================================= */
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("products")
+            .select("*")
+            .in("id", productIds);
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        currentCartProducts = data || [];
+
+
+        /* =================================================
+           RENDER CART
+        ================================================= */
+
+        renderCart();
+
+
+    } catch (error) {
+
+        console.error(
+            "Gagal mengambil produk cart:",
+            error
+        );
+
 
         cartContainer.innerHTML = `
             <div class="loading">
-                <h2>Gagal mengambil data menu</h2>
-                <p>Silakan refresh halaman.</p>
+
+                <h2>Gagal memuat keranjang</h2>
+
+                <p>
+                    ${error.message}
+                </p>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="loadCart()"
+                >
+                    COBA LAGI →
+                </button>
+
             </div>
         `;
 
-        return;
     }
 
-    console.log("DATA PRODUK SUPABASE:", data);
 
-    if (!data || data.length === 0) {
+    updateCartCount();
+
+}
+
+
+/* =========================================================
+   RENDER CART
+========================================================= */
+
+function renderCart() {
+
+    const cartContainer =
+        document.getElementById("cart-container");
+
+    if (!cartContainer) return;
+
+
+    const cart = getCart();
+
+
+    if (cart.length === 0) {
+
+        currentCartProducts = [];
+        currentCartTotal = 0;
 
         cartContainer.innerHTML = `
             <div class="loading">
-                <h2>Produk tidak ditemukan</h2>
-                <p>Data produk di cart tidak tersedia.</p>
+
+                <h2>Keranjang Kosong</h2>
+
+                <p>
+                    Belum ada menu yang kamu pilih.
+                </p>
+
+                <a
+                    href="products.html"
+                    class="btn btn-primary"
+                >
+                    LIHAT MENU →
+                </a>
+
             </div>
         `;
 
+        updateCartCount();
+
         return;
+
     }
 
-    currentCartProducts = data;
 
     let total = 0;
 
-    let cartHTML = `
+
+    let html = `
         <div class="cart-list">
     `;
 
-    data.forEach(product => {
 
-        const cartItem = cart.find(
-            item => Number(item.id) === Number(product.id)
-        );
+    cart.forEach(item => {
 
-        if (!cartItem) return;
+        const product =
+            currentCartProducts.find(
+                product =>
+                    Number(product.id) ===
+                    Number(item.id)
+            );
 
-        const quantity = Number(cartItem.quantity) || 1;
+
+        if (!product) return;
+
+
+        const quantity =
+            Number(item.quantity) || 1;
+
 
         const subtotal =
             Number(product.price) * quantity;
 
+
         total += subtotal;
 
-        cartHTML += `
-            <article class="cart-item">
+
+        const stock =
+            Number(product.stock) || 0;
+
+
+        html += `
+            <div class="cart-item">
 
                 <div class="cart-item-image">
 
                     ${
                         product.image_url
-                        ? `<img src="${product.image_url}" alt="${product.name}">`
-                        : `<span>CHECOFF</span>`
+                        ?
+                        `
+                        <img
+                            src="${product.image_url}"
+                            alt="${product.name}"
+                        >
+                        `
+                        :
+                        `
+                        <div class="no-image">
+                            <span>CHECOFF</span>
+                        </div>
+                        `
                     }
 
                 </div>
@@ -124,74 +333,89 @@ async function loadCart() {
                 <div class="cart-item-info">
 
                     <p class="product-category">
-                        ${product.category}
+                        ${product.category || "MENU"}
                     </p>
 
                     <h3>
                         ${product.name}
                     </h3>
 
-                    <p>
+                    <p class="cart-price">
                         ${formatPrice(product.price)}
                     </p>
 
+
+                    <p class="cart-stock">
+
+                        Stok:
+                        <strong>
+                            ${stock}
+                        </strong>
+
+                    </p>
+
+
+                    <div class="cart-actions">
+
+                        <button
+                            type="button"
+                            class="quantity-btn"
+                            onclick="changeQuantity(${product.id}, -1)"
+                        >
+                            −
+                        </button>
+
+
+                        <span class="quantity">
+                            ${quantity}
+                        </span>
+
+
+                        <button
+                            type="button"
+                            class="quantity-btn"
+                            onclick="changeQuantity(${product.id}, 1)"
+                            ${quantity >= stock ? "disabled" : ""}
+                        >
+                            +
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="remove-btn"
+                            onclick="removeFromCart(${product.id})"
+                        >
+                            Hapus
+                        </button>
+
+                    </div>
+
                 </div>
 
 
-                <div class="cart-quantity">
+                <div class="cart-item-subtotal">
 
-                    <button
-                        type="button"
-                        onclick="changeQuantity(${product.id}, -1)"
-                    >
-                        −
-                    </button>
-
-                    <span>
-                        ${quantity}
-                    </span>
-
-                    <button
-                        type="button"
-                        onclick="changeQuantity(${product.id}, 1)"
-                    >
-                        +
-                    </button>
+                    ${formatPrice(subtotal)}
 
                 </div>
 
-
-                <div class="cart-subtotal">
-
-                    <strong>
-                        ${formatPrice(subtotal)}
-                    </strong>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="cart-remove"
-                    onclick="removeFromCart(${product.id})"
-                >
-                    REMOVE
-                </button>
-
-            </article>
+            </div>
         `;
+
     });
 
 
-    cartHTML += `
+    html += `
         </div>
+
 
         <div class="cart-summary">
 
-            <div>
+            <div class="cart-total">
 
                 <span>
-                    Total Pesanan
+                    TOTAL
                 </span>
 
                 <strong>
@@ -212,124 +436,159 @@ async function loadCart() {
         </div>
     `;
 
-    cartContainer.innerHTML = cartHTML;
+
+    cartContainer.innerHTML = html;
+
 
     currentCartTotal = total;
 
+
     updateCartCount();
+
 }
 
 
-// ===============================
-// CHANGE QUANTITY
-// ===============================
+/* =========================================================
+   CHANGE QUANTITY
+========================================================= */
+
 function changeQuantity(productId, change) {
 
-    let cart =
-        JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    const cart = getCart();
 
-    const item = cart.find(
-        item => Number(item.id) === Number(productId)
-    );
+
+    const item =
+        cart.find(
+            item =>
+                Number(item.id) ===
+                Number(productId)
+        );
+
 
     if (!item) return;
 
-    item.quantity =
-        Number(item.quantity) + Number(change);
 
-    if (item.quantity <= 0) {
-
-        cart = cart.filter(
-            item =>
-                Number(item.id) !== Number(productId)
+    const product =
+        currentCartProducts.find(
+            product =>
+                Number(product.id) ===
+                Number(productId)
         );
+
+
+    if (!product) return;
+
+
+    let newQuantity =
+        Number(item.quantity) +
+        Number(change);
+
+
+    /* Minimum 1 */
+
+    if (newQuantity < 1) {
+
+        newQuantity = 1;
+
     }
 
-    localStorage.setItem(
-        CART_KEY,
-        JSON.stringify(cart)
-    );
 
-    loadCart();
+    /* Tidak boleh melebihi stok */
+
+    if (newQuantity > Number(product.stock)) {
+
+        alert(
+            `Stok ${product.name} hanya tersedia ${product.stock}.`
+        );
+
+        return;
+
+    }
+
+
+    item.quantity = newQuantity;
+
+
+    saveCart(cart);
+
+
+    renderCart();
+
+
+    updateCartCount();
+
 }
 
 
-// ===============================
-// REMOVE PRODUCT
-// ===============================
+/* =========================================================
+   REMOVE FROM CART
+========================================================= */
+
 function removeFromCart(productId) {
 
-    let cart =
-        JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    let cart = getCart();
+
 
     cart = cart.filter(
         item =>
-            Number(item.id) !== Number(productId)
+            Number(item.id) !==
+            Number(productId)
     );
 
-    localStorage.setItem(
-        CART_KEY,
-        JSON.stringify(cart)
-    );
+
+    saveCart(cart);
+
 
     loadCart();
 
+
     updateCartCount();
+
 }
 
 
-// ===============================
-// CART COUNT
-// ===============================
-function updateCartCount() {
+/* =========================================================
+   CHECKOUT FORM
+========================================================= */
 
-    const cartCount =
-        document.getElementById("cart-count");
-
-    if (!cartCount) return;
-
-    const cart =
-        JSON.parse(localStorage.getItem(CART_KEY)) || [];
-
-    const total = cart.reduce(
-        (sum, item) =>
-            sum + Number(item.quantity || 0),
-        0
-    );
-
-    cartCount.textContent = total;
-
-    console.log("TOTAL CART:", total);
-}
-
-
-// ===============================
-// CHECKOUT FORM
-// ===============================
 function checkout() {
 
-    const cart =
-        JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    const cart = getCart();
+
 
     if (cart.length === 0) {
 
-        alert("Cart masih kosong.");
+        alert(
+            "Keranjang masih kosong."
+        );
 
         return;
+
     }
 
-    const checkoutHTML = `
 
-        <div class="checkout-box">
+    const cartContainer =
+        document.getElementById("cart-container");
+
+    if (!cartContainer) return;
+
+
+    cartContainer.innerHTML = `
+
+        <div class="checkout-container">
 
             <div class="checkout-header">
 
+                <p class="section-label">
+                    CHECOFF CHECKOUT
+                </p>
+
                 <h2>
-                    CHECKOUT
+                    COMPLETE YOUR ORDER
                 </h2>
 
                 <p>
-                    Lengkapi data pesanan kamu
+                    Isi data berikut untuk menyelesaikan pesanan.
                 </p>
 
             </div>
@@ -340,16 +599,17 @@ function checkout() {
                 onsubmit="submitOrder(event)"
             >
 
+
                 <div class="form-group">
 
                     <label for="customer-name">
-                        Nama
+                        Nama Lengkap
                     </label>
 
                     <input
                         type="text"
                         id="customer-name"
-                        placeholder="Masukkan nama kamu"
+                        placeholder="Nama lengkap"
                         required
                     >
 
@@ -359,7 +619,7 @@ function checkout() {
                 <div class="form-group">
 
                     <label for="customer-phone">
-                        No. WhatsApp
+                        Nomor WhatsApp
                     </label>
 
                     <input
@@ -387,16 +647,16 @@ function checkout() {
                             Pilih pembayaran
                         </option>
 
-                        <option value="cash">
-                            Cash
+                        <option value="COD">
+                            COD
                         </option>
 
-                        <option value="qris">
-                            QRIS
-                        </option>
-
-                        <option value="transfer">
+                        <option value="Transfer">
                             Transfer Bank
+                        </option>
+
+                        <option value="QRIS">
+                            QRIS
                         </option>
 
                     </select>
@@ -407,22 +667,28 @@ function checkout() {
                 <div class="form-group">
 
                     <label for="order-notes">
-                        Catatan Pesanan
+                        Catatan
                     </label>
 
                     <textarea
                         id="order-notes"
                         rows="4"
-                        placeholder="Contoh: less sugar, tanpa es, dll."
+                        placeholder="Catatan untuk pesanan (opsional)"
                     ></textarea>
 
                 </div>
 
 
+                <div
+                    id="checkout-message"
+                    class="checkout-message"
+                ></div>
+
+
                 <div class="checkout-total">
 
                     <span>
-                        Total Pesanan
+                        TOTAL
                     </span>
 
                     <strong>
@@ -434,9 +700,9 @@ function checkout() {
 
                 <button
                     type="submit"
-                    class="btn btn-primary"
+                    class="btn btn-primary auth-button"
                 >
-                    PESAN SEKARANG →
+                    PLACE ORDER →
                 </button>
 
 
@@ -445,8 +711,9 @@ function checkout() {
                     class="btn btn-secondary"
                     onclick="loadCart()"
                 >
-                    KEMBALI
+                    ← KEMBALI KE CART
                 </button>
+
 
             </form>
 
@@ -454,129 +721,159 @@ function checkout() {
 
     `;
 
-    cartContainer.innerHTML = checkoutHTML;
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
 }
 
 
-// ===============================
-// SUBMIT ORDER
-// ===============================
+/* =========================================================
+   SUBMIT ORDER
+========================================================= */
+
 async function submitOrder(event) {
 
     event.preventDefault();
 
-    const submitButton =
-        event.target.querySelector(
-            'button[type="submit"]'
+
+    const message =
+        document.getElementById(
+            "checkout-message"
         );
 
-    submitButton.disabled = true;
 
-    submitButton.textContent =
-        "MEMPROSES PESANAN...";
+    const customerName =
+        document.getElementById(
+            "customer-name"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "customer-phone"
+        ).value.trim();
+
+
+    const notes =
+        document.getElementById(
+            "order-notes"
+        ).value.trim();
+
+
+    const paymentMethod =
+        document.getElementById(
+            "payment-method"
+        ).value;
+
+
+    const cart = getCart();
+
+
+    if (cart.length === 0) {
+
+        message.textContent =
+            "Keranjang masih kosong.";
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       VALIDASI FORM
+    ===================================================== */
+
+    if (!customerName) {
+
+        message.textContent =
+            "Nama wajib diisi.";
+
+        return;
+
+    }
+
+
+    if (!phone) {
+
+        message.textContent =
+            "Nomor WhatsApp wajib diisi.";
+
+        return;
+
+    }
+
+
+    if (!paymentMethod) {
+
+        message.textContent =
+            "Pilih metode pembayaran.";
+
+        return;
+
+    }
+
+
+    message.textContent =
+        "Memproses pesanan dan mengecek stok...";
 
 
     try {
 
-        const customerName =
-            document
-                .getElementById("customer-name")
-                .value
-                .trim();
+        /* =================================================
+           KIRIM CART KE POSTGRES FUNCTION
 
-
-        const phone =
-            document
-                .getElementById("customer-phone")
-                .value
-                .trim();
-
-
-        const paymentMethod =
-            document
-                .getElementById("payment-method")
-                .value;
-
-
-        const notes =
-            document
-                .getElementById("order-notes")
-                .value
-                .trim();
-
-
-        if (!customerName || !phone || !paymentMethod) {
-
-            alert(
-                "Nama, nomor WhatsApp, dan metode pembayaran wajib diisi."
-            );
-
-            submitButton.disabled = false;
-
-            submitButton.textContent =
-                "PESAN SEKARANG →";
-
-            return;
-        }
-
-
-        const cart =
-            JSON.parse(
-                localStorage.getItem(CART_KEY)
-            ) || [];
-
-
-        if (cart.length === 0) {
-
-            alert("Cart kamu kosong.");
-
-            loadCart();
-
-            return;
-        }
-
-
-        // ===============================
-        // BUAT NOMOR PESANAN
-        // ===============================
-
-        const orderNumber =
-            "CHE-" +
-            Date.now().toString().slice(-8);
-
-
-        // ===============================
-        // SIMPAN ORDER
-        // ===============================
+           Database akan:
+           1. Cek produk
+           2. Cek stok
+           3. Hitung total
+           4. Buat order
+           5. Buat order_items
+           6. Kurangi stok
+        ================================================= */
 
         const {
-            data: order,
-            error: orderError
-        } = await supabaseClient
-            .from("orders")
-            .insert([
-                {
-                    order_number: orderNumber,
-                    customer_name: customerName,
-                    phone: phone,
-                    notes: notes,
-                    total: currentCartTotal,
-                    status: "pending"
-                }
-            ])
-            .select()
-            .single();
+            data,
+            error
+        } = await supabaseClient.rpc(
+            "create_checoff_order",
+            {
+                p_customer_name:
+                    customerName,
+
+                p_phone:
+                    phone,
+
+                p_notes:
+                    `${notes}${notes ? " | " : ""}Pembayaran: ${paymentMethod}`,
+
+                p_items:
+                    cart.map(item => ({
+                        id: Number(item.id),
+                        quantity: Number(item.quantity)
+                    }))
+            }
+        );
 
 
-        if (orderError) {
+        /* =================================================
+           ERROR DARI DATABASE
+        ================================================= */
 
-            throw orderError;
+        if (error) {
+
+            throw error;
+
         }
+
+
+        if (!data || data.length === 0) {
+
+            throw new Error(
+                "Pesanan tidak berhasil dibuat."
+            );
+
+        }
+
+
+        const order =
+            data[0];
 
 
         console.log(
@@ -585,181 +882,161 @@ async function submitOrder(event) {
         );
 
 
-        // ===============================
-        // SIAPKAN ORDER ITEMS
-        // ===============================
+        /* =================================================
+           HAPUS CART
+        ================================================= */
 
-        const orderItems =
-            currentCartProducts.map(product => {
-
-                const cartItem =
-                    cart.find(
-                        item =>
-                            Number(item.id) ===
-                            Number(product.id)
-                    );
-
-
-                const quantity =
-                    Number(cartItem?.quantity) || 1;
-
-
-                const price =
-                    Number(product.price) || 0;
-
-
-                return {
-
-                    order_id: order.id,
-
-                    product_id: product.id,
-
-                    product_name: product.name,
-
-                    price: price,
-
-                    quantity: quantity,
-
-                    subtotal: price * quantity
-
-                };
-
-            });
-
-
-        console.log(
-            "ORDER ITEMS:",
-            orderItems
+        localStorage.removeItem(
+            CART_KEY
         );
 
 
-        // ===============================
-        // SIMPAN ORDER ITEMS
-        // ===============================
-
-        const {
-            error: itemsError
-        } = await supabaseClient
-            .from("order_items")
-            .insert(orderItems);
-
-
-        if (itemsError) {
-
-            throw itemsError;
-        }
-
-
-        // ===============================
-        // HAPUS CART
-        // ===============================
-
-        localStorage.removeItem(CART_KEY);
+        currentCartProducts = [];
+        currentCartTotal = 0;
 
 
         updateCartCount();
 
 
-        // ===============================
-        // SUCCESS
-        // ===============================
+        /* =================================================
+           TAMPILKAN SUKSES
+        ================================================= */
+
+        const cartContainer =
+            document.getElementById(
+                "cart-container"
+            );
+
 
         cartContainer.innerHTML = `
 
             <div class="loading">
 
+                <p class="section-label">
+                    ORDER SUCCESS
+                </p>
+
+
                 <h2>
                     PESANAN BERHASIL! ☕
                 </h2>
+
 
                 <p>
                     Terima kasih, ${customerName}.
                 </p>
 
-                <br>
 
                 <p>
                     Nomor pesanan kamu:
                 </p>
 
-                <h2>
-                    ${orderNumber}
-                </h2>
 
-                <br>
+                <h3>
+                    ${order.order_number}
+                </h3>
+
 
                 <p>
                     Total:
                     <strong>
-                        ${formatPrice(currentCartTotal)}
+                        ${formatPrice(order.total)}
                     </strong>
                 </p>
 
-                <br>
 
                 <p>
-                    Silakan lanjutkan pembayaran
-                    sesuai metode yang dipilih.
+                    Status:
+                    <strong>
+                        PENDING
+                    </strong>
                 </p>
 
-                <br>
 
-                <a
-                    href="products.html"
-                    class="btn btn-primary"
-                >
-                    KEMBALI KE MENU →
-                </a>
+                <div style="margin-top: 30px;">
+
+                    <a
+                        href="products.html"
+                        class="btn btn-primary"
+                    >
+                        KEMBALI KE MENU →
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="btn btn-secondary"
+                    >
+                        HOME
+                    </a>
+
+                </div>
 
             </div>
 
         `;
 
+
     } catch (error) {
 
         console.error(
-            "GAGAL MEMBUAT PESANAN:",
+            "CHECKOUT ERROR:",
             error
         );
 
 
-        alert(
-            "Pesanan gagal disimpan. Cek Console untuk detail error."
-        );
+        message.textContent =
+            error.message ||
+            "Pesanan gagal dibuat.";
 
 
-        submitButton.disabled = false;
+        /*
+           Penting:
+           Cart TIDAK dihapus kalau order gagal.
+           User masih bisa memperbaiki cart.
+        */
 
-        submitButton.textContent =
-            "PESAN SEKARANG →";
     }
+
 }
 
 
-// ===============================
-// INIT
-// ===============================
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
-
-        loadCart();
+    function () {
 
         updateCartCount();
+
+        loadCart();
 
     }
 );
 
 
-// ===============================
-// GLOBAL FUNCTION
-// ===============================
-window.changeQuantity = changeQuantity;
+/* =========================================================
+   GLOBAL FUNCTIONS
+========================================================= */
 
-window.removeFromCart = removeFromCart;
+window.loadCart =
+    loadCart;
 
-window.updateCartCount = updateCartCount;
+window.renderCart =
+    renderCart;
 
-window.checkout = checkout;
+window.changeQuantity =
+    changeQuantity;
 
-window.submitOrder = submitOrder;
+window.removeFromCart =
+    removeFromCart;
+
+window.checkout =
+    checkout;
+
+window.submitOrder =
+    submitOrder;
+
+window.updateCartCount =
+    updateCartCount;
