@@ -1,9 +1,13 @@
 /* =========================
-   PRODUCTS - ValRepublikMerch
+   PRODUCTS - Checoff Coffee Shop
 ========================= */
 
 
 let allProducts = [];
+
+let currentCategory = "all";
+
+let currentSearch = "";
 
 
 /* =========================
@@ -77,12 +81,12 @@ async function loadProducts() {
             );
 
 
-        const category =
+        currentCategory =
             params.get("category")
             || "all";
 
 
-        renderProducts(category);
+        renderProducts();
 
 
     } catch (error) {
@@ -127,7 +131,35 @@ function filterProducts(category) {
     );
 
 
-    renderProducts(category);
+    currentCategory =
+        category || "all";
+
+
+    renderProducts();
+
+}
+
+
+/* =========================
+   SEARCH PRODUCTS
+========================= */
+
+function searchProducts(keyword) {
+
+
+    currentSearch =
+        keyword
+            .trim()
+            .toLowerCase();
+
+
+    console.log(
+        "Search:",
+        currentSearch
+    );
+
+
+    renderProducts();
 
 }
 
@@ -136,7 +168,7 @@ function filterProducts(category) {
    RENDER PRODUCTS
 ========================= */
 
-function renderProducts(category) {
+function renderProducts() {
 
 
     const productList =
@@ -156,34 +188,23 @@ function renderProducts(category) {
     }
 
 
-    let products = [];
-
-
-    /* =========================
-       ALL PRODUCTS
-    ========================== */
-
-    if (
-        category === "all"
-        ||
-        !category
-    ) {
-
-        products =
-            allProducts;
-
-    }
+    let products =
+        [...allProducts];
 
 
     /* =========================
        FILTER CATEGORY
     ========================== */
 
-    else {
+    if (
+        currentCategory !== "all"
+        &&
+        currentCategory
+    ) {
 
 
         products =
-            allProducts.filter(
+            products.filter(
                 product => {
 
                     if (
@@ -200,7 +221,7 @@ function renderProducts(category) {
                             .trim()
                             .toLowerCase()
                         ===
-                        category
+                        currentCategory
                             .trim()
                             .toLowerCase()
                     );
@@ -211,8 +232,70 @@ function renderProducts(category) {
     }
 
 
+    /* =========================
+       SEARCH
+    ========================== */
+
+    if (currentSearch) {
+
+
+        products =
+            products.filter(
+                product => {
+
+
+                    const name =
+                        (
+                            product.name
+                            || ""
+                        )
+                            .toLowerCase();
+
+
+                    const description =
+                        (
+                            product.description
+                            || ""
+                        )
+                            .toLowerCase();
+
+
+                    const category =
+                        (
+                            product.category
+                            || ""
+                        )
+                            .toLowerCase();
+
+
+                    return (
+
+                        name.includes(
+                            currentSearch
+                        )
+
+                        ||
+
+                        description.includes(
+                            currentSearch
+                        )
+
+                        ||
+
+                        category.includes(
+                            currentSearch
+                        )
+
+                    );
+
+                }
+            );
+
+    }
+
+
     console.log(
-        "Hasil filter:",
+        "Hasil filter/search:",
         products
     );
 
@@ -231,15 +314,12 @@ function renderProducts(category) {
             <div class="loading">
 
                 <h2>
-                    Produk tidak ditemukan
+                    Menu tidak ditemukan
                 </h2>
 
                 <p>
-                    Belum ada produk
-                    pada kategori
-                    <strong>
-                        ${category}
-                    </strong>.
+                    Tidak ada menu yang
+                    cocok dengan pencarian.
                 </p>
 
             </div>
@@ -300,7 +380,7 @@ function renderProducts(category) {
 
                     : `
                         <span>
-                            ValRepublikMerch
+                            CHECOFF
                         </span>
                     `;
 
@@ -401,12 +481,40 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
+
         console.log(
             "🔥 PRODUCTS.JS BERHASIL DIMUAT"
         );
 
 
         loadProducts();
+
+
+        /* =========================
+           SEARCH EVENT
+        ========================== */
+
+        const searchInput =
+            document.getElementById(
+                "product-search"
+            );
+
+
+        if (searchInput) {
+
+
+            searchInput.addEventListener(
+                "input",
+                function () {
+
+                    searchProducts(
+                        this.value
+                    );
+
+                }
+            );
+
+        }
 
     }
 );
@@ -418,3 +526,7 @@ document.addEventListener(
 
 window.filterProducts =
     filterProducts;
+
+
+window.searchProducts =
+    searchProducts;
