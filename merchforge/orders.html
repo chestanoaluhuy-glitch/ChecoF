@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pesanan Saya — Checoff</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="container nav-container">
+
+        <!-- LOGO -->
+
+        <a href="index.html" class="logo">
+
+            <img
+                src="assets/images/checoff-logo.jpg"
+                alt="Checoff Coffee Shop"
+            >
+
+        </a>
+
+
+        <!-- NAVBAR -->
+
+        <nav class="nav-menu">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="products.html">
+                Menu
+            </a>
+
+            <a href="orders.html">
+                Pesanan Saya
+            </a>
+
+            <a href="cart.html">
+                Cart
+                <span id="cart-count">0</span>
+            </a>
+
+            <a href="auth/login.html">
+                Login
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <!-- =====================================================
+         ORDERS HEADER
+    ====================================================== -->
+
+    <section class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">
+                CHECOFF COFFEE SHOP
+            </p>
+
+            <h1>
+                PESANAN SAYA
+            </h1>
+
+            <p>
+                Lihat riwayat pesanan dan nota pembelian kamu.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ORDERS LIST
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <div
+                id="orders-container"
+                class="orders-container"
+            >
+
+                <div class="loading">
+
+                    <p>
+                        Memuat pesanan...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-content">
+
+            <div>
+
+                <h3>
+                    CHECOFF
+                </h3>
+
+                <p>
+                    Coffee, drinks & good moments.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <p>
+                    © 2026 Checoff Coffee Shop
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase.js"></script>
+
+<script src="js/orders.js"></script>
+
+</body>
+
+</html>
