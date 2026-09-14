@@ -2,23 +2,42 @@
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Pesanan Saya — Checoff</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
 </head>
 
+
 <body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
 <header class="navbar">
 
     <div class="container nav-container">
 
+
         <!-- LOGO -->
 
-        <a href="index.html" class="logo">
+        <a
+            href="index.html"
+            class="logo"
+        >
 
             <img
                 src="assets/images/checoff-logo.jpg"
@@ -28,7 +47,8 @@
         </a>
 
 
-        <!-- NAVBAR -->
+
+        <!-- NAVIGATION -->
 
         <nav class="nav-menu">
 
@@ -40,31 +60,73 @@
                 Menu
             </a>
 
-            <a href="orders.html">
+            <a
+                href="orders.html"
+                class="active"
+            >
                 Pesanan Saya
             </a>
 
-            <a href="cart.html">
-                Cart
-                <span id="cart-count">0</span>
+            <a href="index.html#about">
+                About
             </a>
 
-            <a href="auth/login.html">
-                Login
+            <a href="index.html#contact">
+                Contact
             </a>
 
         </nav>
+
+
+
+        <!-- CART -->
+
+        <a
+            href="cart.html"
+            class="cart-button"
+        >
+
+            Cart
+
+            <span id="cart-count">
+                0
+            </span>
+
+        </a>
+
+
+
+        <!-- LOGOUT -->
+
+        <button
+            type="button"
+            class="btn btn-outline"
+            id="logout-button"
+            style="
+                padding:12px 18px;
+                font-size:12px;
+            "
+        >
+            LOGOUT
+        </button>
+
 
     </div>
 
 </header>
 
 
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main>
 
-    <!-- =====================================================
+
+    <!-- =================================================
          ORDERS HEADER
-    ====================================================== -->
+    ================================================== -->
 
     <section class="page-header">
 
@@ -87,9 +149,10 @@
     </section>
 
 
-    <!-- =====================================================
+
+    <!-- =================================================
          ORDERS LIST
-    ====================================================== -->
+    ================================================== -->
 
     <section class="section">
 
@@ -114,56 +177,241 @@
 
     </section>
 
+
 </main>
 
 
-<!-- =========================================================
+
+<!-- =====================================================
      FOOTER
-========================================================= -->
+===================================================== -->
 
-<footer class="footer">
+<footer
+    class="footer"
+    id="contact"
+>
 
-    <div class="container">
-
-        <div class="footer-content">
-
-            <div>
-
-                <h3>
-                    CHECOFF
-                </h3>
-
-                <p>
-                    Coffee, drinks & good moments.
-                </p>
-
-            </div>
+    <div class="container footer-container">
 
 
-            <div>
+        <!-- BRAND -->
 
-                <p>
-                    © 2026 Checoff Coffee Shop
-                </p>
+        <div>
 
-            </div>
+            <a
+                href="index.html"
+                class="logo"
+            >
+
+                <img
+                    src="assets/images/checoff-logo.jpg"
+                    alt="Checoff Coffee Shop"
+                >
+
+            </a>
+
+            <p>
+                Coffee, drinks & good moments.
+            </p>
 
         </div>
+
+
+
+        <!-- LINKS -->
+
+        <div class="footer-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="products.html">
+                Menu
+            </a>
+
+            <a href="index.html#about">
+                About
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+            <a href="orders.html">
+                Pesanan Saya
+            </a>
+
+        </div>
+
+
+
+        <!-- COPYRIGHT -->
+
+        <div class="footer-copy">
+
+            <p>
+                © 2026 Checoff Coffee Shop.
+            </p>
+
+        </div>
+
 
     </div>
 
 </footer>
 
 
-<!-- =========================================================
-     SUPABASE
-========================================================= -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 
 <script src="js/supabase.js"></script>
 
+
+<!-- AUTH GUARD -->
+
+<script src="js/auth-guard.js"></script>
+
+
+<!-- ORDERS -->
+
 <script src="js/orders.js"></script>
+
+
+
+<!-- =====================================================
+     LOGOUT
+===================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /*
+         * UPDATE CART COUNT
+         */
+
+        if (
+            typeof updateCartCount ===
+            "function"
+        ) {
+
+            updateCartCount();
+
+        }
+
+
+        /*
+         * LOGOUT BUTTON
+         */
+
+        const logoutButton =
+            document.getElementById(
+                "logout-button"
+            );
+
+
+        if (!logoutButton) {
+
+            return;
+
+        }
+
+
+        logoutButton.addEventListener(
+            "click",
+            async function () {
+
+
+                const confirmLogout =
+                    confirm(
+                        "Yakin ingin logout dari Checoff?"
+                    );
+
+
+                if (!confirmLogout) {
+
+                    return;
+
+                }
+
+
+                logoutButton.disabled = true;
+
+                logoutButton.textContent =
+                    "LOGOUT...";
+
+
+                try {
+
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .auth
+                            .signOut();
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+                    /*
+                     * Kembali ke Login
+                     */
+
+                    window.location.href =
+                        "auth/login.html";
+
+
+                }
+                catch (error) {
+
+
+                    console.error(
+                        "LOGOUT ERROR:",
+                        error
+                    );
+
+
+                    alert(
+                        "Logout gagal: " +
+                        error.message
+                    );
+
+
+                    logoutButton.disabled =
+                        false;
+
+                    logoutButton.textContent =
+                        "LOGOUT";
+
+                }
+
+
+            }
+        );
+
+
+    }
+);
+
+</script>
+
 
 </body>
 

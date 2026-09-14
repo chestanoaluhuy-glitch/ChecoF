@@ -154,7 +154,9 @@ async function loadCart() {
         ================================================= */
 
         const productIds =
-            cart.map(item => Number(item.id));
+            cart.map(
+                item => Number(item.id)
+            );
 
 
         /* =================================================
@@ -177,7 +179,8 @@ async function loadCart() {
         }
 
 
-        currentCartProducts = data || [];
+        currentCartProducts =
+            data || [];
 
 
         /* =================================================
@@ -198,7 +201,9 @@ async function loadCart() {
         cartContainer.innerHTML = `
             <div class="loading">
 
-                <h2>Gagal memuat keranjang</h2>
+                <h2>
+                    Gagal memuat keranjang
+                </h2>
 
                 <p>
                     ${error.message}
@@ -230,7 +235,9 @@ async function loadCart() {
 function renderCart() {
 
     const cartContainer =
-        document.getElementById("cart-container");
+        document.getElementById(
+            "cart-container"
+        );
 
     if (!cartContainer) return;
 
@@ -246,7 +253,9 @@ function renderCart() {
         cartContainer.innerHTML = `
             <div class="loading">
 
-                <h2>Keranjang Kosong</h2>
+                <h2>
+                    Keranjang Kosong
+                </h2>
 
                 <p>
                     Belum ada menu yang kamu pilih.
@@ -295,7 +304,8 @@ function renderCart() {
 
 
         const subtotal =
-            Number(product.price) * quantity;
+            Number(product.price) *
+            quantity;
 
 
         total += subtotal;
@@ -308,18 +318,23 @@ function renderCart() {
         html += `
             <div class="cart-item">
 
+
                 <div class="cart-item-image">
 
                     ${
                         product.image_url
+
                         ?
+
                         `
                         <img
                             src="${product.image_url}"
                             alt="${product.name}"
                         >
                         `
+
                         :
+
                         `
                         <div class="no-image">
                             <span>CHECOFF</span>
@@ -330,24 +345,35 @@ function renderCart() {
                 </div>
 
 
+
                 <div class="cart-item-info">
 
+
                     <p class="product-category">
+
                         ${product.category || "MENU"}
+
                     </p>
 
+
                     <h3>
+
                         ${product.name}
+
                     </h3>
 
+
                     <p class="cart-price">
+
                         ${formatPrice(product.price)}
+
                     </p>
 
 
                     <p class="cart-stock">
 
                         Stok:
+
                         <strong>
                             ${stock}
                         </strong>
@@ -355,27 +381,39 @@ function renderCart() {
                     </p>
 
 
+
                     <div class="cart-actions">
+
 
                         <button
                             type="button"
                             class="quantity-btn"
-                            onclick="changeQuantity(${product.id}, -1)"
+                            onclick="changeQuantity(
+                                ${product.id},
+                                -1
+                            )"
                         >
                             −
                         </button>
 
 
                         <span class="quantity">
+
                             ${quantity}
+
                         </span>
 
 
                         <button
                             type="button"
                             class="quantity-btn"
-                            onclick="changeQuantity(${product.id}, 1)"
-                            ${quantity >= stock ? "disabled" : ""}
+                            onclick="changeQuantity(
+                                ${product.id},
+                                1
+                            )"
+                            ${quantity >= stock
+                                ? "disabled"
+                                : ""}
                         >
                             +
                         </button>
@@ -384,14 +422,19 @@ function renderCart() {
                         <button
                             type="button"
                             class="remove-btn"
-                            onclick="removeFromCart(${product.id})"
+                            onclick="removeFromCart(
+                                ${product.id}
+                            )"
                         >
                             Hapus
                         </button>
 
+
                     </div>
 
+
                 </div>
+
 
 
                 <div class="cart-item-subtotal">
@@ -399,6 +442,7 @@ function renderCart() {
                     ${formatPrice(subtotal)}
 
                 </div>
+
 
             </div>
         `;
@@ -411,6 +455,7 @@ function renderCart() {
 
 
         <div class="cart-summary">
+
 
             <div class="cart-total">
 
@@ -433,14 +478,17 @@ function renderCart() {
                 CHECKOUT →
             </button>
 
+
         </div>
     `;
 
 
-    cartContainer.innerHTML = html;
+    cartContainer.innerHTML =
+        html;
 
 
-    currentCartTotal = total;
+    currentCartTotal =
+        total;
 
 
     updateCartCount();
@@ -452,9 +500,13 @@ function renderCart() {
    CHANGE QUANTITY
 ========================================================= */
 
-function changeQuantity(productId, change) {
+function changeQuantity(
+    productId,
+    change
+) {
 
-    const cart = getCart();
+    const cart =
+        getCart();
 
 
     const item =
@@ -484,7 +536,9 @@ function changeQuantity(productId, change) {
         Number(change);
 
 
-    /* Minimum 1 */
+    /* =====================================================
+       MINIMUM 1
+    ===================================================== */
 
     if (newQuantity < 1) {
 
@@ -493,9 +547,14 @@ function changeQuantity(productId, change) {
     }
 
 
-    /* Tidak boleh melebihi stok */
+    /* =====================================================
+       CEK STOK
+    ===================================================== */
 
-    if (newQuantity > Number(product.stock)) {
+    if (
+        newQuantity >
+        Number(product.stock)
+    ) {
 
         alert(
             `Stok ${product.name} hanya tersedia ${product.stock}.`
@@ -506,7 +565,8 @@ function changeQuantity(productId, change) {
     }
 
 
-    item.quantity = newQuantity;
+    item.quantity =
+        newQuantity;
 
 
     saveCart(cart);
@@ -526,14 +586,16 @@ function changeQuantity(productId, change) {
 
 function removeFromCart(productId) {
 
-    let cart = getCart();
+    let cart =
+        getCart();
 
 
-    cart = cart.filter(
-        item =>
-            Number(item.id) !==
-            Number(productId)
-    );
+    cart =
+        cart.filter(
+            item =>
+                Number(item.id) !==
+                Number(productId)
+        );
 
 
     saveCart(cart);
@@ -551,9 +613,64 @@ function removeFromCart(productId) {
    CHECKOUT FORM
 ========================================================= */
 
-function checkout() {
+async function checkout() {
 
-    const cart = getCart();
+    /* =====================================================
+       CEK LOGIN
+    ===================================================== */
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .auth
+                .getUser();
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        if (!data.user) {
+
+            alert(
+                "Silakan login terlebih dahulu."
+            );
+
+            window.location.href =
+                "auth/login.html";
+
+            return;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "AUTH CHECK ERROR:",
+            error
+        );
+
+        alert(
+            "Silakan login terlebih dahulu."
+        );
+
+        window.location.href =
+            "auth/login.html";
+
+        return;
+
+    }
+
+
+    const cart =
+        getCart();
 
 
     if (cart.length === 0) {
@@ -568,7 +685,10 @@ function checkout() {
 
 
     const cartContainer =
-        document.getElementById("cart-container");
+        document.getElementById(
+            "cart-container"
+        );
+
 
     if (!cartContainer) return;
 
@@ -577,21 +697,34 @@ function checkout() {
 
         <div class="checkout-container">
 
+
             <div class="checkout-header">
 
+
                 <p class="section-label">
+
                     CHECOFF CHECKOUT
+
                 </p>
+
 
                 <h2>
+
                     COMPLETE YOUR ORDER
+
                 </h2>
 
+
                 <p>
-                    Isi data berikut untuk menyelesaikan pesanan.
+
+                    Isi data berikut
+                    untuk menyelesaikan pesanan.
+
                 </p>
 
+
             </div>
+
 
 
             <form
@@ -600,11 +733,16 @@ function checkout() {
             >
 
 
+                <!-- NAMA -->
+
                 <div class="form-group">
 
                     <label for="customer-name">
+
                         Nama Lengkap
+
                     </label>
+
 
                     <input
                         type="text"
@@ -616,11 +754,17 @@ function checkout() {
                 </div>
 
 
+
+                <!-- WHATSAPP -->
+
                 <div class="form-group">
 
                     <label for="customer-phone">
+
                         Nomor WhatsApp
+
                     </label>
+
 
                     <input
                         type="tel"
@@ -632,11 +776,17 @@ function checkout() {
                 </div>
 
 
+
+                <!-- PAYMENT -->
+
                 <div class="form-group">
 
                     <label for="payment-method">
+
                         Metode Pembayaran
+
                     </label>
+
 
                     <select
                         id="payment-method"
@@ -644,19 +794,30 @@ function checkout() {
                     >
 
                         <option value="">
+
                             Pilih pembayaran
+
                         </option>
+
 
                         <option value="COD">
+
                             COD
+
                         </option>
+
 
                         <option value="Transfer">
+
                             Transfer Bank
+
                         </option>
 
+
                         <option value="QRIS">
+
                             QRIS
+
                         </option>
 
                     </select>
@@ -664,11 +825,17 @@ function checkout() {
                 </div>
 
 
+
+                <!-- NOTES -->
+
                 <div class="form-group">
 
                     <label for="order-notes">
+
                         Catatan
+
                     </label>
+
 
                     <textarea
                         id="order-notes"
@@ -679,43 +846,68 @@ function checkout() {
                 </div>
 
 
+
+                <!-- MESSAGE -->
+
                 <div
                     id="checkout-message"
                     class="checkout-message"
                 ></div>
 
 
+
+                <!-- TOTAL -->
+
                 <div class="checkout-total">
 
                     <span>
+
                         TOTAL
+
                     </span>
 
+
                     <strong>
-                        ${formatPrice(currentCartTotal)}
+
+                        ${formatPrice(
+                            currentCartTotal
+                        )}
+
                     </strong>
 
                 </div>
 
 
+
+                <!-- SUBMIT -->
+
                 <button
                     type="submit"
                     class="btn btn-primary auth-button"
+                    id="place-order-button"
                 >
+
                     PLACE ORDER →
+
                 </button>
 
+
+
+                <!-- BACK -->
 
                 <button
                     type="button"
                     class="btn btn-secondary"
                     onclick="loadCart()"
                 >
+
                     ← KEMBALI KE CART
+
                 </button>
 
 
             </form>
+
 
         </div>
 
@@ -736,6 +928,12 @@ async function submitOrder(event) {
     const message =
         document.getElementById(
             "checkout-message"
+        );
+
+
+    const submitButton =
+        document.getElementById(
+            "place-order-button"
         );
 
 
@@ -763,8 +961,13 @@ async function submitOrder(event) {
         ).value;
 
 
-    const cart = getCart();
+    const cart =
+        getCart();
 
+
+    /* =====================================================
+       VALIDASI CART
+    ===================================================== */
 
     if (cart.length === 0) {
 
@@ -777,7 +980,7 @@ async function submitOrder(event) {
 
 
     /* =====================================================
-       VALIDASI FORM
+       VALIDASI NAMA
     ===================================================== */
 
     if (!customerName) {
@@ -790,6 +993,10 @@ async function submitOrder(event) {
     }
 
 
+    /* =====================================================
+       VALIDASI PHONE
+    ===================================================== */
+
     if (!phone) {
 
         message.textContent =
@@ -799,6 +1006,10 @@ async function submitOrder(event) {
 
     }
 
+
+    /* =====================================================
+       VALIDASI PAYMENT
+    ===================================================== */
 
     if (!paymentMethod) {
 
@@ -810,50 +1021,141 @@ async function submitOrder(event) {
     }
 
 
+    /* =====================================================
+       CEK LOGIN LAGI
+    ===================================================== */
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .auth
+                .getUser();
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        if (!data.user) {
+
+            message.textContent =
+                "Sesi login sudah berakhir. Silakan login kembali.";
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "auth/login.html";
+
+                },
+                1000
+            );
+
+            return;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "USER CHECK ERROR:",
+            error
+        );
+
+        message.textContent =
+            "Sesi login tidak valid.";
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       DISABLE BUTTON
+    ===================================================== */
+
+    if (submitButton) {
+
+        submitButton.disabled =
+            true;
+
+        submitButton.textContent =
+            "PROCESSING...";
+
+    }
+
+
     message.textContent =
         "Memproses pesanan dan mengecek stok...";
 
 
     try {
 
-        /* =================================================
-           KIRIM CART KE POSTGRES FUNCTION
 
-           Database akan:
-           1. Cek produk
-           2. Cek stok
-           3. Hitung total
-           4. Buat order
-           5. Buat order_items
-           6. Kurangi stok
+        /* =================================================
+           RPC CHECKOUT
+
+           DATABASE YANG AKAN:
+
+           1. Mengambil auth.uid()
+           2. Memastikan user login
+           3. Mengecek produk
+           4. Mengecek stok
+           5. Menghitung total
+           6. Membuat order
+           7. Menyimpan user_id
+           8. Membuat order_items
+           9. Mengurangi stok
         ================================================= */
+
 
         const {
             data,
             error
-        } = await supabaseClient.rpc(
-            "create_checoff_order",
-            {
-                p_customer_name:
-                    customerName,
+        } =
+            await supabaseClient.rpc(
+                "create_checoff_order",
+                {
 
-                p_phone:
-                    phone,
+                    p_customer_name:
+                        customerName,
 
-                p_notes:
-                    `${notes}${notes ? " | " : ""}Pembayaran: ${paymentMethod}`,
+                    p_phone:
+                        phone,
 
-                p_items:
-                    cart.map(item => ({
-                        id: Number(item.id),
-                        quantity: Number(item.quantity)
-                    }))
-            }
-        );
+                    p_notes:
+                        `${notes}${notes ? " | " : ""}Pembayaran: ${paymentMethod}`,
+
+                    p_items:
+                        cart.map(
+                            item => ({
+
+                                id:
+                                    Number(
+                                        item.id
+                                    ),
+
+                                quantity:
+                                    Number(
+                                        item.quantity
+                                    )
+
+                            })
+                        )
+
+                }
+            );
 
 
         /* =================================================
-           ERROR DARI DATABASE
+           CEK ERROR RPC
         ================================================= */
 
         if (error) {
@@ -863,7 +1165,10 @@ async function submitOrder(event) {
         }
 
 
-        if (!data || data.length === 0) {
+        if (
+            !data ||
+            data.length === 0
+        ) {
 
             throw new Error(
                 "Pesanan tidak berhasil dibuat."
@@ -891,15 +1196,18 @@ async function submitOrder(event) {
         );
 
 
-        currentCartProducts = [];
-        currentCartTotal = 0;
+        currentCartProducts =
+            [];
+
+        currentCartTotal =
+            0;
 
 
         updateCartCount();
 
 
         /* =================================================
-           TAMPILKAN SUKSES
+           TAMPILKAN SUCCESS
         ================================================= */
 
         const cartContainer =
@@ -912,64 +1220,110 @@ async function submitOrder(event) {
 
             <div class="loading">
 
+
                 <p class="section-label">
+
                     ORDER SUCCESS
+
                 </p>
+
 
 
                 <h2>
+
                     PESANAN BERHASIL! ☕
+
                 </h2>
 
 
+
                 <p>
-                    Terima kasih, ${customerName}.
+
+                    Terima kasih,
+                    ${customerName}.
+
                 </p>
 
 
+
                 <p>
+
                     Nomor pesanan kamu:
+
                 </p>
+
 
 
                 <h3>
+
                     ${order.order_number}
+
                 </h3>
 
 
+
                 <p>
+
                     Total:
+
                     <strong>
-                        ${formatPrice(order.total)}
+
+                        ${formatPrice(
+                            order.total
+                        )}
+
                     </strong>
+
                 </p>
+
 
 
                 <p>
+
                     Status:
+
                     <strong>
+
                         PENDING
+
                     </strong>
+
                 </p>
 
 
-                <div style="margin-top: 30px;">
+
+                <div
+                    style="
+                        margin-top:30px;
+                        display:flex;
+                        gap:12px;
+                        flex-wrap:wrap;
+                    "
+                >
+
+
+                    <a
+                        href="orders.html"
+                        class="btn btn-primary"
+                    >
+
+                        LIHAT PESANAN →
+
+                    </a>
+
 
                     <a
                         href="products.html"
-                        class="btn btn-primary"
-                    >
-                        KEMBALI KE MENU →
-                    </a>
-
-                    <a
-                        href="index.html"
                         class="btn btn-secondary"
                     >
-                        HOME
+
+                        KEMBALI KE MENU
+
                     </a>
 
+
                 </div>
+
 
             </div>
 
@@ -984,16 +1338,42 @@ async function submitOrder(event) {
         );
 
 
+        /*
+         * ERROR DARI RPC
+         *
+         * Contoh:
+         *
+         * Stok Espresso tidak cukup.
+         * Stok tersedia: 2,
+         * diminta: 5.
+         */
+
         message.textContent =
             error.message ||
             "Pesanan gagal dibuat.";
 
 
+        /* =================================================
+           ENABLE BUTTON LAGI
+        ================================================= */
+
+        if (submitButton) {
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "PLACE ORDER →";
+
+        }
+
+
         /*
-           Penting:
-           Cart TIDAK dihapus kalau order gagal.
-           User masih bisa memperbaiki cart.
-        */
+         * CART TIDAK DIHAPUS
+         *
+         * User masih bisa memperbaiki
+         * jumlah produk / checkout ulang.
+         */
 
     }
 

@@ -2,129 +2,192 @@
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Login — Checoff</title>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
 <header class="navbar">
+
     <div class="container nav-container">
 
-        <a href="../index.html" class="logo">
+        <!-- LOGO SAJA -->
+        <a
+            href="#"
+            class="logo"
+            onclick="return false;"
+        >
+
             <img
                 src="../assets/images/checoff-logo.jpg"
                 alt="Checoff Coffee Shop"
             >
+
         </a>
 
-        <nav class="nav-menu">
-            <a href="../index.html">Home</a>
-            <a href="../products.html">Menu</a>
-            <a href="register.html">Register</a>
-        </nav>
-
     </div>
+
 </header>
 
 
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main>
 
-<section class="auth-section">
+    <section class="auth-section">
 
-    <div class="auth-container">
-
-        <div class="auth-header">
-
-            <p class="section-label">
-                WELCOME BACK
-            </p>
-
-            <h1>
-                LOGIN
-            </h1>
-
-            <p>
-                Login untuk melanjutkan ke akun Checoff kamu.
-            </p>
-
-        </div>
+        <div class="auth-container">
 
 
-        <form id="login-form">
+            <!-- =================================================
+                 HEADER LOGIN
+            ================================================== -->
 
-            <div class="form-group">
+            <div class="auth-header">
 
-                <label for="email">
-                    Email
-                </label>
+                <p class="section-label">
+                    WELCOME BACK
+                </p>
 
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="nama@email.com"
-                    required
-                >
+                <h1>
+                    LOGIN
+                </h1>
+
+                <p>
+                    Login untuk melanjutkan ke akun Checoff kamu.
+                </p>
 
             </div>
 
 
-            <div class="form-group">
 
-                <label for="password">
-                    Password
-                </label>
+            <!-- =================================================
+                 LOGIN FORM
+            ================================================== -->
 
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Masukkan password"
-                    required
+            <form id="login-form">
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="nama@email.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Masukkan password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- MESSAGE -->
+
+                <div id="login-message"></div>
+
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="btn btn-primary auth-button"
                 >
+                    LOGIN →
+                </button>
+
+
+            </form>
+
+
+
+            <!-- =================================================
+                 REGISTER
+            ================================================== -->
+
+            <div class="auth-footer">
+
+                <p>
+
+                    Belum punya akun?
+
+                    <a href="register.html">
+                        Daftar sekarang
+                    </a>
+
+                </p>
 
             </div>
 
 
-            <div id="login-message"></div>
-
-
-            <button
-                type="submit"
-                class="btn btn-primary auth-button"
-            >
-                LOGIN →
-            </button>
-
-        </form>
-
-
-        <div class="auth-footer">
-
-            <p>
-                Belum punya akun?
-                <a href="register.html">
-                    Daftar sekarang
-                </a>
-            </p>
-
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 </main>
 
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="../js/supabase.js"></script>
 
 <script src="auth.js"></script>
+
 
 </body>
 

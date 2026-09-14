@@ -50,7 +50,9 @@ async function getCurrentUser() {
     const {
         data,
         error
-    } = await supabaseClient.auth.getUser();
+    } = await supabaseClient
+        .auth
+        .getUser();
 
 
     if (error) {
@@ -61,6 +63,50 @@ async function getCurrentUser() {
 
 
     return data.user;
+
+}
+
+
+/* =========================================================
+   LOGIN REQUIRED
+========================================================= */
+
+async function requireLogin() {
+
+    try {
+
+        const user =
+            await getCurrentUser();
+
+
+        if (!user) {
+
+            window.location.href =
+                "auth/login.html";
+
+            return null;
+
+        }
+
+
+        return user;
+
+
+    } catch (error) {
+
+        console.error(
+            "LOGIN CHECK ERROR:",
+            error
+        );
+
+
+        window.location.href =
+            "auth/login.html";
+
+
+        return null;
+
+    }
 
 }
 
@@ -98,38 +144,14 @@ async function loadOrders() {
     try {
 
         /* =================================================
-           CEK USER LOGIN
+           CEK LOGIN
         ================================================= */
 
         const user =
-            await getCurrentUser();
+            await requireLogin();
 
 
         if (!user) {
-
-            ordersContainer.innerHTML = `
-
-                <div class="loading">
-
-                    <h2>
-                        LOGIN DIBUTUHKAN
-                    </h2>
-
-                    <p>
-                        Silakan login terlebih dahulu
-                        untuk melihat pesanan kamu.
-                    </p>
-
-                    <a
-                        href="auth/login.html"
-                        class="btn btn-primary"
-                    >
-                        LOGIN →
-                    </a>
-
-                </div>
-
-            `;
 
             return;
 
@@ -138,12 +160,15 @@ async function loadOrders() {
 
         console.log(
             "USER LOGIN:",
-            user
+            user.email
         );
 
 
         /* =================================================
-           AMBIL ORDERS USER
+           AMBIL ORDER MILIK USER
+           
+           PENTING:
+           user_id harus sama dengan auth.uid()
         ================================================= */
 
         const {
@@ -159,9 +184,13 @@ async function loadOrders() {
                 notes,
                 total,
                 status,
-                created_at
+                created_at,
+                user_id
             `)
-            .eq("user_id", user.id)
+            .eq(
+                "user_id",
+                user.id
+            )
             .order(
                 "created_at",
                 {
@@ -187,7 +216,10 @@ async function loadOrders() {
            TIDAK ADA PESANAN
         ================================================= */
 
-        if (!orders || orders.length === 0) {
+        if (
+            !orders ||
+            orders.length === 0
+        ) {
 
             ordersContainer.innerHTML = `
 
@@ -198,7 +230,8 @@ async function loadOrders() {
                     </h2>
 
                     <p>
-                        Kamu belum memiliki pesanan di Checoff.
+                        Kamu belum memiliki
+                        pesanan di Checoff.
                     </p>
 
                     <a
@@ -218,14 +251,19 @@ async function loadOrders() {
 
 
         /* =================================================
-           AMBIL SEMUA ORDER ITEMS
+           AMBIL ID ORDER
         ================================================= */
 
         const orderIds =
             orders.map(
-                order => order.id
+                order =>
+                    order.id
             );
 
+
+        /* =================================================
+           AMBIL ORDER ITEMS
+        ================================================= */
 
         const {
             data: orderItems,
@@ -267,99 +305,134 @@ async function loadOrders() {
         let html = "";
 
 
-        orders.forEach(order => {
+        orders.forEach(
+            order => {
 
-            const items =
-                (orderItems || [])
-                    .filter(
-                        item =>
-                            Number(item.order_id) ===
-                            Number(order.id)
-                    );
+                const items =
+                    (orderItems || [])
+                        .filter(
+                            item =>
+                                Number(
+                                    item.order_id
+                                ) ===
+                                Number(
+                                    order.id
+                                )
+                        );
 
 
-            html += `
+                html += `
 
-                <article
-                    class="order-card"
-                >
-
-                    <div
-                        class="order-card-header"
+                    <article
+                        class="order-card"
                     >
 
-                        <div>
-
-                            <p
-                                class="section-label"
-                            >
-                                ORDER
-                            </p>
-
-                            <h2>
-                                ${order.order_number}
-                            </h2>
-
-                        </div>
-
+                        <!-- ORDER HEADER -->
 
                         <div
-                            class="order-status ${getStatusClass(order.status)}"
+                            class="order-card-header"
                         >
-                            ${getStatusLabel(order.status)}
-                        </div>
 
-                    </div>
+                            <div>
 
+                                <p
+                                    class="section-label"
+                                >
+                                    ORDER
+                                </p>
 
-                    <div
-                        class="order-date"
-                    >
-                        ${formatOrderDate(order.created_at)}
-                    </div>
+                                <h2>
+                                    ${order.order_number}
+                                </h2>
 
-
-                    <div
-                        class="order-items"
-                    >
-
-                        ${renderOrderItems(items)}
-
-                    </div>
+                            </div>
 
 
-                    <div
-                        class="order-card-footer"
-                    >
+                            <div
+                                class="
+                                    order-status
+                                    ${getStatusClass(
+                                        order.status
+                                    )}
+                                "
+                            >
 
-                        <div>
+                                ${getStatusLabel(
+                                    order.status
+                                )}
 
-                            <span>
-                                TOTAL
-                            </span>
-
-                            <strong>
-                                ${formatOrderPrice(order.total)}
-                            </strong>
+                            </div>
 
                         </div>
 
 
-                        <button
-                            type="button"
-                            class="btn btn-primary"
-                            onclick="showInvoice(${order.id})"
+                        <!-- DATE -->
+
+                        <div
+                            class="order-date"
                         >
-                            LIHAT NOTA →
-                        </button>
 
-                    </div>
+                            ${formatOrderDate(
+                                order.created_at
+                            )}
 
-                </article>
+                        </div>
 
-            `;
 
-        });
+                        <!-- ITEMS -->
+
+                        <div
+                            class="order-items"
+                        >
+
+                            ${renderOrderItems(
+                                items
+                            )}
+
+                        </div>
+
+
+                        <!-- FOOTER -->
+
+                        <div
+                            class="order-card-footer"
+                        >
+
+                            <div>
+
+                                <span>
+                                    TOTAL
+                                </span>
+
+                                <strong>
+                                    ${formatOrderPrice(
+                                        order.total
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                onclick="
+                                    showInvoice(
+                                        ${order.id}
+                                    )
+                                "
+                            >
+                                LIHAT NOTA →
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }
+        );
 
 
         ordersContainer.innerHTML =
@@ -409,7 +482,10 @@ async function loadOrders() {
 
 function renderOrderItems(items) {
 
-    if (!items || items.length === 0) {
+    if (
+        !items ||
+        items.length === 0
+    ) {
 
         return `
             <p>
@@ -423,37 +499,44 @@ function renderOrderItems(items) {
     let html = "";
 
 
-    items.forEach(item => {
+    items.forEach(
+        item => {
 
-        html += `
+            html += `
 
-            <div
-                class="order-item"
-            >
+                <div
+                    class="order-item"
+                >
 
-                <div>
+                    <div>
+
+                        <strong>
+                            ${item.product_name}
+                        </strong>
+
+                        <span>
+                            ${item.quantity}
+                            ×
+                            ${formatOrderPrice(
+                                item.price
+                            )}
+                        </span>
+
+                    </div>
+
 
                     <strong>
-                        ${item.product_name}
+                        ${formatOrderPrice(
+                            item.subtotal
+                        )}
                     </strong>
-
-                    <span>
-                        ${item.quantity} ×
-                        ${formatOrderPrice(item.price)}
-                    </span>
 
                 </div>
 
+            `;
 
-                <strong>
-                    ${formatOrderPrice(item.subtotal)}
-                </strong>
-
-            </div>
-
-        `;
-
-    });
+        }
+    );
 
 
     return html;
@@ -473,22 +556,27 @@ function getStatusLabel(status) {
 
             return "PENDING";
 
+
         case "processing":
 
             return "PROCESSING";
+
 
         case "completed":
 
             return "✓ COMPLETED";
 
+
         case "cancelled":
 
             return "CANCELLED";
 
+
         default:
 
-            return String(status || "UNKNOWN")
-                .toUpperCase();
+            return String(
+                status || "UNKNOWN"
+            ).toUpperCase();
 
     }
 
@@ -507,17 +595,21 @@ function getStatusClass(status) {
 
             return "status-pending";
 
+
         case "processing":
 
             return "status-processing";
+
 
         case "completed":
 
             return "status-completed";
 
+
         case "cancelled":
 
             return "status-cancelled";
+
 
         default:
 
@@ -529,22 +621,22 @@ function getStatusClass(status) {
 
 
 /* =========================================================
-   SHOW INVOICE / NOTA
+   SHOW INVOICE
 ========================================================= */
 
 async function showInvoice(orderId) {
 
     try {
 
+        /* =================================================
+           CEK LOGIN
+        ================================================= */
+
         const user =
-            await getCurrentUser();
+            await requireLogin();
 
 
         if (!user) {
-
-            alert(
-                "Silakan login terlebih dahulu."
-            );
 
             return;
 
@@ -553,6 +645,13 @@ async function showInvoice(orderId) {
 
         /* =================================================
            AMBIL ORDER
+           
+           user_id sengaja dicek lagi.
+           
+           Jadi walaupun seseorang mencoba
+           mengganti ID order di URL / browser,
+           dia tetap tidak bisa membuka order
+           milik user lain.
         ================================================= */
 
         const {
@@ -568,10 +667,17 @@ async function showInvoice(orderId) {
                 notes,
                 total,
                 status,
-                created_at
+                created_at,
+                user_id
             `)
-            .eq("id", orderId)
-            .eq("user_id", user.id)
+            .eq(
+                "id",
+                orderId
+            )
+            .eq(
+                "user_id",
+                user.id
+            )
             .single();
 
 
@@ -620,45 +726,57 @@ async function showInvoice(orderId) {
 
 
         /* =================================================
-           BUAT NOTA
+           BUAT ITEM NOTA
         ================================================= */
 
         let itemsHTML = "";
 
 
-        (items || []).forEach(item => {
+        (
+            items || []
+        ).forEach(
+            item => {
 
-            itemsHTML += `
+                itemsHTML += `
 
-                <div
-                    class="invoice-item"
-                >
+                    <div
+                        class="invoice-item"
+                    >
 
-                    <div>
+                        <div>
+
+                            <strong>
+                                ${item.product_name}
+                            </strong>
+
+                            <p>
+                                ${item.quantity}
+                                ×
+                                ${formatOrderPrice(
+                                    item.price
+                                )}
+                            </p>
+
+                        </div>
+
 
                         <strong>
-                            ${item.product_name}
+                            ${formatOrderPrice(
+                                item.subtotal
+                            )}
                         </strong>
-
-                        <p>
-                            ${item.quantity}
-                            ×
-                            ${formatOrderPrice(item.price)}
-                        </p>
 
                     </div>
 
+                `;
 
-                    <strong>
-                        ${formatOrderPrice(item.subtotal)}
-                    </strong>
+            }
+        );
 
-                </div>
 
-            `;
-
-        });
-
+        /* =================================================
+           NOTA
+        ================================================= */
 
         const invoiceHTML = `
 
@@ -670,6 +788,9 @@ async function showInvoice(orderId) {
                 <div
                     class="invoice-modal"
                 >
+
+
+                    <!-- HEADER -->
 
                     <div
                         class="invoice-header"
@@ -701,6 +822,9 @@ async function showInvoice(orderId) {
                     </div>
 
 
+
+                    <!-- INFO -->
+
                     <div
                         class="invoice-info"
                     >
@@ -725,7 +849,9 @@ async function showInvoice(orderId) {
                             </span>
 
                             <strong>
-                                ${formatOrderDate(order.created_at)}
+                                ${formatOrderDate(
+                                    order.created_at
+                                )}
                             </strong>
 
                         </div>
@@ -759,6 +885,9 @@ async function showInvoice(orderId) {
                     </div>
 
 
+
+                    <!-- ITEMS -->
+
                     <div
                         class="invoice-items"
                     >
@@ -767,6 +896,9 @@ async function showInvoice(orderId) {
 
                     </div>
 
+
+
+                    <!-- TOTAL -->
 
                     <div
                         class="invoice-total"
@@ -777,11 +909,16 @@ async function showInvoice(orderId) {
                         </span>
 
                         <strong>
-                            ${formatOrderPrice(order.total)}
+                            ${formatOrderPrice(
+                                order.total
+                            )}
                         </strong>
 
                     </div>
 
+
+
+                    <!-- STATUS -->
 
                     <div
                         class="invoice-status"
@@ -792,17 +929,28 @@ async function showInvoice(orderId) {
                         </span>
 
                         <strong
-                            class="${getStatusClass(order.status)}"
+                            class="${getStatusClass(
+                                order.status
+                            )}"
                         >
-                            ${getStatusLabel(order.status)}
+
+                            ${getStatusLabel(
+                                order.status
+                            )}
+
                         </strong>
 
                     </div>
 
 
+
+                    <!-- NOTES -->
+
                     ${
                         order.notes
+
                         ?
+
                         `
                         <div
                             class="invoice-notes"
@@ -818,10 +966,15 @@ async function showInvoice(orderId) {
 
                         </div>
                         `
+
                         :
+
                         ""
                     }
 
+
+
+                    <!-- ACTIONS -->
 
                     <div
                         class="invoice-actions"
@@ -846,11 +999,19 @@ async function showInvoice(orderId) {
 
                     </div>
 
+
                 </div>
 
             </div>
 
         `;
+
+
+        /* =================================================
+           HINDARI DUPLICATE MODAL
+        ================================================= */
+
+        closeInvoice();
 
 
         document.body.insertAdjacentHTML(
@@ -938,3 +1099,6 @@ window.closeInvoice =
 
 window.printInvoice =
     printInvoice;
+
+window.getCurrentUser =
+    getCurrentUser;

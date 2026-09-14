@@ -12,11 +12,6 @@
 
     <title>Checoff — Coffee Shop</title>
 
-    <meta
-        name="description"
-        content="Checoff Coffee Shop — kopi pilihan, minuman non-kopi, snack, dessert, dan berbagai menu favorit untuk menemani setiap momen."
-    >
-
     <link
         rel="stylesheet"
         href="css/style.css"
@@ -28,7 +23,9 @@
 <body>
 
 
-    <!-- ================= NAVBAR ================= -->
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
     <header class="navbar">
 
@@ -73,23 +70,50 @@
                     Contact
                 </a>
 
+                <a href="orders.html">
+                    Pesanan Saya
+                </a>
+
             </nav>
 
 
-            <!-- CART -->
+            <!-- CART + LOGOUT -->
 
-            <a
-                href="cart.html"
-                class="cart-button"
+            <div
+                style="
+                    display:flex;
+                    align-items:center;
+                    gap:12px;
+                "
             >
 
-                Cart
+                <a
+                    href="cart.html"
+                    class="cart-button"
+                >
 
-                <span id="cart-count">
-                    0
-                </span>
+                    Cart
 
-            </a>
+                    <span id="cart-count">
+                        0
+                    </span>
+
+                </a>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="logout-button"
+                    style="
+                        padding:12px 18px;
+                        font-size:12px;
+                    "
+                >
+                    LOGOUT
+                </button>
+
+            </div>
 
 
         </div>
@@ -98,65 +122,73 @@
 
 
 
-    <!-- ================= MAIN ================= -->
+    <!-- =========================
+         MAIN
+    ========================== -->
 
     <main>
 
 
-        <!-- ================= HERO ================= -->
+        <!-- =========================
+             HERO
+        ========================== -->
 
         <section class="hero">
 
             <div class="container hero-container">
 
 
+                <!-- HERO TEXT -->
+
                 <div class="hero-content">
 
 
-                    <p class="hero-label">
+                    <p class="section-label">
+
                         COFFEE • NON-COFFEE • SNACK • DESSERT
+
                     </p>
 
 
                     <h1>
 
-                        BREW YOUR
+                        BREW
+                        <br>
 
-                        <span>
-                            MOMENT.
-                        </span>
+                        YOUR
+                        <br>
+
+                        <span>MOMENT.</span>
 
                     </h1>
 
 
                     <p class="hero-description">
 
-                        Nikmati kopi pilihan, minuman segar,
-                        dan makanan favorit yang dibuat untuk
-                        menemani setiap cerita, aktivitas,
-                        dan momenmu.
+                        Temukan kopi favoritmu,
+                        nikmati suasana,
+                        dan buat setiap momen
+                        jadi lebih berarti bersama Checoff.
 
                     </p>
 
 
                     <div class="hero-buttons">
 
-
                         <a
                             href="products.html"
                             class="btn btn-primary"
                         >
-                            VIEW MENU →
+                            EXPLORE MENU →
                         </a>
 
 
                         <a
-                            href="#featured"
-                            class="btn btn-secondary"
+                            href="#about"
+                            class="btn btn-outline"
                         >
-                            EXPLORE
+                            ABOUT CHECOFF
                         </a>
-
 
                     </div>
 
@@ -169,28 +201,27 @@
 
                 <div class="hero-visual">
 
+
                     <div class="hero-card">
 
+                        <div class="hero-card-inner">
 
-                        <div class="hero-card-number">
-                            01
-                        </div>
+                            <p>
+                                CHECOFF
+                            </p>
 
-
-                        <div class="hero-card-text">
+                            <h2>
+                                COFFEE
+                            </h2>
 
                             <span>
-                                CHECOFF SPECIAL
+                                GOOD MOMENTS
                             </span>
-
-                            <strong>
-                                COFFEE
-                            </strong>
 
                         </div>
 
-
                     </div>
+
 
                 </div>
 
@@ -201,16 +232,16 @@
 
 
 
-        <!-- ================= CATEGORIES ================= -->
+        <!-- =========================
+             CATEGORY
+        ========================== -->
 
-        <section class="categories">
-
+        <section class="section category-section">
 
             <div class="container">
 
 
                 <div class="section-heading">
-
 
                     <div>
 
@@ -218,9 +249,8 @@
                             EXPLORE
                         </p>
 
-
                         <h2>
-                            OUR MENU
+                            FIND YOUR FAVORITE.
                         </h2>
 
                     </div>
@@ -228,11 +258,10 @@
 
                     <a
                         href="products.html"
-                        class="view-all"
+                        class="text-link"
                     >
-                        View All →
+                        VIEW ALL MENU →
                     </a>
-
 
                 </div>
 
@@ -240,8 +269,6 @@
 
                 <div class="category-grid">
 
-
-                    <!-- COFFEE -->
 
                     <a
                         href="products.html?category=Coffee"
@@ -252,26 +279,17 @@
                             01
                         </span>
 
-
-                        <strong>
-                            ☕
-                        </strong>
-
-
                         <h3>
                             COFFEE
                         </h3>
 
-
                         <p>
-                            Freshly brewed coffee
+                            Kopi pilihan Checoff
                         </p>
 
                     </a>
 
 
-
-                    <!-- NON COFFEE -->
 
                     <a
                         href="products.html?category=Non-Coffee"
@@ -282,26 +300,17 @@
                             02
                         </span>
 
-
-                        <strong>
-                            🥤
-                        </strong>
-
-
                         <h3>
                             NON-COFFEE
                         </h3>
 
-
                         <p>
-                            Fresh drinks for everyone
+                            Minuman tanpa kopi
                         </p>
 
                     </a>
 
 
-
-                    <!-- SNACK -->
 
                     <a
                         href="products.html?category=Snack"
@@ -312,56 +321,17 @@
                             03
                         </span>
 
-
-                        <strong>
-                            🥐
-                        </strong>
-
-
                         <h3>
                             SNACK
                         </h3>
 
-
                         <p>
-                            Perfect coffee companions
+                            Teman ngopi
                         </p>
 
                     </a>
 
 
-
-                    <!-- DESSERT -->
-
-                    <a
-                        href="products.html?category=Dessert"
-                        class="category-card"
-                    >
-
-                        <span>
-                            04
-                        </span>
-
-
-                        <strong>
-                            🍰
-                        </strong>
-
-
-                        <h3>
-                            DESSERT
-                        </h3>
-
-
-                        <p>
-                            Sweet treats for your day
-                        </p>
-
-                    </a>
-
-
-
-                    <!-- MERCHANDISE -->
 
                     <a
                         href="products.html?category=Merchandise"
@@ -369,22 +339,15 @@
                     >
 
                         <span>
-                            05
+                            04
                         </span>
-
-
-                        <strong>
-                            🛍️
-                        </strong>
-
 
                         <h3>
                             MERCHANDISE
                         </h3>
 
-
                         <p>
-                            Checoff daily essentials
+                            Koleksi Checoff
                         </p>
 
                     </a>
@@ -392,19 +355,18 @@
 
                 </div>
 
+
             </div>
 
         </section>
 
 
 
-        <!-- ================= FEATURED ================= -->
+        <!-- =========================
+             FEATURED MENU
+        ========================== -->
 
-        <section
-            class="featured"
-            id="featured"
-        >
-
+        <section class="featured section">
 
             <div class="container">
 
@@ -418,7 +380,6 @@
                             CHECOFF FAVORITES
                         </p>
 
-
                         <h2>
                             FEATURED MENU
                         </h2>
@@ -428,9 +389,9 @@
 
                     <a
                         href="products.html"
-                        class="view-all"
+                        class="text-link"
                     >
-                        View All →
+                        SEE FULL MENU →
                     </a>
 
 
@@ -438,7 +399,7 @@
 
 
 
-                <!-- DATA SUPABASE -->
+                <!-- PRODUCT LIST -->
 
                 <div
                     id="product-list"
@@ -460,77 +421,82 @@
 
 
 
-        <!-- ================= ABOUT ================= -->
+        <!-- =========================
+             ABOUT
+        ========================== -->
 
         <section
-            class="about"
+            class="section about-section"
             id="about"
         >
 
-
             <div class="container about-container">
-
-
-                <div class="about-number">
-
-                    ☕
-
-                </div>
-
 
 
                 <div class="about-content">
 
 
                     <p class="section-label">
-
                         ABOUT CHECOFF
-
                     </p>
 
 
                     <h2>
-
-                        YOUR DAILY
-
-                        <span>
-                            COFFEE
-                        </span>
-
-                        COMPANION.
-
+                        MORE THAN
+                        <br>
+                        JUST COFFEE.
                     </h2>
 
 
                     <p>
 
-                        Checoff hadir sebagai coffee shop
-                        yang mengutamakan rasa, kualitas,
-                        dan kenyamanan dalam setiap sajian.
+                        Checoff adalah tempat untuk
+                        menikmati kopi, minuman,
+                        makanan ringan, dan momen
+                        bersama.
 
                     </p>
 
 
                     <p>
 
-                        Kami percaya bahwa secangkir kopi
-                        bukan hanya tentang rasa, tetapi juga
-                        tentang pengalaman, percakapan,
-                        ide, dan momen yang tercipta
-                        di dalamnya.
+                        Kami percaya bahwa secangkir
+                        kopi bukan hanya tentang rasa,
+                        tetapi juga tentang suasana,
+                        cerita, dan pengalaman.
 
                     </p>
 
 
-                    <p>
+                    <a
+                        href="products.html"
+                        class="btn btn-primary"
+                    >
+                        DISCOVER OUR MENU →
+                    </a>
 
-                        Mulai dari espresso dan latte,
-                        minuman non-kopi, snack, hingga
-                        dessert, semuanya dibuat untuk
-                        menemani harimu.
 
-                    </p>
+                </div>
 
+
+
+                <div class="about-visual">
+
+                    <div class="about-box">
+
+                        <span>
+                            EST.
+                        </span>
+
+                        <strong>
+                            CHECOFF
+                        </strong>
+
+                        <small>
+                            COFFEE SHOP
+                        </small>
+
+                    </div>
 
                 </div>
 
@@ -541,44 +507,40 @@
 
 
 
-        <!-- ================= CTA ================= -->
+        <!-- =========================
+             CTA
+        ========================== -->
 
-        <section class="cta">
+        <section class="cta-section">
 
-
-            <div class="container">
-
-
-                <p class="section-label">
-
-                    READY FOR YOUR COFFEE?
-
-                </p>
+            <div class="container cta-container">
 
 
-                <h2>
+                <div>
 
-                    FIND YOUR
+                    <p class="section-label">
+                        READY FOR YOUR COFFEE?
+                    </p>
 
-                    <span>
+
+                    <h2>
+                        FIND YOUR
+                        <br>
                         FAVORITE.
-                    </span>
+                    </h2>
 
-                </h2>
+                </div>
 
 
                 <a
                     href="products.html"
                     class="btn btn-primary"
                 >
-
                     ORDER NOW →
-
                 </a>
 
 
             </div>
-
 
         </section>
 
@@ -587,18 +549,17 @@
 
 
 
-    <!-- ================= FOOTER ================= -->
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
     <footer
         class="footer"
         id="contact"
     >
 
-
         <div class="container footer-container">
 
-
-            <!-- FOOTER BRAND -->
 
             <div>
 
@@ -617,17 +578,13 @@
 
 
                 <p>
-
                     Coffee, drinks & good moments.
-
                 </p>
 
 
             </div>
 
 
-
-            <!-- FOOTER LINKS -->
 
             <div class="footer-links">
 
@@ -647,8 +604,8 @@
                 </a>
 
 
-                <a href="#contact">
-                    Contact
+                <a href="orders.html">
+                    Pesanan Saya
                 </a>
 
 
@@ -656,18 +613,11 @@
 
 
 
-            <!-- COPYRIGHT -->
-
             <div class="footer-copy">
 
-
                 <p>
-
-                    © 2026 Checoff.
-                    All rights reserved.
-
+                    © 2026 Checoff Coffee Shop.
                 </p>
-
 
             </div>
 
@@ -678,7 +628,9 @@
 
 
 
-    <!-- ================= SUPABASE ================= -->
+    <!-- =========================
+         SUPABASE
+    ========================== -->
 
     <script
         src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
@@ -688,7 +640,136 @@
     <script src="js/supabase.js"></script>
 
 
+    <!-- AUTH GUARD -->
+
+    <script src="js/auth-guard.js"></script>
+
+
+    <!-- PRODUCT -->
+
     <script src="js/products.js"></script>
+
+
+
+    <!-- =========================
+         LOGOUT
+    ========================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async function () {
+
+
+                /*
+                 * UPDATE CART COUNT
+                 */
+
+                if (typeof updateCartCount === "function") {
+
+                    updateCartCount();
+
+                }
+
+
+                /*
+                 * LOGOUT BUTTON
+                 */
+
+                const logoutButton =
+                    document.getElementById(
+                        "logout-button"
+                    );
+
+
+                if (!logoutButton) return;
+
+
+                logoutButton.addEventListener(
+                    "click",
+                    async function () {
+
+
+                        const confirmLogout =
+                            confirm(
+                                "Yakin ingin logout dari Checoff?"
+                            );
+
+
+                        if (!confirmLogout) {
+
+                            return;
+
+                        }
+
+
+                        logoutButton.disabled = true;
+
+                        logoutButton.textContent =
+                            "LOGOUT...";
+
+
+                        try {
+
+
+                            const {
+                                error
+                            } =
+                                await supabaseClient
+                                    .auth
+                                    .signOut();
+
+
+                            if (error) {
+
+                                throw error;
+
+                            }
+
+
+                            /*
+                             * Setelah logout
+                             * kembali ke Login
+                             */
+
+                            window.location.href =
+                                "auth/login.html";
+
+
+                        }
+                        catch (error) {
+
+
+                            console.error(
+                                "LOGOUT ERROR:",
+                                error
+                            );
+
+
+                            alert(
+                                "Logout gagal: " +
+                                error.message
+                            );
+
+
+                            logoutButton.disabled =
+                                false;
+
+                            logoutButton.textContent =
+                                "LOGOUT";
+
+                        }
+
+
+                    }
+                );
+
+
+            }
+        );
+
+    </script>
 
 
 </body>

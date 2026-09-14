@@ -1,115 +1,408 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Detail Menu — Checoff</title>
+
     <meta
         name="description"
         content="Lihat detail menu Checoff Coffee Shop."
     >
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     NAVBAR
+========================== -->
+
 <header class="navbar">
+
     <div class="container nav-container">
 
-        <a href="index.html" class="logo">
+
+        <!-- LOGO -->
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+
             <img
                 src="assets/images/checoff-logo.jpg"
                 alt="Checoff Coffee Shop"
             >
+
         </a>
+
+
+        <!-- MENU -->
 
         <nav class="nav-menu">
-            <a href="index.html">Home</a>
-            <a href="products.html">Menu</a>
-            <a href="index.html#about">About</a>
-            <a href="index.html#contact">Contact</a>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a
+                href="products.html"
+                class="active"
+            >
+                Menu
+            </a>
+
+            <a href="index.html#about">
+                About
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+            <a href="orders.html">
+                Pesanan Saya
+            </a>
+
         </nav>
 
-        <a href="cart.html" class="cart-button">
+
+        <!-- CART -->
+
+        <a
+            href="cart.html"
+            class="cart-button"
+        >
+
             Cart
-            <span id="cart-count">0</span>
+
+            <span id="cart-count">
+                0
+            </span>
+
         </a>
 
+
+        <!-- LOGOUT -->
+
+        <button
+            type="button"
+            class="btn btn-outline"
+            id="logout-button"
+            style="
+                padding:12px 18px;
+                font-size:12px;
+            "
+        >
+            LOGOUT
+        </button>
+
+
     </div>
+
 </header>
 
 
+
+<!-- =========================
+     MAIN
+========================== -->
+
 <main>
+
 
     <section class="product-detail-section">
 
         <div class="container">
 
-            <a href="products.html" class="back-link">
+
+            <!-- BACK -->
+
+            <a
+                href="products.html"
+                class="back-link"
+            >
                 ← Back to Menu
             </a>
 
-            <div id="product-detail" class="product-detail">
+
+            <!-- PRODUCT DETAIL -->
+
+            <div
+                id="product-detail"
+                class="product-detail"
+            >
 
                 <div class="loading">
-                    <p>Loading menu...</p>
+
+                    <p>
+                        Loading menu...
+                    </p>
+
                 </div>
 
             </div>
+
 
         </div>
 
     </section>
 
+
 </main>
 
 
-<footer class="footer">
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer
+    class="footer"
+    id="contact"
+>
 
     <div class="container footer-container">
 
+
         <div>
 
-            <a href="index.html" class="logo">
+
+            <a
+                href="index.html"
+                class="logo"
+            >
+
                 <img
                     src="assets/images/checoff-logo.jpg"
                     alt="Checoff Coffee Shop"
                 >
+
             </a>
+
 
             <p>
                 Coffee, drinks & good moments.
             </p>
 
+
         </div>
+
+
 
         <div class="footer-links">
 
-            <a href="index.html">Home</a>
-            <a href="products.html">Menu</a>
-            <a href="index.html#about">About</a>
-            <a href="index.html#contact">Contact</a>
+
+            <a href="index.html">
+                Home
+            </a>
+
+
+            <a href="products.html">
+                Menu
+            </a>
+
+
+            <a href="index.html#about">
+                About
+            </a>
+
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+
+            <a href="orders.html">
+                Pesanan Saya
+            </a>
+
 
         </div>
+
+
 
         <div class="footer-copy">
 
             <p>
-                © 2026 Checoff. All rights reserved.
+                © 2026 Checoff.
+                All rights reserved.
             </p>
 
         </div>
+
 
     </div>
 
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- =========================
+     SUPABASE
+========================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
 <script src="js/supabase.js"></script>
+
+
+<!-- AUTH GUARD -->
+
+<script src="js/auth-guard.js"></script>
+
+
+<!-- PRODUCT DETAIL -->
+
 <script src="js/product-detail.js"></script>
 
+
+
+<!-- =========================
+     LOGOUT
+========================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
+
+
+        /*
+         * UPDATE CART COUNT
+         */
+
+        if (
+            typeof updateCartCount ===
+            "function"
+        ) {
+
+            updateCartCount();
+
+        }
+
+
+        /*
+         * LOGOUT
+         */
+
+        const logoutButton =
+            document.getElementById(
+                "logout-button"
+            );
+
+
+        if (!logoutButton) {
+
+            return;
+
+        }
+
+
+        logoutButton.addEventListener(
+            "click",
+            async function () {
+
+
+                const confirmLogout =
+                    confirm(
+                        "Yakin ingin logout dari Checoff?"
+                    );
+
+
+                if (!confirmLogout) {
+
+                    return;
+
+                }
+
+
+                logoutButton.disabled = true;
+
+                logoutButton.textContent =
+                    "LOGOUT...";
+
+
+                try {
+
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .auth
+                            .signOut();
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+                    /*
+                     * Kembali ke Login
+                     */
+
+                    window.location.href =
+                        "auth/login.html";
+
+
+                }
+                catch (error) {
+
+
+                    console.error(
+                        "LOGOUT ERROR:",
+                        error
+                    );
+
+
+                    alert(
+                        "Logout gagal: " +
+                        error.message
+                    );
+
+
+                    logoutButton.disabled =
+                        false;
+
+                    logoutButton.textContent =
+                        "LOGOUT";
+
+                }
+
+
+            }
+        );
+
+
+    }
+);
+
+</script>
+
+
 </body>
+
 </html>
