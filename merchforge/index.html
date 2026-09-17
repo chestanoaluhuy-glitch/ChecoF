@@ -2,7 +2,6 @@
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -21,46 +20,32 @@
         rel="stylesheet"
         href="css/style.css"
     >
-
 </head>
 
 
 <body>
 
-
-    <!-- =========================
+    <!-- =====================================================
          NAVBAR
-    ========================== -->
+    ====================================================== -->
 
     <header class="navbar">
 
         <div class="container">
 
-
             <!-- LOGO -->
-
             <a
                 href="index.html"
                 class="logo"
             >
-
                 <img
                     src="assets/images/LOGO_ARDANA BATIK.png"
                     alt="ARDANA BATIK"
-                    style="
-                        width:150px;
-                        height:auto;
-                        max-height:60px;
-                        object-fit:contain;
-                        display:block;
-                    "
                 >
-
             </a>
 
 
             <!-- NAVIGATION -->
-
             <nav class="nav-links">
 
                 <a
@@ -89,44 +74,26 @@
             </nav>
 
 
-            <!-- CART + LOGOUT -->
-
-            <div
-                style="
-                    display:flex;
-                    align-items:center;
-                    gap:12px;
-                "
-            >
+            <!-- ACTIONS -->
+            <div class="navbar-actions">
 
                 <a
                     href="cart.html"
                     class="cart-button"
                 >
-
                     Cart
-
-                    <span id="cart-count">
-                        0
-                    </span>
-
+                    <span id="cart-count">0</span>
                 </a>
-
 
                 <button
                     type="button"
-                    class="btn btn-outline"
+                    class="btn btn-outline navbar-logout"
                     id="logout-button"
-                    style="
-                        padding:12px 18px;
-                        font-size:12px;
-                    "
                 >
                     LOGOUT
                 </button>
 
             </div>
-
 
         </div>
 
@@ -134,58 +101,41 @@
 
 
 
-    <!-- =========================
+    <!-- =====================================================
          MAIN
-    ========================== -->
+    ====================================================== -->
 
     <main>
 
 
-        <!-- =========================
+        <!-- =================================================
              HERO
-        ========================== -->
+        ================================================== -->
 
         <section class="hero">
 
             <div class="container hero-container">
 
-
-                <!-- HERO TEXT -->
-
                 <div class="hero-content">
-
 
                     <p class="section-label">
                         LUXURY INDONESIAN BATIK
                     </p>
 
-
                     <h1>
-
                         TIMELESS
-
                         <br>
-
                         HERITAGE.
-
                         <br>
-
-                        <span>
-                            MODERN LUXURY.
-                        </span>
-
+                        <span>MODERN LUXURY.</span>
                     </h1>
 
-
                     <p class="hero-description">
-
                         Discover refined Indonesian batik
                         crafted into contemporary silhouettes.
                         A timeless expression of heritage,
                         elegance, and modern sophistication.
-
                     </p>
-
 
                     <div class="hero-buttons">
 
@@ -196,7 +146,6 @@
                             EXPLORE COLLECTION →
                         </a>
 
-
                         <a
                             href="#about"
                             class="btn btn-outline"
@@ -206,37 +155,37 @@
 
                     </div>
 
-
                 </div>
-
 
 
                 <!-- HERO VISUAL -->
 
-                <!-- HERO IMAGE -->
+                <div class="hero-visual">
 
-<div class="hero-visual">
+                    <div class="hero-card">
 
-    <div class="hero-card">
+                        <img
+                            src="assets/images/LOGO_ARDANA BATIK full.png"
+                            alt="ARDANA BATIK — Indonesian Heritage Fashion"
+                        >
 
-        <img
-            src="assets/images/LOGO_ARDANA BATIK full.png"
-            alt="ARDANA BATIK — Indonesian Heritage Fashion"
-        >
+                    </div>
 
-    </div>
+                </div>
 
-</div>
+            </div>
+
+        </section>
 
 
-        <!-- =========================
+
+        <!-- =================================================
              CATEGORY
-        ========================== -->
+        ================================================== -->
 
         <section class="section category-section">
 
             <div class="container">
-
 
                 <div class="section-heading">
 
@@ -252,7 +201,6 @@
 
                     </div>
 
-
                     <a
                         href="products.html"
                         class="text-link"
@@ -263,6 +211,7 @@
                 </div>
 
 
+                <!-- CATEGORY GRID -->
 
                 <div class="category-grid">
 
@@ -274,18 +223,24 @@
                         class="category-card"
                     >
 
-                        <span>
-                            01
-                        </span>
+                        <span>01</span>
 
-                        <h3>
-                            BATIK SHIRT
-                        </h3>
+                        <div class="category-card-content">
 
-                        <p>
-                            Contemporary shirts
-                            with timeless Indonesian motifs.
-                        </p>
+                            <strong>
+                                SIGNATURE
+                            </strong>
+
+                            <h3>
+                                BATIK SHIRT
+                            </h3>
+
+                            <p>
+                                Contemporary shirts
+                                with timeless Indonesian motifs.
+                            </p>
+
+                        </div>
 
                     </a>
 
@@ -298,18 +253,24 @@
                         class="category-card"
                     >
 
-                        <span>
-                            02
-                        </span>
+                        <span>02</span>
 
-                        <h3>
-                            BATIK DRESS
-                        </h3>
+                        <div class="category-card-content">
 
-                        <p>
-                            Elegant silhouettes
-                            inspired by Indonesian heritage.
-                        </p>
+                            <strong>
+                                ELEGANCE
+                            </strong>
+
+                            <h3>
+                                BATIK DRESS
+                            </h3>
+
+                            <p>
+                                Elegant silhouettes
+                                inspired by Indonesian heritage.
+                            </p>
+
+                        </div>
 
                     </a>
 
@@ -322,18 +283,24 @@
                         class="category-card"
                     >
 
-                        <span>
-                            03
-                        </span>
+                        <span>03</span>
 
-                        <h3>
-                            BATIK OUTER
-                        </h3>
+                        <div class="category-card-content">
 
-                        <p>
-                            Statement outerwear
-                            for refined modern style.
-                        </p>
+                            <strong>
+                                STATEMENT
+                            </strong>
+
+                            <h3>
+                                BATIK OUTER
+                            </h3>
+
+                            <p>
+                                Statement outerwear
+                                for refined modern style.
+                            </p>
+
+                        </div>
 
                     </a>
 
@@ -346,24 +313,28 @@
                         class="category-card"
                     >
 
-                        <span>
-                            04
-                        </span>
+                        <span>04</span>
 
-                        <h3>
-                            BATIK SET
-                        </h3>
+                        <div class="category-card-content">
 
-                        <p>
-                            Complete looks combining
-                            heritage and contemporary design.
-                        </p>
+                            <strong>
+                                COMPLETE LOOK
+                            </strong>
+
+                            <h3>
+                                BATIK SET
+                            </h3>
+
+                            <p>
+                                Complete looks combining
+                                heritage and modern design.
+                            </p>
+
+                        </div>
 
                     </a>
 
-
                 </div>
-
 
             </div>
 
@@ -371,17 +342,15 @@
 
 
 
-        <!-- =========================
-             FEATURED COLLECTION
-        ========================== -->
+        <!-- =================================================
+             FEATURED PRODUCTS
+        ================================================== -->
 
         <section class="featured section">
 
             <div class="container">
 
-
                 <div class="section-heading">
-
 
                     <div>
 
@@ -395,7 +364,6 @@
 
                     </div>
 
-
                     <a
                         href="products.html"
                         class="text-link"
@@ -403,12 +371,24 @@
                         SEE FULL COLLECTION →
                     </a>
 
+                </div>
+
+
+                <!-- SEARCH -->
+
+                <div class="product-search">
+
+                    <input
+                        type="search"
+                        id="product-search"
+                        placeholder="Search our collection..."
+                        autocomplete="off"
+                    >
 
                 </div>
 
 
-
-                <!-- PRODUCT LIST -->
+                <!-- PRODUCT GRID -->
 
                 <div
                     id="product-list"
@@ -421,16 +401,15 @@
 
                 </div>
 
-
             </div>
 
         </section>
 
 
 
-        <!-- =========================
+        <!-- =================================================
              ABOUT
-        ========================== -->
+        ================================================== -->
 
         <section
             class="section about-section"
@@ -440,44 +419,33 @@
             <div class="container about-container">
 
 
-                <div class="about-content">
+                <!-- ABOUT CONTENT -->
 
+                <div class="about-content">
 
                     <p class="section-label">
                         ABOUT ARDANA BATIK
                     </p>
 
-
                     <h2>
-
                         HERITAGE
-
                         <br>
-
-                        REIMAGINED.
-
+                        <span>REIMAGINED.</span>
                     </h2>
 
-
                     <p>
-
                         ARDANA BATIK is a contemporary
                         expression of Indonesian batik,
                         bringing traditional artistry into
                         refined and modern fashion.
-
                     </p>
 
-
                     <p>
-
                         Every collection celebrates the
                         beauty of Indonesian motifs,
                         craftsmanship, and cultural heritage
                         through a sophisticated modern lens.
-
                     </p>
-
 
                     <a
                         href="products.html"
@@ -486,10 +454,11 @@
                         DISCOVER THE COLLECTION →
                     </a>
 
-
                 </div>
 
 
+
+                <!-- ABOUT VISUAL -->
 
                 <div class="about-visual">
 
@@ -511,21 +480,19 @@
 
                 </div>
 
-
             </div>
 
         </section>
 
 
 
-        <!-- =========================
+        <!-- =================================================
              BRAND STATEMENT
-        ========================== -->
+        ================================================== -->
 
         <section class="cta-section">
 
             <div class="container cta-container">
-
 
                 <div>
 
@@ -533,19 +500,12 @@
                         WEAR THE HERITAGE
                     </p>
 
-
                     <h2>
-
                         ELEGANCE
-
                         <br>
-
                         WITHOUT
-
                         <br>
-
                         COMPROMISE.
-
                     </h2>
 
                 </div>
@@ -558,19 +518,17 @@
                     SHOP COLLECTION →
                 </a>
 
-
             </div>
 
         </section>
-
 
     </main>
 
 
 
-    <!-- =========================
+    <!-- =====================================================
          FOOTER
-    ========================== -->
+    ====================================================== -->
 
     <footer
         class="footer"
@@ -580,9 +538,9 @@
         <div class="container footer-container">
 
 
-            <!-- FOOTER BRAND -->
+            <!-- BRAND -->
 
-            <div>
+            <div class="footer-brand">
 
                 <a
                     href="index.html"
@@ -590,53 +548,48 @@
                 >
 
                     <img
-                        src="assets/images/logo2.png"
+                        src="assets/images/LOGO_ARDANA BATIK.png"
                         alt="ARDANA BATIK"
-                        style="
-                            width:150px;
-                            height:auto;
-                            max-height:60px;
-                            object-fit:contain;
-                            display:block;
-                        "
                     >
 
                 </a>
 
-
                 <p>
-                    Timeless heritage. Modern luxury.
+                    Timeless heritage.
+                    Modern luxury.
                 </p>
-
 
             </div>
 
 
 
-            <!-- FOOTER LINKS -->
+            <!-- LINKS -->
 
-            <div class="footer-links">
+            <div class="footer-navigation">
 
+                <p class="footer-title">
+                    NAVIGATION
+                </p>
 
-                <a href="index.html">
-                    Home
-                </a>
+                <div class="footer-links">
 
+                    <a href="index.html">
+                        Home
+                    </a>
 
-                <a href="products.html">
-                    Collection
-                </a>
+                    <a href="products.html">
+                        Collection
+                    </a>
 
+                    <a href="#about">
+                        About
+                    </a>
 
-                <a href="#about">
-                    About
-                </a>
+                    <a href="orders.html">
+                        Pesanan Saya
+                    </a>
 
-
-                <a href="orders.html">
-                    Pesanan Saya
-                </a>
-
+                </div>
 
             </div>
 
@@ -647,11 +600,14 @@
             <div class="footer-copy">
 
                 <p>
-                    © 2026 ARDANA BATIK. All rights reserved.
+                    © 2026 ARDANA BATIK.
+                </p>
+
+                <p>
+                    All rights reserved.
                 </p>
 
             </div>
-
 
         </div>
 
@@ -659,39 +615,31 @@
 
 
 
-    <!-- =========================
+    <!-- =====================================================
          SUPABASE
-    ========================== -->
+    ====================================================== -->
 
     <script
         src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
     ></script>
 
-
     <script src="js/supabase.js"></script>
 
-
-    <!-- AUTH GUARD -->
-
     <script src="js/auth-guard.js"></script>
-
-
-    <!-- PRODUCT -->
 
     <script src="js/products.js"></script>
 
 
 
-    <!-- =========================
-         LOGOUT
-    ========================== -->
+    <!-- =====================================================
+         PAGE SCRIPT
+    ====================================================== -->
 
     <script>
 
         document.addEventListener(
             "DOMContentLoaded",
             async function () {
-
 
                 /*
                  * UPDATE CART COUNT
@@ -707,7 +655,7 @@
 
 
                 /*
-                 * LOGOUT BUTTON
+                 * LOGOUT
                  */
 
                 const logoutButton =
@@ -716,13 +664,14 @@
                     );
 
 
-                if (!logoutButton) return;
+                if (!logoutButton) {
+                    return;
+                }
 
 
                 logoutButton.addEventListener(
                     "click",
                     async function () {
-
 
                         const confirmLogout =
                             confirm(
@@ -731,9 +680,7 @@
 
 
                         if (!confirmLogout) {
-
                             return;
-
                         }
 
 
@@ -745,7 +692,6 @@
 
                         try {
 
-
                             const {
                                 error
                             } =
@@ -755,24 +701,15 @@
 
 
                             if (error) {
-
                                 throw error;
-
                             }
 
-
-                            /*
-                             * Setelah logout
-                             * kembali ke Login
-                             */
 
                             window.location.href =
                                 "auth/login.html";
 
-
                         }
                         catch (error) {
-
 
                             console.error(
                                 "LOGOUT ERROR:",
@@ -794,16 +731,14 @@
 
                         }
 
-
                     }
                 );
 
-
             }
+
         );
 
     </script>
-
 
 </body>
 
