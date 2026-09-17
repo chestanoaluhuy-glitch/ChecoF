@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,12 +22,7 @@
         }
 
         body {
-            font-family:
-                Inter,
-                Arial,
-                Helvetica,
-                sans-serif;
-
+            font-family: Inter, Arial, Helvetica, sans-serif;
             background:
                 radial-gradient(
                     circle at top right,
@@ -36,7 +30,6 @@
                     transparent 30%
                 ),
                 #0b0b0b;
-
             color: #f5f0e8;
             min-height: 100vh;
         }
@@ -52,33 +45,23 @@
 
         #admin-loading {
             min-height: 100vh;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             flex-direction: column;
             gap: 14px;
-
             background: #0b0b0b;
         }
 
         .loading-logo {
             color: #d4af37;
-
             font-size: 22px;
             font-weight: 700;
-
             letter-spacing: 5px;
-        }
-
-        #admin-loading h2 {
-            display: none;
         }
 
         #admin-loading p {
             color: #777;
-
             font-size: 11px;
             letter-spacing: 3px;
         }
@@ -86,9 +69,7 @@
         .loading-line {
             width: 90px;
             height: 1px;
-
             background: #d4af37;
-
             animation: loading 1.5s infinite ease-in-out;
         }
 
@@ -123,12 +104,8 @@
 
         .admin-navbar {
             min-height: 76px;
-
-            background:
-                rgba(12, 12, 12, 0.96);
-
-            border-bottom:
-                1px solid rgba(212, 175, 55, 0.18);
+            background: rgba(12, 12, 12, 0.96);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.18);
 
             display: flex;
             align-items: center;
@@ -138,7 +115,6 @@
 
             position: sticky;
             top: 0;
-
             z-index: 100;
 
             backdrop-filter: blur(12px);
@@ -161,19 +137,15 @@
             justify-content: center;
 
             color: #d4af37;
-
             font-size: 12px;
             font-weight: bold;
-
             letter-spacing: 1px;
         }
 
         .admin-logo {
             color: #f5f0e8;
-
             font-size: 17px;
             font-weight: 700;
-
             letter-spacing: 3px;
         }
 
@@ -184,15 +156,13 @@
         .admin-nav {
             display: flex;
             align-items: center;
-
-            gap: 28px;
+            gap: 26px;
         }
 
         .admin-nav a {
             position: relative;
 
             color: #aaa;
-
             text-decoration: none;
 
             font-size: 12px;
@@ -205,7 +175,6 @@
             content: "";
 
             position: absolute;
-
             left: 0;
             bottom: -7px;
 
@@ -253,7 +222,6 @@
 
         .admin-container {
             width: min(1280px, 90%);
-
             margin: 55px auto 0;
         }
 
@@ -281,10 +249,7 @@
         }
 
         .page-heading h1 {
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
+            font-family: Georgia, "Times New Roman", serif;
 
             font-size: clamp(34px, 4vw, 48px);
 
@@ -312,8 +277,7 @@
         .stats-grid {
             display: grid;
 
-            grid-template-columns:
-                repeat(4, 1fr);
+            grid-template-columns: repeat(4, 1fr);
 
             gap: 14px;
 
@@ -330,8 +294,7 @@
                     #111
                 );
 
-            border:
-                1px solid #272727;
+            border: 1px solid #272727;
 
             padding: 25px 24px;
 
@@ -422,7 +385,9 @@
 
         .section-heading-left {
             display: flex;
+
             align-items: center;
+
             gap: 13px;
         }
 
@@ -445,8 +410,7 @@
         }
 
         .refresh-btn {
-            border:
-                1px solid #343434;
+            border: 1px solid #343434;
 
             background: #151515;
 
@@ -463,7 +427,6 @@
 
         .refresh-btn:hover {
             border-color: #d4af37;
-
             color: #d4af37;
         }
 
@@ -474,8 +437,7 @@
         .table-wrapper {
             background: #131313;
 
-            border:
-                1px solid #262626;
+            border: 1px solid #262626;
 
             overflow-x: auto;
 
@@ -509,15 +471,13 @@
 
             padding: 15px 16px;
 
-            border-bottom:
-                1px solid #292929;
+            border-bottom: 1px solid #292929;
         }
 
         td {
             padding: 15px 16px;
 
-            border-bottom:
-                1px solid #222;
+            border-bottom: 1px solid #222;
 
             color: #aaa;
 
@@ -556,6 +516,7 @@
             display: inline-flex;
 
             align-items: center;
+
             gap: 6px;
 
             padding: 6px 9px;
@@ -627,8 +588,7 @@
         ===================================================== */
 
         .detail-btn {
-            border:
-                1px solid #3a3a3a;
+            border: 1px solid #3a3a3a;
 
             background: transparent;
 
@@ -688,8 +648,7 @@
                     #111
                 );
 
-            border:
-                1px solid #292929;
+            border: 1px solid #292929;
 
             padding: 30px;
 
@@ -714,7 +673,6 @@
             display: flex;
 
             align-items: flex-start;
-
             justify-content: space-between;
 
             gap: 20px;
@@ -723,8 +681,7 @@
 
             padding-bottom: 20px;
 
-            border-bottom:
-                1px solid #292929;
+            border-bottom: 1px solid #292929;
         }
 
         .detail-header h3 {
@@ -749,8 +706,7 @@
         }
 
         .close-detail {
-            border:
-                1px solid #3b3b3b;
+            border: 1px solid #3b3b3b;
 
             background: transparent;
 
@@ -778,8 +734,7 @@
         .customer-info {
             display: grid;
 
-            grid-template-columns:
-                repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr);
 
             gap: 12px;
 
@@ -789,8 +744,7 @@
         .info-box {
             background: #1c1c1c;
 
-            border:
-                1px solid #282828;
+            border: 1px solid #282828;
 
             padding: 17px;
         }
@@ -825,7 +779,9 @@
 
         .detail-products-title {
             display: flex;
+
             align-items: center;
+
             gap: 10px;
 
             margin-bottom: 14px;
@@ -870,8 +826,7 @@
 
             padding-top: 20px;
 
-            border-top:
-                1px solid #292929;
+            border-top: 1px solid #292929;
 
             text-align: right;
 
@@ -913,8 +868,7 @@
             padding:
                 25px 20px 30px;
 
-            border-top:
-                1px solid #202020;
+            border-top: 1px solid #202020;
 
             text-align: center;
 
@@ -936,8 +890,7 @@
         @media (max-width: 1000px) {
 
             .stats-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .admin-navbar {
@@ -958,8 +911,7 @@
             .admin-navbar {
                 min-height: auto;
 
-                padding:
-                    18px 5%;
+                padding: 18px 5%;
 
                 flex-direction: column;
 
@@ -1111,7 +1063,6 @@
 
     <div id="admin-app">
 
-
         <!-- =================================================
              NAVBAR
         ================================================== -->
@@ -1145,6 +1096,10 @@
                     Produk
                 </a>
 
+                <a href="categories.html">
+                    Kategori
+                </a>
+
                 <button
                     class="logout-btn"
                     onclick="logoutAdmin()"
@@ -1162,7 +1117,6 @@
         ================================================== -->
 
         <main class="admin-container">
-
 
             <!-- =================================================
                  PAGE HEADING
@@ -1192,7 +1146,6 @@
             ================================================== -->
 
             <section class="stats-grid">
-
 
                 <div class="stat-card">
 
@@ -1257,7 +1210,6 @@
 
                 </div>
 
-
             </section>
 
 
@@ -1266,7 +1218,6 @@
             ================================================== -->
 
             <section>
-
 
                 <div class="section-title">
 
@@ -1285,7 +1236,7 @@
                         class="refresh-btn"
                         onclick="loadOrders()"
                     >
-                        ↻ &nbsp; Refresh
+                        ↻ Refresh
                     </button>
 
                 </div>
@@ -1351,7 +1302,6 @@
 
                 </div>
 
-
             </section>
 
 
@@ -1360,7 +1310,6 @@
             ================================================== -->
 
             <section id="order-detail">
-
 
                 <div class="detail-header">
 
@@ -1390,7 +1339,6 @@
                 <!-- CUSTOMER -->
 
                 <div class="customer-info">
-
 
                     <div class="info-box">
 
@@ -1429,7 +1377,6 @@
                         </strong>
 
                     </div>
-
 
                 </div>
 
@@ -1478,9 +1425,7 @@
                         </thead>
 
 
-                        <tbody id="detail-items">
-
-                        </tbody>
+                        <tbody id="detail-items"></tbody>
 
                     </table>
 
@@ -1501,9 +1446,7 @@
 
                 </div>
 
-
             </section>
-
 
         </main>
 
@@ -1515,12 +1458,16 @@
         <footer class="admin-footer">
 
             © 2026
-            <span>ARDANA BATIK</span>
+
+            <span>
+                ARDANA BATIK
+            </span>
+
             —
+
             Luxury Indonesian Batik
 
         </footer>
-
 
     </div>
 
@@ -1590,28 +1537,21 @@
         function getStatusClass(status) {
 
             const normalized =
-                String(status || "")
-                    .toLowerCase();
+                String(status || "").toLowerCase();
 
             if (normalized === "processing") {
-
                 return "status-processing";
-
             }
 
             if (normalized === "completed") {
-
                 return "status-completed";
-
             }
 
             if (
                 normalized === "cancelled" ||
                 normalized === "canceled"
             ) {
-
                 return "status-cancelled";
-
             }
 
             return "status-pending";
@@ -1632,8 +1572,7 @@
                         user
                     },
                     error: userError
-                } =
-                    await supabaseClient.auth.getUser();
+                } = await supabaseClient.auth.getUser();
 
 
                 if (userError || !user) {
@@ -1642,28 +1581,17 @@
                         "../auth/login.html";
 
                     return false;
-
                 }
 
 
                 const {
                     data: profile,
                     error: profileError
-                } =
-                    await supabaseClient
-
-                        .from("profiles")
-
-                        .select(
-                            "role, full_name"
-                        )
-
-                        .eq(
-                            "id",
-                            user.id
-                        )
-
-                        .single();
+                } = await supabaseClient
+                    .from("profiles")
+                    .select("role, full_name")
+                    .eq("id", user.id)
+                    .single();
 
 
                 if (
@@ -1680,26 +1608,20 @@
                         "../index.html";
 
                     return false;
-
                 }
 
 
-                document
-                    .getElementById(
-                        "admin-loading"
-                    )
-                    .style.display = "none";
+                document.getElementById(
+                    "admin-loading"
+                ).style.display = "none";
 
 
-                document
-                    .getElementById(
-                        "admin-app"
-                    )
-                    .style.display = "block";
+                document.getElementById(
+                    "admin-app"
+                ).style.display = "block";
 
 
                 return true;
-
 
             } catch (error) {
 
@@ -1712,7 +1634,6 @@
                     "../auth/login.html";
 
                 return false;
-
             }
 
         }
@@ -1731,18 +1652,14 @@
 
 
             table.innerHTML = `
-
                 <tr>
-
                     <td
                         colspan="7"
                         class="empty-state"
                     >
                         Memuat pesanan...
                     </td>
-
                 </tr>
-
             `;
 
 
@@ -1751,33 +1668,27 @@
                 const {
                     data: orders,
                     error
-                } =
-                    await supabaseClient
-
-                        .from("orders")
-
-                        .select(`
-                            id,
-                            order_number,
-                            customer_name,
-                            phone,
-                            total,
-                            status,
-                            created_at
-                        `)
-
-                        .order(
-                            "created_at",
-                            {
-                                ascending: false
-                            }
-                        );
+                } = await supabaseClient
+                    .from("orders")
+                    .select(`
+                        id,
+                        order_number,
+                        customer_name,
+                        phone,
+                        total,
+                        status,
+                        created_at
+                    `)
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
 
 
                 if (error) {
-
                     throw error;
-
                 }
 
 
@@ -1792,27 +1703,21 @@
                 ) {
 
                     table.innerHTML = `
-
                         <tr>
-
                             <td
                                 colspan="7"
                                 class="empty-state"
                             >
                                 Belum ada pesanan.
                             </td>
-
                         </tr>
-
                     `;
 
                     return;
-
                 }
 
 
                 table.innerHTML =
-
                     orders
                         .map(order => `
 
@@ -1821,40 +1726,32 @@
                                 <td>
 
                                     <span class="order-number">
-
                                         ${escapeHTML(
                                             order.order_number
                                         )}
-
                                     </span>
 
                                 </td>
 
 
                                 <td>
-
                                     ${escapeHTML(
                                         order.customer_name
                                     )}
-
                                 </td>
 
 
                                 <td>
-
                                     ${escapeHTML(
                                         order.phone
                                     )}
-
                                 </td>
 
 
                                 <td>
-
                                     ${formatPrice(
                                         order.total
                                     )}
-
                                 </td>
 
 
@@ -1865,22 +1762,18 @@
                                             order.status
                                         )}"
                                     >
-
                                         ${escapeHTML(
                                             order.status
                                         )}
-
                                     </span>
 
                                 </td>
 
 
                                 <td>
-
                                     ${formatDate(
                                         order.created_at
                                     )}
-
                                 </td>
 
 
@@ -1900,7 +1793,6 @@
                             </tr>
 
                         `)
-
                         .join("");
 
 
@@ -1913,7 +1805,6 @@
 
 
                 table.innerHTML = `
-
                     <tr>
 
                         <td
@@ -1934,7 +1825,6 @@
                         </td>
 
                     </tr>
-
                 `;
 
             }
@@ -2033,65 +1923,51 @@
                 const {
                     data: order,
                     error: orderError
-                } =
-                    await supabaseClient
-
-                        .from("orders")
-
-                        .select(`
-                            id,
-                            order_number,
-                            customer_name,
-                            phone,
-                            notes,
-                            total,
-                            status,
-                            created_at
-                        `)
-
-                        .eq(
-                            "id",
-                            orderId
-                        )
-
-                        .single();
+                } = await supabaseClient
+                    .from("orders")
+                    .select(`
+                        id,
+                        order_number,
+                        customer_name,
+                        phone,
+                        notes,
+                        total,
+                        status,
+                        created_at
+                    `)
+                    .eq(
+                        "id",
+                        orderId
+                    )
+                    .single();
 
 
                 if (orderError) {
-
                     throw orderError;
-
                 }
 
 
                 const {
                     data: items,
                     error: itemsError
-                } =
-                    await supabaseClient
-
-                        .from("order_items")
-
-                        .select(`
-                            product_id,
-                            product_name,
-                            price,
-                            quantity,
-                            subtotal
-                        `)
-
-                        .eq(
-                            "order_id",
-                            orderId
-                        )
-
-                        .order("id");
+                } = await supabaseClient
+                    .from("order_items")
+                    .select(`
+                        product_id,
+                        product_name,
+                        price,
+                        quantity,
+                        subtotal
+                    `)
+                    .eq(
+                        "order_id",
+                        orderId
+                    )
+                    .order("id");
 
 
                 if (itemsError) {
-
                     throw itemsError;
-
                 }
 
 
@@ -2139,7 +2015,6 @@
                 ) {
 
                     itemsContainer.innerHTML = `
-
                         <tr>
 
                             <td
@@ -2150,13 +2025,11 @@
                             </td>
 
                         </tr>
-
                     `;
 
                 } else {
 
                     itemsContainer.innerHTML =
-
                         items
                             .map(item => `
 
@@ -2189,7 +2062,6 @@
                                 </tr>
 
                             `)
-
                             .join("");
 
                 }
@@ -2275,5 +2147,4 @@
     </script>
 
 </body>
-
 </html>
