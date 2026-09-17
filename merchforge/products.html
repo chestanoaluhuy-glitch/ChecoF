@@ -10,7 +10,12 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Menu — Checoff Coffee Shop</title>
+    <meta
+        name="description"
+        content="ARDANA BATIK — Luxury Indonesian Batik Collection."
+    >
+
+    <title>Collection — ARDANA BATIK</title>
 
     <link
         rel="stylesheet"
@@ -23,300 +28,16 @@
 <body>
 
 
-<!-- =========================
-     NAVBAR
-========================= -->
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
-<header class="navbar">
-
-    <div class="container nav-container">
-
-
-        <!-- LOGO -->
-
-        <a
-            href="index.html"
-            class="logo"
-        >
-
-            <img
-                src="assets/images/checoff-logo.jpg"
-                alt="Checoff Coffee Shop"
-            >
-
-        </a>
-
-
-        <!-- NAVIGATION -->
-
-        <nav class="nav-menu">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a
-                href="products.html"
-                class="active"
-            >
-                Menu
-            </a>
-
-            <a href="index.html#about">
-                About
-            </a>
-
-            <a href="index.html#contact">
-                Contact
-            </a>
-
-        </nav>
-
-
-        <!-- CART -->
-
-        <a
-            href="cart.html"
-            class="cart-button"
-        >
-
-            Cart
-
-            <span id="cart-count">
-                0
-            </span>
-
-        </a>
-
-
-    </div>
-
-</header>
-
-
-
-<!-- =========================
-     MAIN
-========================= -->
-
-<main>
-
-
-    <section class="featured">
+    <header class="navbar">
 
         <div class="container">
 
 
-            <!-- =========================
-                 HEADING
-            ========================= -->
-
-            <div class="section-heading">
-
-                <div>
-
-                    <p class="section-label">
-                        CHECOFF COFFEE SHOP
-                    </p>
-
-                    <h1>
-                        OUR MENU
-                    </h1>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =========================
-                 SEARCH
-            ========================= -->
-
-            <div class="product-search">
-
-                <input
-                    type="search"
-                    id="product-search"
-                    placeholder="Search menu..."
-                    autocomplete="off"
-                >
-
-            </div>
-
-
-
-            <!-- =========================
-                 CATEGORY FILTER
-            ========================= -->
-
-            <div class="category-grid">
-
-
-                <!-- ALL -->
-
-                <button
-                    type="button"
-                    class="category-card"
-                    onclick="filterProducts('all')"
-                >
-
-                    <span>
-                        00
-                    </span>
-
-                    <h3>
-                        ALL
-                    </h3>
-
-                    <p>
-                        Semua menu
-                    </p>
-
-                </button>
-
-
-
-                <!-- COFFEE -->
-
-                <button
-                    type="button"
-                    class="category-card"
-                    onclick="filterProducts('Coffee')"
-                >
-
-                    <span>
-                        01
-                    </span>
-
-                    <h3>
-                        COFFEE
-                    </h3>
-
-                    <p>
-                        Kopi pilihan Checoff
-                    </p>
-
-                </button>
-
-
-
-                <!-- NON COFFEE -->
-
-                <button
-                    type="button"
-                    class="category-card"
-                    onclick="filterProducts('Non-Coffee')"
-                >
-
-                    <span>
-                        02
-                    </span>
-
-                    <h3>
-                        NON-COFFEE
-                    </h3>
-
-                    <p>
-                        Minuman tanpa kopi
-                    </p>
-
-                </button>
-
-
-
-                <!-- SNACK -->
-
-                <button
-                    type="button"
-                    class="category-card"
-                    onclick="filterProducts('Snack')"
-                >
-
-                    <span>
-                        03
-                    </span>
-
-                    <h3>
-                        SNACK
-                    </h3>
-
-                    <p>
-                        Teman ngopi
-                    </p>
-
-                </button>
-
-
-
-                <!-- MERCHANDISE -->
-
-                <button
-                    type="button"
-                    class="category-card"
-                    onclick="filterProducts('Merchandise')"
-                >
-
-                    <span>
-                        04
-                    </span>
-
-                    <h3>
-                        MERCHANDISE
-                    </h3>
-
-                    <p>
-                        Koleksi Checoff
-                    </p>
-
-                </button>
-
-
-            </div>
-
-
-
-            <!-- =========================
-                 PRODUCT LIST
-            ========================= -->
-
-            <div
-                id="product-list"
-                class="product-grid"
-                style="margin-top: 50px;"
-            >
-
-                <div class="loading">
-
-                    Loading menu...
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-</main>
-
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer class="footer">
-
-    <div class="container footer-container">
-
-
-        <!-- FOOTER BRAND -->
-
-        <div>
-
+            <!-- LOGO -->
 
             <a
                 href="index.html"
@@ -324,83 +45,424 @@
             >
 
                 <img
-                    src="assets/images/checoff-logo.jpg"
-                    alt="Checoff Coffee Shop"
+                    src="assets/images/LOGO_ARDANA BATIK.png"
+                    alt="ARDANA BATIK"
+                    style="
+                        width:150px;
+                        height:auto;
+                        max-height:60px;
+                        object-fit:contain;
+                        display:block;
+                    "
                 >
 
             </a>
 
 
-            <p>
-                Coffee, drinks & good moments.
-            </p>
+            <!-- NAVIGATION -->
+
+            <nav class="nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a
+                    href="products.html"
+                    class="active"
+                >
+                    Collection
+                </a>
+
+                <a href="index.html#about">
+                    About
+                </a>
+
+                <a href="index.html#contact">
+                    Contact
+                </a>
+
+                <a href="orders.html">
+                    Pesanan Saya
+                </a>
+
+            </nav>
+
+
+            <!-- CART -->
+
+            <a
+                href="cart.html"
+                class="cart-button"
+            >
+
+                Cart
+
+                <span id="cart-count">
+                    0
+                </span>
+
+            </a>
 
 
         </div>
 
+    </header>
 
 
-        <!-- FOOTER LINKS -->
 
-        <div class="footer-links">
+    <!-- =========================
+         MAIN
+    ========================== -->
 
-            <a href="index.html">
-                Home
-            </a>
+    <main>
 
-            <a href="products.html">
-                Menu
-            </a>
 
-            <a href="index.html#about">
-                About
-            </a>
+        <section class="featured">
+
+            <div class="container">
+
+
+                <!-- =========================
+                     HEADING
+                ========================== -->
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="section-label">
+                            ARDANA BATIK
+                        </p>
+
+                        <h1>
+                            OUR COLLECTION
+                        </h1>
+
+                        <p class="section-description">
+                            Discover timeless Indonesian batik crafted
+                            for modern luxury and international style.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     SEARCH
+                ========================== -->
+
+                <div class="product-search">
+
+                    <input
+                        type="search"
+                        id="product-search"
+                        placeholder="Search batik collection..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+
+                <!-- =========================
+                     CATEGORY FILTER
+                ========================== -->
+
+                <div class="category-grid">
+
+
+                    <!-- ALL -->
+
+                    <button
+                        type="button"
+                        class="category-card"
+                        onclick="filterProducts('all')"
+                    >
+
+                        <span>
+                            00
+                        </span>
+
+                        <h3>
+                            ALL
+                        </h3>
+
+                        <p>
+                            Semua koleksi
+                        </p>
+
+                    </button>
+
+
+
+                    <!-- BATIK SHIRT -->
+
+                    <button
+                        type="button"
+                        class="category-card"
+                        onclick="filterProducts('Batik Shirt')"
+                    >
+
+                        <span>
+                            01
+                        </span>
+
+                        <h3>
+                            BATIK SHIRT
+                        </h3>
+
+                        <p>
+                            Signature luxury shirts
+                        </p>
+
+                    </button>
+
+
+
+                    <!-- BATIK DRESS -->
+
+                    <button
+                        type="button"
+                        class="category-card"
+                        onclick="filterProducts('Batik Dress')"
+                    >
+
+                        <span>
+                            02
+                        </span>
+
+                        <h3>
+                            BATIK DRESS
+                        </h3>
+
+                        <p>
+                            Elegant modern dresses
+                        </p>
+
+                    </button>
+
+
+
+                    <!-- BATIK OUTER -->
+
+                    <button
+                        type="button"
+                        class="category-card"
+                        onclick="filterProducts('Batik Outer')"
+                    >
+
+                        <span>
+                            03
+                        </span>
+
+                        <h3>
+                            BATIK OUTER
+                        </h3>
+
+                        <p>
+                            Refined outerwear
+                        </p>
+
+                    </button>
+
+
+
+                    <!-- BATIK SET -->
+
+                    <button
+                        type="button"
+                        class="category-card"
+                        onclick="filterProducts('Batik Set')"
+                    >
+
+                        <span>
+                            04
+                        </span>
+
+                        <h3>
+                            BATIK SET
+                        </h3>
+
+                        <p>
+                            Complete signature looks
+                        </p>
+
+                    </button>
+
+
+
+                    <!-- ACCESSORIES -->
+
+                    <button
+                        type="button"
+                        class="category-card"
+                        onclick="filterProducts('Batik Accessories')"
+                    >
+
+                        <span>
+                            05
+                        </span>
+
+                        <h3>
+                            ACCESSORIES
+                        </h3>
+
+                        <p>
+                            Premium batik accessories
+                        </p>
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- =========================
+                     PRODUCT LIST
+                ========================== -->
+
+                <div
+                    id="product-list"
+                    class="product-grid"
+                    style="margin-top:50px;"
+                >
+
+                    <div class="loading">
+
+                        Loading collection...
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-container">
+
+
+            <!-- FOOTER BRAND -->
+
+            <div>
+
+                <a
+                    href="index.html"
+                    class="logo"
+                >
+
+                    <img
+                        src="assets/images/LOGO_ARDANA BATIK.png"
+                        alt="ARDANA BATIK"
+                        style="
+                            width:150px;
+                            height:auto;
+                            max-height:60px;
+                            object-fit:contain;
+                            display:block;
+                        "
+                    >
+
+                </a>
+
+
+                <p>
+                    Timeless Indonesian heritage,
+                    crafted for modern luxury.
+                </p>
+
+
+            </div>
+
+
+
+            <!-- FOOTER LINKS -->
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="products.html">
+                    Collection
+                </a>
+
+                <a href="index.html#about">
+                    About
+                </a>
+
+                <a href="orders.html">
+                    Pesanan Saya
+                </a>
+
+            </div>
+
+
+
+            <!-- COPYRIGHT -->
+
+            <div class="footer-copy">
+
+                <p>
+                    © 2026 ARDANA BATIK.
+                </p>
+
+                <p>
+                    Luxury Indonesian Batik.
+                </p>
+
+            </div>
+
 
         </div>
 
-
-
-        <!-- COPYRIGHT -->
-
-        <div class="footer-copy">
-
-            <p>
-                © 2026 Checoff Coffee Shop.
-            </p>
-
-        </div>
-
-
-    </div>
-
-</footer>
+    </footer>
 
 
 
-<!-- =========================
-     SUPABASE
-========================= -->
+    <!-- =========================
+         SUPABASE
+    ========================== -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-<script src="js/supabase.js"></script>
-
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
 
 
-<!-- =========================
-     AUTH GUARD
-========================= -->
-
-<script src="js/auth-guard.js"></script>
+    <script src="js/supabase.js"></script>
 
 
 
-<!-- =========================
-     PRODUCTS
-========================= -->
+    <!-- =========================
+         AUTH GUARD
+    ========================== -->
 
-<script src="js/products.js"></script>
+    <script src="js/auth-guard.js"></script>
+
+
+
+    <!-- =========================
+         PRODUCTS
+    ========================== -->
+
+    <script src="js/products.js"></script>
 
 
 </body>

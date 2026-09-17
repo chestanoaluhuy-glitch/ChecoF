@@ -10,12 +10,280 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Login — Checoff</title>
+    <title>Login — ARDANA BATIK</title>
 
     <link
         rel="stylesheet"
         href="../css/style.css"
     >
+
+    <style>
+
+        /* =========================================
+           ARDANA BATIK AUTH
+        ========================================= */
+
+        .auth-section {
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                140px 20px 80px;
+        }
+
+
+        .auth-container {
+
+            width: 100%;
+
+            max-width: 480px;
+
+            padding: 42px;
+
+            background:
+                rgba(255, 255, 255, .025);
+
+            border:
+                1px solid
+                rgba(212, 175, 55, .2);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0, 0, 0, .35);
+
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .auth-header {
+
+            text-align: center;
+
+            margin-bottom: 34px;
+        }
+
+
+        .auth-header .section-label {
+
+            color:
+                #d4af37;
+
+            letter-spacing:
+                .2em;
+
+            font-size: 11px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .auth-header h1 {
+
+            margin-bottom: 12px;
+
+            letter-spacing:
+                .08em;
+        }
+
+
+        .auth-header p:last-child {
+
+            opacity: .65;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        #login-form {
+
+            display: grid;
+
+            gap: 20px;
+        }
+
+
+        .form-group {
+
+            display: grid;
+
+            gap: 8px;
+        }
+
+
+        .form-group label {
+
+            font-size: 13px;
+
+            color:
+                #d4af37;
+
+            letter-spacing:
+                .04em;
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 15px;
+
+            background:
+                rgba(0, 0, 0, .3);
+
+            border:
+                1px solid
+                rgba(212, 175, 55, .2);
+
+            color:
+                #f5f0e8;
+
+            outline: none;
+
+            font-family: inherit;
+
+            transition:
+                border-color .25s ease,
+                box-shadow .25s ease;
+        }
+
+
+        .form-group input:focus {
+
+            border-color:
+                #d4af37;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(212, 175, 55, .08);
+        }
+
+
+        .form-group input::placeholder {
+
+            color:
+                rgba(245, 240, 232, .35);
+        }
+
+
+        /* =========================================
+           MESSAGE
+        ========================================= */
+
+        #login-message {
+
+            min-height: 20px;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           LOGIN BUTTON
+        ========================================= */
+
+        .auth-button {
+
+            width: 100%;
+
+            margin-top: 4px;
+
+            cursor: pointer;
+        }
+
+
+        .auth-button:disabled {
+
+            opacity: .5;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .auth-footer {
+
+            text-align: center;
+
+            margin-top: 28px;
+
+            padding-top: 24px;
+
+            border-top:
+                1px solid
+                rgba(212, 175, 55, .12);
+        }
+
+
+        .auth-footer p {
+
+            margin: 0;
+
+            font-size: 14px;
+
+            opacity: .7;
+        }
+
+
+        .auth-footer a {
+
+            color:
+                #d4af37;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+
+        .auth-footer a:hover {
+
+            color:
+                #f0d477;
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .auth-section {
+
+                padding:
+                    120px 16px 50px;
+            }
+
+
+            .auth-container {
+
+                padding: 30px 22px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -23,9 +291,9 @@
 <body>
 
 
-<!-- =========================================================
+<!-- =========================================
      NAVBAR
-========================================================= -->
+========================================= -->
 
 <header class="navbar">
 
@@ -38,10 +306,8 @@
             onclick="return false;"
         >
 
-            <img
-                src="../assets/images/checoff-logo.jpg"
-                alt="Checoff Coffee Shop"
-            >
+            ARDANA
+            <span>BATIK</span>
 
         </a>
 
@@ -51,9 +317,9 @@
 
 
 
-<!-- =========================================================
+<!-- =========================================
      MAIN
-========================================================= -->
+========================================= -->
 
 <main>
 
@@ -62,14 +328,14 @@
         <div class="auth-container">
 
 
-            <!-- =================================================
-                 HEADER LOGIN
-            ================================================== -->
+            <!-- =================================
+                 LOGIN HEADER
+            ================================== -->
 
             <div class="auth-header">
 
                 <p class="section-label">
-                    WELCOME BACK
+                    ARDANA BATIK
                 </p>
 
                 <h1>
@@ -77,16 +343,17 @@
                 </h1>
 
                 <p>
-                    Login untuk melanjutkan ke akun Checoff kamu.
+                    Masuk untuk melanjutkan ke
+                    koleksi luxury Indonesian batik.
                 </p>
 
             </div>
 
 
 
-            <!-- =================================================
+            <!-- =================================
                  LOGIN FORM
-            ================================================== -->
+            ================================== -->
 
             <form id="login-form">
 
@@ -151,9 +418,9 @@
 
 
 
-            <!-- =================================================
+            <!-- =================================
                  REGISTER
-            ================================================== -->
+            ================================== -->
 
             <div class="auth-footer">
 
@@ -178,9 +445,9 @@
 
 
 
-<!-- =========================================================
+<!-- =========================================
      SUPABASE
-========================================================= -->
+========================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 

@@ -1,5 +1,5 @@
 /* =========================================================
-   CHECOFF CART
+   ARDANA BATIK - CART & CHECKOUT
 ========================================================= */
 
 const CART_KEY = "merchforge-cart";
@@ -75,17 +75,26 @@ function updateCartCount() {
     const cartCount =
         document.getElementById("cart-count");
 
+
     if (!cartCount) return;
 
-    const cart = getCart();
 
-    const total = cart.reduce(
-        (sum, item) =>
-            sum + Number(item.quantity || 0),
-        0
-    );
+    const cart =
+        getCart();
 
-    cartCount.textContent = total;
+
+    const total =
+        cart.reduce(
+            (sum, item) =>
+                sum + Number(
+                    item.quantity || 0
+                ),
+            0
+        );
+
+
+    cartCount.textContent =
+        total;
 
 }
 
@@ -97,12 +106,16 @@ function updateCartCount() {
 async function loadCart() {
 
     const cartContainer =
-        document.getElementById("cart-container");
+        document.getElementById(
+            "cart-container"
+        );
+
 
     if (!cartContainer) return;
 
 
-    const cart = getCart();
+    const cart =
+        getCart();
 
 
     /* =====================================================
@@ -112,26 +125,33 @@ async function loadCart() {
     if (cart.length === 0) {
 
         currentCartProducts = [];
+
         currentCartTotal = 0;
 
+
         cartContainer.innerHTML = `
+
             <div class="loading">
 
-                <h2>Keranjang Kosong</h2>
+                <h2>
+                    KERANJANG KOSONG
+                </h2>
 
                 <p>
-                    Belum ada menu yang kamu pilih.
+                    Belum ada koleksi yang kamu pilih.
                 </p>
 
                 <a
                     href="products.html"
                     class="btn btn-primary"
                 >
-                    LIHAT MENU →
+                    EXPLORE COLLECTION →
                 </a>
 
             </div>
+
         `;
+
 
         updateCartCount();
 
@@ -141,9 +161,15 @@ async function loadCart() {
 
 
     cartContainer.innerHTML = `
+
         <div class="loading">
-            <p>Memuat keranjang...</p>
+
+            <p>
+                Memuat keranjang...
+            </p>
+
         </div>
+
     `;
 
 
@@ -154,9 +180,25 @@ async function loadCart() {
         ================================================= */
 
         const productIds =
-            cart.map(
-                item => Number(item.id)
+            cart
+                .map(
+                    item =>
+                        Number(item.id)
+                )
+                .filter(
+                    id =>
+                        Number.isInteger(id) &&
+                        id > 0
+                );
+
+
+        if (productIds.length === 0) {
+
+            throw new Error(
+                "Data keranjang tidak valid."
             );
+
+        }
 
 
         /* =================================================
@@ -169,7 +211,10 @@ async function loadCart() {
         } = await supabaseClient
             .from("products")
             .select("*")
-            .in("id", productIds);
+            .in(
+                "id",
+                productIds
+            );
 
 
         if (error) {
@@ -199,14 +244,17 @@ async function loadCart() {
 
 
         cartContainer.innerHTML = `
+
             <div class="loading">
 
                 <h2>
-                    Gagal memuat keranjang
+                    GAGAL MEMUAT KERANJANG
                 </h2>
 
                 <p>
-                    ${error.message}
+                    ${escapeHTML(
+                        error.message
+                    )}
                 </p>
 
                 <button
@@ -218,6 +266,7 @@ async function loadCart() {
                 </button>
 
             </div>
+
         `;
 
     }
@@ -239,37 +288,44 @@ function renderCart() {
             "cart-container"
         );
 
+
     if (!cartContainer) return;
 
 
-    const cart = getCart();
+    let cart =
+        getCart();
 
 
     if (cart.length === 0) {
 
         currentCartProducts = [];
+
         currentCartTotal = 0;
 
+
         cartContainer.innerHTML = `
+
             <div class="loading">
 
                 <h2>
-                    Keranjang Kosong
+                    KERANJANG KOSONG
                 </h2>
 
                 <p>
-                    Belum ada menu yang kamu pilih.
+                    Belum ada koleksi yang kamu pilih.
                 </p>
 
                 <a
                     href="products.html"
                     class="btn btn-primary"
                 >
-                    LIHAT MENU →
+                    EXPLORE COLLECTION →
                 </a>
 
             </div>
+
         `;
+
 
         updateCartCount();
 
@@ -282,180 +338,275 @@ function renderCart() {
 
 
     let html = `
+
         <div class="cart-list">
+
     `;
 
 
-    cart.forEach(item => {
+    cart.forEach(
+        item => {
 
-        const product =
-            currentCartProducts.find(
-                product =>
-                    Number(product.id) ===
-                    Number(item.id)
-            );
-
-
-        if (!product) return;
+            const product =
+                currentCartProducts.find(
+                    product =>
+                        Number(product.id) ===
+                        Number(item.id)
+                );
 
 
-        const quantity =
-            Number(item.quantity) || 1;
+            /*
+               Produk sudah tidak tersedia
+               di database.
+            */
+
+            if (!product) {
+
+                return;
+
+            }
 
 
-        const subtotal =
-            Number(product.price) *
-            quantity;
+            const stock =
+                Number(product.stock) || 0;
 
 
-        total += subtotal;
+            let quantity =
+                Number(item.quantity) || 1;
 
 
-        const stock =
-            Number(product.stock) || 0;
+            /*
+               Quantity tidak boleh lebih
+               dari stock.
+            */
+
+            if (stock <= 0) {
+
+                quantity = 0;
+
+            } else if (quantity > stock) {
+
+                quantity = stock;
+
+            } else if (quantity < 1) {
+
+                quantity = 1;
+
+            }
 
 
-        html += `
-            <div class="cart-item">
+            item.quantity =
+                quantity;
 
 
-                <div class="cart-item-image">
+            /*
+               Produk stock 0 tidak dihitung
+               sebagai total.
+            */
 
-                    ${
-                        product.image_url
-
-                        ?
-
-                        `
-                        <img
-                            src="${product.image_url}"
-                            alt="${product.name}"
-                        >
-                        `
-
-                        :
-
-                        `
-                        <div class="no-image">
-                            <span>CHECOFF</span>
-                        </div>
-                        `
-                    }
-
-                </div>
+            const subtotal =
+                Number(product.price) *
+                quantity;
 
 
-
-                <div class="cart-item-info">
-
-
-                    <p class="product-category">
-
-                        ${product.category || "MENU"}
-
-                    </p>
+            total += subtotal;
 
 
-                    <h3>
+            html += `
 
-                        ${product.name}
+                <div class="cart-item">
 
-                    </h3>
+                    <!-- IMAGE -->
 
+                    <div class="cart-item-image">
 
-                    <p class="cart-price">
+                        ${
+                            product.image_url
 
-                        ${formatPrice(product.price)}
+                            ?
 
-                    </p>
+                            `
+                            <img
+                                src="${escapeHTML(
+                                    product.image_url
+                                )}"
+                                alt="${escapeHTML(
+                                    product.name
+                                )}"
+                                loading="lazy"
+                            >
+                            `
 
+                            :
 
-                    <p class="cart-stock">
+                            `
+                            <div class="no-image">
 
-                        Stok:
+                                <span>
+                                    ARDANA BATIK
+                                </span>
 
-                        <strong>
-                            ${stock}
-                        </strong>
+                            </div>
+                            `
 
-                    </p>
-
-
-
-                    <div class="cart-actions">
-
-
-                        <button
-                            type="button"
-                            class="quantity-btn"
-                            onclick="changeQuantity(
-                                ${product.id},
-                                -1
-                            )"
-                        >
-                            −
-                        </button>
-
-
-                        <span class="quantity">
-
-                            ${quantity}
-
-                        </span>
-
-
-                        <button
-                            type="button"
-                            class="quantity-btn"
-                            onclick="changeQuantity(
-                                ${product.id},
-                                1
-                            )"
-                            ${quantity >= stock
-                                ? "disabled"
-                                : ""}
-                        >
-                            +
-                        </button>
-
-
-                        <button
-                            type="button"
-                            class="remove-btn"
-                            onclick="removeFromCart(
-                                ${product.id}
-                            )"
-                        >
-                            Hapus
-                        </button>
-
+                        }
 
                     </div>
 
 
+                    <!-- INFO -->
+
+                    <div class="cart-item-info">
+
+                        <p class="product-category">
+
+                            ${escapeHTML(
+                                product.category ||
+                                "BATIK COLLECTION"
+                            )}
+
+                        </p>
+
+
+                        <h3>
+
+                            ${escapeHTML(
+                                product.name
+                            )}
+
+                        </h3>
+
+
+                        <p class="cart-price">
+
+                            ${formatPrice(
+                                product.price
+                            )}
+
+                        </p>
+
+
+                        <p class="cart-stock">
+
+                            Stock:
+
+                            <strong>
+                                ${stock}
+                            </strong>
+
+                        </p>
+
+
+                        ${
+                            stock > 0
+
+                            ?
+
+                            `
+
+                            <div class="cart-actions">
+
+                                <button
+                                    type="button"
+                                    class="quantity-btn"
+                                    onclick="
+                                        changeQuantity(
+                                            ${product.id},
+                                            -1
+                                        )
+                                    "
+                                    aria-label="Kurangi jumlah"
+                                >
+                                    −
+                                </button>
+
+
+                                <span class="quantity">
+
+                                    ${quantity}
+
+                                </span>
+
+
+                                <button
+                                    type="button"
+                                    class="quantity-btn"
+                                    onclick="
+                                        changeQuantity(
+                                            ${product.id},
+                                            1
+                                        )
+                                    "
+                                    ${
+                                        quantity >= stock
+                                        ? "disabled"
+                                        : ""
+                                    }
+                                    aria-label="Tambah jumlah"
+                                >
+                                    +
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="remove-btn"
+                                    onclick="
+                                        removeFromCart(
+                                            ${product.id}
+                                        )
+                                    "
+                                >
+                                    Hapus
+                                </button>
+
+                            </div>
+
+                            `
+
+                            :
+
+                            `
+
+                            <p class="cart-stock">
+
+                                <strong>
+                                    SOLD OUT
+                                </strong>
+
+                            </p>
+
+                            `
+
+                        }
+
+                    </div>
+
+
+                    <!-- SUBTOTAL -->
+
+                    <div class="cart-item-subtotal">
+
+                        ${formatPrice(
+                            subtotal
+                        )}
+
+                    </div>
+
                 </div>
 
+            `;
 
-
-                <div class="cart-item-subtotal">
-
-                    ${formatPrice(subtotal)}
-
-                </div>
-
-
-            </div>
-        `;
-
-    });
+        }
+    );
 
 
     html += `
+
         </div>
 
 
         <div class="cart-summary">
-
 
             <div class="cart-total">
 
@@ -470,16 +621,28 @@ function renderCart() {
             </div>
 
 
-            <button
-                type="button"
-                class="btn btn-primary"
-                onclick="checkout()"
-            >
-                CHECKOUT →
-            </button>
+            ${
+                total > 0
 
+                ?
+
+                `
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="checkout()"
+                >
+                    CHECKOUT →
+                </button>
+                `
+
+                :
+
+                ""
+            }
 
         </div>
+
     `;
 
 
@@ -489,6 +652,9 @@ function renderCart() {
 
     currentCartTotal =
         total;
+
+
+    saveCart(cart);
 
 
     updateCartCount();
@@ -531,8 +697,23 @@ function changeQuantity(
     if (!product) return;
 
 
+    const stock =
+        Number(product.stock) || 0;
+
+
+    if (stock <= 0) {
+
+        alert(
+            `${product.name} sedang habis.`
+        );
+
+        return;
+
+    }
+
+
     let newQuantity =
-        Number(item.quantity) +
+        Number(item.quantity || 1) +
         Number(change);
 
 
@@ -548,16 +729,13 @@ function changeQuantity(
 
 
     /* =====================================================
-       CEK STOK
+       MAKSIMUM STOCK
     ===================================================== */
 
-    if (
-        newQuantity >
-        Number(product.stock)
-    ) {
+    if (newQuantity > stock) {
 
         alert(
-            `Stok ${product.name} hanya tersedia ${product.stock}.`
+            `Stock ${product.name} hanya tersedia ${stock}.`
         );
 
         return;
@@ -573,7 +751,6 @@ function changeQuantity(
 
 
     renderCart();
-
 
     updateCartCount();
 
@@ -602,7 +779,6 @@ function removeFromCart(productId) {
 
 
     loadCart();
-
 
     updateCartCount();
 
@@ -643,8 +819,10 @@ async function checkout() {
                 "Silakan login terlebih dahulu."
             );
 
+
             window.location.href =
                 "auth/login.html";
+
 
             return;
 
@@ -657,12 +835,15 @@ async function checkout() {
             error
         );
 
+
         alert(
             "Silakan login terlebih dahulu."
         );
 
+
         window.location.href =
             "auth/login.html";
+
 
         return;
 
@@ -693,17 +874,32 @@ async function checkout() {
     if (!cartContainer) return;
 
 
+    /*
+       Pastikan total sudah tersedia.
+    */
+
+    if (
+        currentCartTotal <= 0
+    ) {
+
+        alert(
+            "Tidak ada produk yang dapat dibeli."
+        );
+
+        return;
+
+    }
+
+
     cartContainer.innerHTML = `
 
         <div class="checkout-container">
 
-
             <div class="checkout-header">
-
 
                 <p class="section-label">
 
-                    CHECOFF CHECKOUT
+                    ARDANA BATIK CHECKOUT
 
                 </p>
 
@@ -717,21 +913,18 @@ async function checkout() {
 
                 <p>
 
-                    Isi data berikut
+                    Lengkapi data berikut
                     untuk menyelesaikan pesanan.
 
                 </p>
 
-
             </div>
-
 
 
             <form
                 id="checkout-form"
                 onsubmit="submitOrder(event)"
             >
-
 
                 <!-- NAMA -->
 
@@ -748,11 +941,11 @@ async function checkout() {
                         type="text"
                         id="customer-name"
                         placeholder="Nama lengkap"
+                        maxlength="100"
                         required
                     >
 
                 </div>
-
 
 
                 <!-- WHATSAPP -->
@@ -770,11 +963,11 @@ async function checkout() {
                         type="tel"
                         id="customer-phone"
                         placeholder="08xxxxxxxxxx"
+                        maxlength="20"
                         required
                     >
 
                 </div>
-
 
 
                 <!-- PAYMENT -->
@@ -825,7 +1018,6 @@ async function checkout() {
                 </div>
 
 
-
                 <!-- NOTES -->
 
                 <div class="form-group">
@@ -840,11 +1032,11 @@ async function checkout() {
                     <textarea
                         id="order-notes"
                         rows="4"
+                        maxlength="500"
                         placeholder="Catatan untuk pesanan (opsional)"
                     ></textarea>
 
                 </div>
-
 
 
                 <!-- MESSAGE -->
@@ -855,15 +1047,12 @@ async function checkout() {
                 ></div>
 
 
-
                 <!-- TOTAL -->
 
                 <div class="checkout-total">
 
                     <span>
-
                         TOTAL
-
                     </span>
 
 
@@ -878,7 +1067,6 @@ async function checkout() {
                 </div>
 
 
-
                 <!-- SUBMIT -->
 
                 <button
@@ -890,7 +1078,6 @@ async function checkout() {
                     PLACE ORDER →
 
                 </button>
-
 
 
                 <!-- BACK -->
@@ -907,7 +1094,6 @@ async function checkout() {
 
 
             </form>
-
 
         </div>
 
@@ -966,6 +1152,21 @@ async function submitOrder(event) {
 
 
     /* =====================================================
+       VALIDASI ELEMENT
+    ===================================================== */
+
+    if (!message) {
+
+        console.error(
+            "Element #checkout-message tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    /* =====================================================
        VALIDASI CART
     ===================================================== */
 
@@ -993,6 +1194,16 @@ async function submitOrder(event) {
     }
 
 
+    if (customerName.length < 2) {
+
+        message.textContent =
+            "Nama minimal 2 karakter.";
+
+        return;
+
+    }
+
+
     /* =====================================================
        VALIDASI PHONE
     ===================================================== */
@@ -1001,6 +1212,24 @@ async function submitOrder(event) {
 
         message.textContent =
             "Nomor WhatsApp wajib diisi.";
+
+        return;
+
+    }
+
+
+    /*
+       Validasi nomor sederhana.
+    */
+
+    const phonePattern =
+        /^[0-9+\-\s()]{8,20}$/;
+
+
+    if (!phonePattern.test(phone)) {
+
+        message.textContent =
+            "Format nomor WhatsApp tidak valid.";
 
         return;
 
@@ -1022,8 +1251,11 @@ async function submitOrder(event) {
 
 
     /* =====================================================
-       CEK LOGIN LAGI
+       CEK LOGIN
     ===================================================== */
+
+    let user;
+
 
     try {
 
@@ -1043,10 +1275,15 @@ async function submitOrder(event) {
         }
 
 
-        if (!data.user) {
+        user =
+            data.user;
+
+
+        if (!user) {
 
             message.textContent =
                 "Sesi login sudah berakhir. Silakan login kembali.";
+
 
             setTimeout(
                 function () {
@@ -1058,6 +1295,7 @@ async function submitOrder(event) {
                 1000
             );
 
+
             return;
 
         }
@@ -1068,6 +1306,7 @@ async function submitOrder(event) {
             "USER CHECK ERROR:",
             error
         );
+
 
         message.textContent =
             "Sesi login tidak valid.";
@@ -1086,6 +1325,7 @@ async function submitOrder(event) {
         submitButton.disabled =
             true;
 
+
         submitButton.textContent =
             "PROCESSING...";
 
@@ -1093,35 +1333,73 @@ async function submitOrder(event) {
 
 
     message.textContent =
-        "Memproses pesanan dan mengecek stok...";
+        "Memproses pesanan dan mengecek stock...";
 
 
     try {
 
-
         /* =================================================
-           RPC CHECKOUT
-
-           DATABASE YANG AKAN:
-
-           1. Mengambil auth.uid()
-           2. Memastikan user login
-           3. Mengecek produk
-           4. Mengecek stok
-           5. Menghitung total
-           6. Membuat order
-           7. Menyimpan user_id
-           8. Membuat order_items
-           9. Mengurangi stok
+           BUAT DATA ITEM
+           
+           FORMAT YANG SESUAI DENGAN RPC BARU:
+           
+           {
+               product_id: 1,
+               quantity: 2
+           }
         ================================================= */
 
+        const orderItems =
+            cart
+                .map(
+                    item => ({
+
+                        product_id:
+                            Number(
+                                item.id
+                            ),
+
+                        quantity:
+                            Number(
+                                item.quantity
+                            )
+
+                    })
+                )
+                .filter(
+                    item =>
+                        Number.isInteger(
+                            item.product_id
+                        ) &&
+                        item.product_id > 0 &&
+                        Number.isInteger(
+                            item.quantity
+                        ) &&
+                        item.quantity > 0
+                );
+
+
+        if (
+            orderItems.length === 0
+        ) {
+
+            throw new Error(
+                "Produk di keranjang tidak valid."
+            );
+
+        }
+
+
+        /* =================================================
+           RPC CHECKOUT ARDANA BATIK
+        ================================================= */
 
         const {
             data,
             error
         } =
             await supabaseClient.rpc(
-                "create_checoff_order",
+                "create_ardana_order",
                 {
 
                     p_customer_name:
@@ -1134,21 +1412,7 @@ async function submitOrder(event) {
                         `${notes}${notes ? " | " : ""}Pembayaran: ${paymentMethod}`,
 
                     p_items:
-                        cart.map(
-                            item => ({
-
-                                id:
-                                    Number(
-                                        item.id
-                                    ),
-
-                                quantity:
-                                    Number(
-                                        item.quantity
-                                    )
-
-                            })
-                        )
+                        orderItems
 
                 }
             );
@@ -1165,9 +1429,21 @@ async function submitOrder(event) {
         }
 
 
+        /*
+           create_ardana_order()
+           mengembalikan JSON object:
+
+           {
+               success: true,
+               order_id: ...,
+               order_number: ...,
+               total: ...
+           }
+        */
+
         if (
             !data ||
-            data.length === 0
+            data.success !== true
         ) {
 
             throw new Error(
@@ -1178,11 +1454,11 @@ async function submitOrder(event) {
 
 
         const order =
-            data[0];
+            data;
 
 
         console.log(
-            "ORDER BERHASIL:",
+            "ORDER ARDANA BATIK BERHASIL:",
             order
         );
 
@@ -1198,6 +1474,7 @@ async function submitOrder(event) {
 
         currentCartProducts =
             [];
+
 
         currentCartTotal =
             0;
@@ -1220,7 +1497,6 @@ async function submitOrder(event) {
 
             <div class="loading">
 
-
                 <p class="section-label">
 
                     ORDER SUCCESS
@@ -1228,22 +1504,21 @@ async function submitOrder(event) {
                 </p>
 
 
-
                 <h2>
 
-                    PESANAN BERHASIL! ☕
+                    PESANAN BERHASIL!
 
                 </h2>
-
 
 
                 <p>
 
                     Terima kasih,
-                    ${customerName}.
+                    ${escapeHTML(
+                        customerName
+                    )}.
 
                 </p>
-
 
 
                 <p>
@@ -1253,13 +1528,13 @@ async function submitOrder(event) {
                 </p>
 
 
-
                 <h3>
 
-                    ${order.order_number}
+                    ${escapeHTML(
+                        order.order_number
+                    )}
 
                 </h3>
-
 
 
                 <p>
@@ -1277,7 +1552,6 @@ async function submitOrder(event) {
                 </p>
 
 
-
                 <p>
 
                     Status:
@@ -1291,7 +1565,6 @@ async function submitOrder(event) {
                 </p>
 
 
-
                 <div
                     style="
                         margin-top:30px;
@@ -1300,7 +1573,6 @@ async function submitOrder(event) {
                         flex-wrap:wrap;
                     "
                 >
-
 
                     <a
                         href="orders.html"
@@ -1317,13 +1589,11 @@ async function submitOrder(event) {
                         class="btn btn-secondary"
                     >
 
-                        KEMBALI KE MENU
+                        KEMBALI KE COLLECTION
 
                     </a>
 
-
                 </div>
-
 
             </div>
 
@@ -1337,16 +1607,6 @@ async function submitOrder(event) {
             error
         );
 
-
-        /*
-         * ERROR DARI RPC
-         *
-         * Contoh:
-         *
-         * Stok Espresso tidak cukup.
-         * Stok tersedia: 2,
-         * diminta: 5.
-         */
 
         message.textContent =
             error.message ||
@@ -1362,20 +1622,46 @@ async function submitOrder(event) {
             submitButton.disabled =
                 false;
 
+
             submitButton.textContent =
                 "PLACE ORDER →";
 
         }
 
-
-        /*
-         * CART TIDAK DIHAPUS
-         *
-         * User masih bisa memperbaiki
-         * jumlah produk / checkout ulang.
-         */
-
     }
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 

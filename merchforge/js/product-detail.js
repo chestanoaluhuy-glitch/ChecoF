@@ -1,6 +1,6 @@
 /* =========================================================
-   PRODUCT DETAIL - CHECOFF
-   ========================================================= */
+   PRODUCT DETAIL - ARDANA BATIK
+========================================================= */
 
 const CART_KEY = "merchforge-cart";
 
@@ -10,7 +10,7 @@ const productDetail =
 
 /* =========================================================
    FORMAT PRICE
-   ========================================================= */
+========================================================= */
 
 function formatPrice(price) {
 
@@ -25,7 +25,7 @@ function formatPrice(price) {
 
 /* =========================================================
    GET CART
-   ========================================================= */
+========================================================= */
 
 function getCart() {
 
@@ -51,7 +51,7 @@ function getCart() {
 
 /* =========================================================
    SAVE CART
-   ========================================================= */
+========================================================= */
 
 function saveCart(cart) {
 
@@ -65,7 +65,7 @@ function saveCart(cart) {
 
 /* =========================================================
    LOAD PRODUCT DETAIL
-   ========================================================= */
+========================================================= */
 
 async function loadProductDetail() {
 
@@ -101,18 +101,18 @@ async function loadProductDetail() {
             <div class="loading">
 
                 <h2>
-                    Menu tidak ditemukan
+                    Produk tidak ditemukan
                 </h2>
 
                 <p>
-                    Produk yang kamu cari tidak tersedia.
+                    Koleksi yang kamu cari tidak tersedia.
                 </p>
 
                 <a
                     href="products.html"
                     class="btn btn-primary"
                 >
-                    KEMBALI KE MENU →
+                    KEMBALI KE COLLECTION →
                 </a>
 
             </div>
@@ -133,7 +133,7 @@ async function loadProductDetail() {
         <div class="loading">
 
             <p>
-                Memuat detail menu...
+                Memuat detail koleksi...
             </p>
 
         </div>
@@ -151,13 +151,9 @@ async function loadProductDetail() {
             data,
             error
         } = await supabaseClient
-
             .from("products")
-
             .select("*")
-
             .eq("id", productId)
-
             .single();
 
 
@@ -182,7 +178,7 @@ async function loadProductDetail() {
 
 
         console.log(
-            "DETAIL PRODUK:",
+            "DETAIL PRODUK ARDANA BATIK:",
             data
         );
 
@@ -217,7 +213,7 @@ async function loadProductDetail() {
                 <div class="no-image">
 
                     <span>
-                        CHECOFF
+                        ARDANA BATIK
                     </span>
 
                 </div>
@@ -243,7 +239,7 @@ async function loadProductDetail() {
                 <p class="detail-stock out-stock">
 
                     <strong>
-                        STOK HABIS
+                        SOLD OUT
                     </strong>
 
                 </p>
@@ -258,11 +254,11 @@ async function loadProductDetail() {
 
                 <p class="detail-stock low-stock">
 
-                    Tersisa
+                    Limited Stock —
                     <strong>
                         ${stock}
                     </strong>
-                    menu
+                    pieces available
 
                 </p>
 
@@ -276,11 +272,11 @@ async function loadProductDetail() {
 
                 <p class="detail-stock">
 
-                    Tersedia
+                    Available —
                     <strong>
                         ${stock}
                     </strong>
-                    menu
+                    pieces
 
                 </p>
 
@@ -324,7 +320,7 @@ async function loadProductDetail() {
                     disabled
                 >
 
-                    STOK HABIS
+                    SOLD OUT
 
                 </button>
 
@@ -339,7 +335,16 @@ async function loadProductDetail() {
 
         const description =
             data.description ||
-            "Menu spesial Checoff yang dibuat dengan bahan pilihan.";
+            "A timeless Indonesian batik piece, crafted with attention to detail and designed for modern elegance.";
+
+
+        /* =================================================
+           CATEGORY
+        ================================================= */
+
+        const category =
+            data.category ||
+            "BATIK COLLECTION";
 
 
         /* =================================================
@@ -365,10 +370,9 @@ async function loadProductDetail() {
 
             <div class="detail-content">
 
-
                 <p class="product-category">
 
-                    ${data.category || "MENU"}
+                    ${category}
 
                 </p>
 
@@ -408,7 +412,7 @@ async function loadProductDetail() {
                     class="detail-menu-link"
                 >
 
-                    ← Lihat Menu Lainnya
+                    ← EXPLORE MORE COLLECTIONS
 
                 </a>
 
@@ -437,7 +441,7 @@ async function loadProductDetail() {
             <div class="loading">
 
                 <h2>
-                    Gagal memuat menu
+                    Gagal memuat produk
                 </h2>
 
                 <p>
@@ -449,7 +453,7 @@ async function loadProductDetail() {
                     href="products.html"
                     class="btn btn-primary"
                 >
-                    KEMBALI KE MENU →
+                    KEMBALI KE COLLECTION →
                 </a>
 
             </div>
@@ -463,7 +467,7 @@ async function loadProductDetail() {
 
 /* =========================================================
    ADD TO CART
-   ========================================================= */
+========================================================= */
 
 function addToCart(productId) {
 
@@ -549,7 +553,7 @@ function addToCart(productId) {
     ===================================================== */
 
     console.log(
-        "CART SETELAH ADD:",
+        "CART ARDANA BATIK:",
         cart
     );
 
@@ -559,7 +563,7 @@ function addToCart(productId) {
     ===================================================== */
 
     alert(
-        "☕ Menu berhasil ditambahkan ke cart!"
+        "Produk berhasil ditambahkan ke cart!"
     );
 
 }
@@ -567,7 +571,7 @@ function addToCart(productId) {
 
 /* =========================================================
    UPDATE CART COUNT
-   ========================================================= */
+========================================================= */
 
 function updateCartCount() {
 
@@ -612,7 +616,7 @@ function updateCartCount() {
 
 
     console.log(
-        "JUMLAH CART:",
+        "JUMLAH ITEM CART:",
         total
     );
 
@@ -621,7 +625,7 @@ function updateCartCount() {
 
 /* =========================================================
    INIT
-   ========================================================= */
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -637,7 +641,7 @@ document.addEventListener(
 
 /* =========================================================
    GLOBAL FUNCTIONS
-   ========================================================= */
+========================================================= */
 
 window.addToCart =
     addToCart;

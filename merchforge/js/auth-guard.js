@@ -1,16 +1,13 @@
-/* =========================
-   CHECOFF AUTH GUARD
-   Melindungi halaman Checoff
-========================= */
+// =========================================
+// ARDANA BATIK
+// AUTH GUARD
+// =========================================
 
 (async function () {
 
     try {
 
-        /* =========================
-           CEK USER LOGIN
-        ========================= */
-
+        // Cek apakah user sedang login
         const {
             data: {
                 user
@@ -19,10 +16,7 @@
         } = await supabaseClient.auth.getUser();
 
 
-        /* =========================
-           JIKA ERROR
-        ========================= */
-
+        // Jika terjadi error saat mengecek session
         if (error) {
 
             console.error(
@@ -38,14 +32,11 @@
         }
 
 
-        /* =========================
-           JIKA BELUM LOGIN
-        ========================= */
-
+        // Jika tidak ada user yang login
         if (!user) {
 
             console.log(
-                "User belum login. Mengarahkan ke Login..."
+                "User belum login."
             );
 
             window.location.href =
@@ -56,22 +47,10 @@
         }
 
 
-        /* =========================
-           USER SUDAH LOGIN
-        ========================= */
-
+        // User berhasil terdeteksi
         console.log(
             "User sudah login:",
             user.email
-        );
-
-
-        /* =========================
-           TAMPILKAN HALAMAN
-        ========================= */
-
-        document.documentElement.classList.add(
-            "auth-verified"
         );
 
 

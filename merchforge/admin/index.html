@@ -4,172 +4,460 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin Dashboard — Checoff</title>
-
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Admin Dashboard — ARDANA BATIK</title>
 
     <style>
-        .admin-page {
-            padding: 120px 0 80px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .admin-header {
-            margin-bottom: 40px;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0b;
+            color: #f5f0e8;
+            min-height: 100vh;
         }
 
-        .admin-header h1 {
+        /* =========================
+           LOADING
+        ========================== */
+
+        #admin-loading {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 15px;
+            background: #0b0b0b;
+        }
+
+        #admin-loading h2 {
+            color: #d4af37;
+            letter-spacing: 3px;
+            font-size: 22px;
+        }
+
+        #admin-loading p {
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* =========================
+           ADMIN APP
+        ========================== */
+
+        #admin-app {
+            display: none;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .admin-navbar {
+            height: 72px;
+            background: #111;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 50px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-logo {
+            color: #d4af37;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .admin-nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .admin-nav a,
+        .logout-btn {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .admin-nav a:hover,
+        .logout-btn:hover {
+            color: #d4af37;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid #d4af37;
+            padding: 9px 16px;
+            color: #d4af37;
+        }
+
+        /* =========================
+           CONTAINER
+        ========================== */
+
+        .admin-container {
+            width: min(1200px, 92%);
+            margin: 50px auto;
+        }
+
+        .page-heading {
+            margin-bottom: 35px;
+        }
+
+        .page-heading span {
+            color: #d4af37;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .page-heading h1 {
+            font-size: 38px;
+            margin-top: 10px;
             margin-bottom: 10px;
         }
 
-        .admin-header p {
-            opacity: 0.7;
+        .page-heading p {
+            color: #999;
+            line-height: 1.7;
         }
 
-        .admin-stats {
+        /* =========================
+           STATISTICS
+        ========================== */
+
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 50px;
+            gap: 18px;
+            margin-bottom: 45px;
         }
 
-        .admin-stat {
+        .stat-card {
+            background: #151515;
+            border: 1px solid #292929;
             padding: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.03);
+            position: relative;
+            overflow: hidden;
         }
 
-        .admin-stat span {
-            display: block;
-            font-size: 13px;
-            opacity: 0.6;
-            margin-bottom: 10px;
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: #d4af37;
         }
 
-        .admin-stat strong {
-            font-size: 32px;
+        .stat-label {
+            color: #999;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .admin-section {
-            margin-bottom: 50px;
+        .stat-number {
+            color: #d4af37;
+            font-size: 34px;
+            font-weight: bold;
+            margin-top: 12px;
         }
 
-        .admin-section-header {
+        /* =========================
+           SECTION
+        ========================== */
+
+        .section-title {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             margin-bottom: 20px;
         }
 
-        .admin-table-wrapper {
-            overflow-x: auto;
-            border: 1px solid rgba(255,255,255,0.1);
+        .section-title h2 {
+            font-size: 24px;
         }
 
-        .admin-table {
+        .refresh-btn {
+            border: 1px solid #d4af37;
+            background: transparent;
+            color: #d4af37;
+            padding: 9px 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: #d4af37;
+            color: #0b0b0b;
+        }
+
+        /* =========================
+           ORDERS TABLE
+        ========================== */
+
+        .table-wrapper {
+            background: #151515;
+            border: 1px solid #292929;
+            overflow-x: auto;
+        }
+
+        table {
             width: 100%;
             border-collapse: collapse;
             min-width: 800px;
         }
 
-        .admin-table th,
-        .admin-table td {
-            padding: 16px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .admin-table th {
-            font-size: 13px;
-            opacity: 0.6;
+        th {
+            background: #1c1c1c;
+            color: #d4af37;
+            font-size: 12px;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            text-align: left;
+            padding: 17px 15px;
+            border-bottom: 1px solid #333;
         }
 
-        .admin-table td {
+        td {
+            padding: 17px 15px;
+            border-bottom: 1px solid #292929;
+            color: #ddd;
             font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #1a1a1a;
+        }
+
+        .order-number {
+            color: #d4af37;
+            font-weight: bold;
         }
 
         .status {
             display: inline-block;
             padding: 6px 10px;
-            font-size: 12px;
+            font-size: 11px;
+            font-weight: bold;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .status-pending {
-            background: rgba(255, 193, 7, 0.15);
+            background: rgba(212, 175, 55, 0.15);
+            color: #d4af37;
         }
 
         .status-processing {
-            background: rgba(33, 150, 243, 0.15);
+            background: rgba(70, 130, 180, 0.15);
+            color: #6fa8dc;
         }
 
         .status-completed {
-            background: rgba(76, 175, 80, 0.15);
+            background: rgba(80, 170, 100, 0.15);
+            color: #79c98a;
         }
 
         .status-cancelled {
-            background: rgba(244, 67, 54, 0.15);
+            background: rgba(200, 70, 70, 0.15);
+            color: #e57373;
         }
 
-        .admin-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .admin-btn {
-            padding: 8px 12px;
-            border: 1px solid rgba(255,255,255,0.15);
+        .detail-btn {
+            border: 1px solid #555;
             background: transparent;
-            color: inherit;
+            color: #ddd;
+            padding: 7px 11px;
             cursor: pointer;
+            transition: 0.3s;
         }
 
-        .admin-btn:hover {
-            background: rgba(255,255,255,0.08);
+        .detail-btn:hover {
+            border-color: #d4af37;
+            color: #d4af37;
         }
 
-        .empty-admin {
-            padding: 50px;
+        /* =========================
+           EMPTY STATE
+        ========================== */
+
+        .empty-state {
             text-align: center;
-            opacity: 0.7;
+            padding: 50px 20px;
+            color: #777;
         }
 
-        .order-detail {
-            margin-top: 15px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
+        /* =========================
+           ORDER DETAIL
+        ========================== */
+
+        #order-detail {
             display: none;
+            margin-top: 30px;
+            background: #151515;
+            border: 1px solid #292929;
+            padding: 30px;
         }
 
-        .order-detail.active {
-            display: block;
-        }
-
-        .order-items {
-            margin-top: 15px;
-        }
-
-        .order-item {
+        .detail-header {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            gap: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #292929;
         }
 
+        .detail-header h3 {
+            color: #d4af37;
+            margin-bottom: 7px;
+        }
+
+        .detail-header p {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .close-detail {
+            border: 1px solid #555;
+            background: transparent;
+            color: #ddd;
+            padding: 8px 14px;
+            cursor: pointer;
+            height: fit-content;
+        }
+
+        .customer-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: #1b1b1b;
+            padding: 18px;
+        }
+
+        .info-box small {
+            display: block;
+            color: #777;
+            margin-bottom: 7px;
+        }
+
+        .info-box strong {
+            color: #eee;
+            word-break: break-word;
+        }
+
+        .items-table {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .items-table th,
+        .items-table td {
+            padding: 13px;
+        }
+
+        .total-box {
+            margin-top: 20px;
+            text-align: right;
+            font-size: 20px;
+        }
+
+        .total-box span {
+            color: #999;
+            margin-right: 15px;
+        }
+
+        .total-box strong {
+            color: #d4af37;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .admin-footer {
+            margin-top: 70px;
+            padding: 25px;
+            border-top: 1px solid #222;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
         @media (max-width: 900px) {
-            .admin-stats {
+            .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .customer-info {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-navbar {
+                padding: 0 25px;
+            }
+
+            .admin-nav {
+                gap: 12px;
             }
         }
 
         @media (max-width: 600px) {
-            .admin-stats {
+            .admin-navbar {
+                height: auto;
+                padding: 18px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .admin-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .admin-container {
+                width: 94%;
+                margin: 30px auto;
+            }
+
+            .page-heading h1 {
+                font-size: 28px;
+            }
+
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
 
-            .admin-page {
-                padding-top: 100px;
+            .section-title {
+                align-items: flex-start;
+                gap: 15px;
+                flex-direction: column;
             }
         }
     </style>
@@ -177,655 +465,1021 @@
 
 <body>
 
-<header class="navbar">
+    <!-- =========================
+         ACCESS CHECK
+    ========================== -->
 
-    <div class="container nav-container">
+    <div id="admin-loading">
+        <h2>ARDANA BATIK</h2>
+        <p>VERIFYING ADMIN ACCESS...</p>
+    </div>
 
-        <a href="../index.html" class="logo">
-            CHE<span>COFF</span>
-        </a>
 
-        <nav class="nav-menu">
+    <!-- =========================
+         ADMIN APP
+    ========================== -->
 
-            <a href="../index.html">
-                Website
-            </a>
+    <div id="admin-app">
 
-            <a href="index.html" class="active">
-                Dashboard
-            </a>
+        <!-- NAVBAR -->
 
-            <a href="products.html">
-                Produk
-            </a>
+        <nav class="admin-navbar">
+
+            <div class="admin-logo">
+                ARDANA BATIK
+            </div>
+
+            <div class="admin-nav">
+
+                <a href="../index.html">
+                    Website
+                </a>
+
+                <a href="index.html">
+                    Dashboard
+                </a>
+
+                <a href="products.html">
+                    Produk
+                </a>
+
+                <button
+                    class="logout-btn"
+                    onclick="logoutAdmin()"
+                >
+                    Logout
+                </button>
+
+            </div>
 
         </nav>
 
-    </div>
 
-</header>
+        <!-- MAIN -->
 
+        <main class="admin-container">
 
-<main>
+            <!-- HEADING -->
 
-<section class="admin-page">
+            <div class="page-heading">
 
-<div class="container">
+                <span>
+                    ARDANA BATIK ADMIN
+                </span>
 
-    <div class="admin-header">
+                <h1>
+                    Dashboard
+                </h1>
 
-        <p class="section-label">
-            CHECOFF ADMIN
-        </p>
-
-        <h1>
-            DASHBOARD
-        </h1>
-
-        <p>
-            Kelola pesanan dan produk Checoff.
-        </p>
-
-    </div>
-
-
-    <!-- ========================= -->
-    <!-- STATISTICS -->
-    <!-- ========================= -->
-
-    <div class="admin-stats">
-
-        <div class="admin-stat">
-
-            <span>
-                TOTAL PESANAN
-            </span>
-
-            <strong id="total-orders">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="admin-stat">
-
-            <span>
-                PENDING
-            </span>
-
-            <strong id="pending-orders">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="admin-stat">
-
-            <span>
-                PROCESSING
-            </span>
-
-            <strong id="processing-orders">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="admin-stat">
-
-            <span>
-                SELESAI
-            </span>
-
-            <strong id="completed-orders">
-                0
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <!-- ========================= -->
-    <!-- ORDERS -->
-    <!-- ========================= -->
-
-    <section class="admin-section">
-
-        <div class="admin-section-header">
-
-            <div>
-
-                <p class="section-label">
-                    ORDER MANAGEMENT
+                <p>
+                    Kelola transaksi dan pantau aktivitas
+                    pesanan ARDANA BATIK.
                 </p>
-
-                <h2>
-                    PESANAN TERBARU
-                </h2>
 
             </div>
 
-            <button
-                type="button"
-                class="admin-btn"
-                onclick="loadOrders()"
-            >
-                REFRESH
-            </button>
 
-        </div>
+            <!-- STATISTICS -->
 
+            <section class="stats-grid">
 
-        <div class="admin-table-wrapper">
+                <div class="stat-card">
 
-            <table class="admin-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Order
-                        </th>
-
-                        <th>
-                            Customer
-                        </th>
-
-                        <th>
-                            WhatsApp
-                        </th>
-
-                        <th>
-                            Total
-                        </th>
-
-                        <th>
-                            Status
-                        </th>
-
-                        <th>
-                            Tanggal
-                        </th>
-
-                        <th>
-                            Aksi
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="orders-table">
-
-                    <tr>
-
-                        <td colspan="7">
-
-                            <div class="empty-admin">
-                                Memuat pesanan...
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-    <!-- ========================= -->
-    <!-- ORDER DETAIL -->
-    <!-- ========================= -->
-
-    <section class="admin-section">
-
-        <div class="admin-section-header">
-
-            <div>
-
-                <p class="section-label">
-                    ORDER DETAIL
-                </p>
-
-                <h2>
-                    DETAIL PESANAN
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div id="order-detail" class="order-detail">
-
-            Pilih pesanan untuk melihat detail.
-
-        </div>
-
-    </section>
-
-</div>
-
-</section>
-
-</main>
-
-
-<footer class="footer">
-
-    <div class="container">
-
-        <p>
-            © 2026 Checoff Admin Dashboard.
-        </p>
-
-    </div>
-
-</footer>
-
-
-<!-- ========================= -->
-<!-- SUPABASE -->
-<!-- ========================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="../js/supabase.js"></script>
-
-
-<script>
-
-let orders = [];
-
-
-// ===============================
-// FORMAT RUPIAH
-// ===============================
-
-function formatPrice(price) {
-
-    return new Intl.NumberFormat("id-ID", {
-
-        style: "currency",
-
-        currency: "IDR",
-
-        maximumFractionDigits: 0
-
-    }).format(Number(price) || 0);
-
-}
-
-
-// ===============================
-// LOAD ORDERS
-// ===============================
-
-async function loadOrders() {
-
-    const table =
-        document.getElementById("orders-table");
-
-    table.innerHTML = `
-        <tr>
-            <td colspan="7">
-                <div class="empty-admin">
-                    Memuat pesanan...
-                </div>
-            </td>
-        </tr>
-    `;
-
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-
-        .from("orders")
-
-        .select("*")
-
-        .order("created_at", {
-            ascending: false
-        });
-
-
-    if (error) {
-
-        console.error(
-            "Gagal mengambil orders:",
-            error
-        );
-
-        table.innerHTML = `
-            <tr>
-                <td colspan="7">
-                    <div class="empty-admin">
-                        Gagal mengambil data pesanan.
-                    </div>
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    orders = data || [];
-
-
-    updateStatistics();
-
-    renderOrders();
-
-}
-
-
-// ===============================
-// STATISTICS
-// ===============================
-
-function updateStatistics() {
-
-    document.getElementById("total-orders")
-        .textContent = orders.length;
-
-
-    document.getElementById("pending-orders")
-        .textContent =
-        orders.filter(
-            order => order.status === "pending"
-        ).length;
-
-
-    document.getElementById("processing-orders")
-        .textContent =
-        orders.filter(
-            order => order.status === "processing"
-        ).length;
-
-
-    document.getElementById("completed-orders")
-        .textContent =
-        orders.filter(
-            order => order.status === "completed"
-        ).length;
-
-}
-
-
-// ===============================
-// RENDER ORDERS
-// ===============================
-
-function renderOrders() {
-
-    const table =
-        document.getElementById("orders-table");
-
-
-    if (orders.length === 0) {
-
-        table.innerHTML = `
-            <tr>
-                <td colspan="7">
-
-                    <div class="empty-admin">
-
-                        Belum ada pesanan.
-
+                    <div class="stat-label">
+                        Total Pesanan
                     </div>
 
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    table.innerHTML = "";
-
-
-    orders.forEach(order => {
-
-        const date =
-            new Date(
-                order.created_at
-            ).toLocaleString(
-                "id-ID"
-            );
-
-
-        table.innerHTML += `
-
-            <tr>
-
-                <td>
-                    <strong>
-                        ${order.order_number}
-                    </strong>
-                </td>
-
-
-                <td>
-                    ${order.customer_name}
-                </td>
-
-
-                <td>
-                    ${order.phone}
-                </td>
-
-
-                <td>
-                    ${formatPrice(order.total)}
-                </td>
-
-
-                <td>
-
-                    <span
-                        class="status status-${order.status}"
+                    <div
+                        class="stat-number"
+                        id="total-orders"
                     >
-                        ${order.status}
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Pending
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="pending-orders"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Processing
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="processing-orders"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Completed
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="completed-orders"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ORDERS -->
+
+            <section>
+
+                <div class="section-title">
+
+                    <h2>
+                        Pesanan Terbaru
+                    </h2>
+
+                    <button
+                        class="refresh-btn"
+                        onclick="loadOrders()"
+                    >
+                        Refresh
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Order
+                                </th>
+
+                                <th>
+                                    Customer
+                                </th>
+
+                                <th>
+                                    WhatsApp
+                                </th>
+
+                                <th>
+                                    Total
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Tanggal
+                                </th>
+
+                                <th>
+                                    Detail
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="orders-table">
+
+                            <tr>
+
+                                <td
+                                    colspan="7"
+                                    class="empty-state"
+                                >
+                                    Memuat pesanan...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ORDER DETAIL -->
+
+            <section id="order-detail">
+
+                <div class="detail-header">
+
+                    <div>
+
+                        <h3 id="detail-order-number">
+                            -
+                        </h3>
+
+                        <p id="detail-order-date">
+                            -
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="close-detail"
+                        onclick="closeOrderDetail()"
+                    >
+                        Tutup
+                    </button>
+
+                </div>
+
+
+                <div class="customer-info">
+
+                    <div class="info-box">
+
+                        <small>
+                            Customer
+                        </small>
+
+                        <strong id="detail-customer">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <small>
+                            WhatsApp
+                        </small>
+
+                        <strong id="detail-phone">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <small>
+                            Status
+                        </small>
+
+                        <strong id="detail-status">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <h3 style="margin-bottom: 15px;">
+                    Produk Pesanan
+                </h3>
+
+
+                <div class="table-wrapper">
+
+                    <table class="items-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Produk
+                                </th>
+
+                                <th>
+                                    Harga
+                                </th>
+
+                                <th>
+                                    Qty
+                                </th>
+
+                                <th>
+                                    Subtotal
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="detail-items">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div class="total-box">
+
+                    <span>
+                        Total
                     </span>
 
-                </td>
-
-
-                <td>
-                    ${date}
-                </td>
-
-
-                <td>
-
-                    <div class="admin-actions">
-
-                        <button
-                            class="admin-btn"
-                            onclick="viewOrder(${order.id})"
-                        >
-                            DETAIL
-                        </button>
-
-                    </div>
-
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-}
-
-
-// ===============================
-// VIEW ORDER
-// ===============================
-
-async function viewOrder(orderId) {
-
-    const detail =
-        document.getElementById(
-            "order-detail"
-        );
-
-
-    detail.classList.add("active");
-
-
-    detail.innerHTML = `
-        Memuat detail pesanan...
-    `;
-
-
-    const {
-
-        data,
-
-        error
-
-    } = await supabaseClient
-
-        .from("order_items")
-
-        .select("*")
-
-        .eq("order_id", orderId);
-
-
-    if (error) {
-
-        console.error(
-            "Gagal mengambil order items:",
-            error
-        );
-
-        detail.innerHTML =
-            "Gagal mengambil detail pesanan.";
-
-        return;
-    }
-
-
-    const order =
-        orders.find(
-            item =>
-                Number(item.id) ===
-                Number(orderId)
-        );
-
-
-    if (!order) return;
-
-
-    let itemsHTML = "";
-
-
-    data.forEach(item => {
-
-        itemsHTML += `
-
-            <div class="order-item">
-
-                <div>
-
-                    <strong>
-                        ${item.product_name}
+                    <strong id="detail-total">
+                        Rp0
                     </strong>
-
-                    <br>
-
-                    <small>
-                        ${item.quantity} ×
-                        ${formatPrice(item.price)}
-                    </small>
 
                 </div>
 
+            </section>
 
-                <strong>
-                    ${formatPrice(item.subtotal)}
-                </strong>
-
-            </div>
-
-        `;
-
-    });
+        </main>
 
 
-    detail.innerHTML = `
+        <!-- FOOTER -->
 
-        <h3>
-            ${order.order_number}
-        </h3>
+        <footer class="admin-footer">
 
-        <p>
-            <strong>Customer:</strong>
-            ${order.customer_name}
-        </p>
+            © 2026 ARDANA BATIK —
+            Luxury Indonesian Batik
 
-        <p>
-            <strong>WhatsApp:</strong>
-            ${order.phone}
-        </p>
+        </footer>
 
-        <p>
-            <strong>Catatan:</strong>
-            ${order.notes || "-"}
-        </p>
+    </div>
 
 
-        <div class="order-items">
+    <!-- =========================
+         SUPABASE
+    ========================== -->
 
-            ${itemsHTML}
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        </div>
-
-
-        <br>
-
-
-        <h3>
-            Total:
-            ${formatPrice(order.total)}
-        </h3>
-
-    `;
-
-}
+    <script src="../js/supabase.js"></script>
 
 
-// ===============================
-// INIT
-// ===============================
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+    <script>
 
-        loadOrders();
+        /* =========================================
+           HELPER
+        ========================================= */
 
-    }
-);
+        function formatPrice(value) {
 
-</script>
+            return new Intl.NumberFormat(
+                "id-ID",
+                {
+                    style: "currency",
+                    currency: "IDR",
+                    maximumFractionDigits: 0
+                }
+            ).format(value || 0);
+
+        }
+
+
+        function formatDate(value) {
+
+            if (!value) {
+                return "-";
+            }
+
+            return new Date(value).toLocaleString(
+                "id-ID",
+                {
+                    dateStyle: "medium",
+                    timeStyle: "short"
+                }
+            );
+
+        }
+
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        function getStatusClass(status) {
+
+            const normalized =
+                String(status || "")
+                    .toLowerCase();
+
+            if (normalized === "processing") {
+                return "status-processing";
+            }
+
+            if (normalized === "completed") {
+                return "status-completed";
+            }
+
+            if (
+                normalized === "cancelled" ||
+                normalized === "canceled"
+            ) {
+                return "status-cancelled";
+            }
+
+            return "status-pending";
+
+        }
+
+
+        /* =========================================
+           VERIFY ADMIN
+        ========================================= */
+
+        async function verifyAdminAccess() {
+
+            try {
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await supabaseClient.auth.getUser();
+
+
+                if (userError || !user) {
+
+                    window.location.href =
+                        "../auth/login.html";
+
+                    return false;
+
+                }
+
+
+                const {
+                    data: profile,
+                    error: profileError
+                } = await supabaseClient
+                    .from("profiles")
+                    .select("role, full_name")
+                    .eq("id", user.id)
+                    .single();
+
+
+                if (
+                    profileError ||
+                    !profile ||
+                    profile.role !== "admin"
+                ) {
+
+                    alert(
+                        "Akses admin tidak diizinkan."
+                    );
+
+                    window.location.href =
+                        "../index.html";
+
+                    return false;
+
+                }
+
+
+                document
+                    .getElementById("admin-loading")
+                    .style.display = "none";
+
+
+                document
+                    .getElementById("admin-app")
+                    .style.display = "block";
+
+
+                return true;
+
+            } catch (error) {
+
+                console.error(
+                    "ADMIN ACCESS ERROR:",
+                    error
+                );
+
+                window.location.href =
+                    "../auth/login.html";
+
+                return false;
+
+            }
+
+        }
+
+
+        /* =========================================
+           LOAD ORDERS
+        ========================================= */
+
+        async function loadOrders() {
+
+            const table =
+                document.getElementById(
+                    "orders-table"
+                );
+
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="7" class="empty-state">
+                        Memuat pesanan...
+                    </td>
+                </tr>
+            `;
+
+
+            try {
+
+                const {
+                    data: orders,
+                    error
+                } = await supabaseClient
+                    .from("orders")
+                    .select(`
+                        id,
+                        order_number,
+                        customer_name,
+                        phone,
+                        total,
+                        status,
+                        created_at
+                    `)
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                updateStatistics(
+                    orders || []
+                );
+
+
+                if (
+                    !orders ||
+                    orders.length === 0
+                ) {
+
+                    table.innerHTML = `
+                        <tr>
+                            <td
+                                colspan="7"
+                                class="empty-state"
+                            >
+                                Belum ada pesanan.
+                            </td>
+                        </tr>
+                    `;
+
+                    return;
+
+                }
+
+
+                table.innerHTML =
+                    orders.map(order => `
+
+                        <tr>
+
+                            <td>
+                                <span class="order-number">
+                                    ${escapeHTML(
+                                        order.order_number
+                                    )}
+                                </span>
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    order.customer_name
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    order.phone
+                                )}
+                            </td>
+
+                            <td>
+                                ${formatPrice(
+                                    order.total
+                                )}
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="status
+                                    ${getStatusClass(
+                                        order.status
+                                    )}"
+                                >
+                                    ${escapeHTML(
+                                        order.status
+                                    )}
+                                </span>
+
+                            </td>
+
+                            <td>
+                                ${formatDate(
+                                    order.created_at
+                                )}
+                            </td>
+
+                            <td>
+
+                                <button
+                                    class="detail-btn"
+                                    onclick="showOrderDetail(
+                                        ${Number(order.id)}
+                                    )"
+                                >
+                                    Detail
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    `).join("");
+
+
+            } catch (error) {
+
+                console.error(
+                    "LOAD ORDERS ERROR:",
+                    error
+                );
+
+
+                table.innerHTML = `
+                    <tr>
+                        <td
+                            colspan="7"
+                            class="empty-state"
+                        >
+                            Gagal memuat pesanan.
+                            <br>
+                            <small>
+                                ${escapeHTML(
+                                    error.message
+                                )}
+                            </small>
+                        </td>
+                    </tr>
+                `;
+
+            }
+
+        }
+
+
+        /* =========================================
+           STATISTICS
+        ========================================= */
+
+        function updateStatistics(orders) {
+
+            const total =
+                orders.length;
+
+
+            const pending =
+                orders.filter(
+                    order =>
+                        String(order.status)
+                            .toLowerCase() === "pending"
+                ).length;
+
+
+            const processing =
+                orders.filter(
+                    order =>
+                        String(order.status)
+                            .toLowerCase() === "processing"
+                ).length;
+
+
+            const completed =
+                orders.filter(
+                    order =>
+                        String(order.status)
+                            .toLowerCase() === "completed"
+                ).length;
+
+
+            document.getElementById(
+                "total-orders"
+            ).textContent = total;
+
+
+            document.getElementById(
+                "pending-orders"
+            ).textContent = pending;
+
+
+            document.getElementById(
+                "processing-orders"
+            ).textContent = processing;
+
+
+            document.getElementById(
+                "completed-orders"
+            ).textContent = completed;
+
+        }
+
+
+        /* =========================================
+           ORDER DETAIL
+        ========================================= */
+
+        async function showOrderDetail(orderId) {
+
+            const detail =
+                document.getElementById(
+                    "order-detail"
+                );
+
+
+            detail.style.display = "block";
+
+
+            detail.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+
+            document.getElementById(
+                "detail-order-number"
+            ).textContent = "Memuat...";
+
+
+            try {
+
+                const {
+                    data: order,
+                    error: orderError
+                } = await supabaseClient
+                    .from("orders")
+                    .select(`
+                        id,
+                        order_number,
+                        customer_name,
+                        phone,
+                        notes,
+                        total,
+                        status,
+                        created_at
+                    `)
+                    .eq("id", orderId)
+                    .single();
+
+
+                if (orderError) {
+                    throw orderError;
+                }
+
+
+                const {
+                    data: items,
+                    error: itemsError
+                } = await supabaseClient
+                    .from("order_items")
+                    .select(`
+                        product_id,
+                        product_name,
+                        price,
+                        quantity,
+                        subtotal
+                    `)
+                    .eq("order_id", orderId)
+                    .order("id");
+
+
+                if (itemsError) {
+                    throw itemsError;
+                }
+
+
+                document.getElementById(
+                    "detail-order-number"
+                ).textContent =
+                    order.order_number;
+
+
+                document.getElementById(
+                    "detail-order-date"
+                ).textContent =
+                    formatDate(
+                        order.created_at
+                    );
+
+
+                document.getElementById(
+                    "detail-customer"
+                ).textContent =
+                    order.customer_name;
+
+
+                document.getElementById(
+                    "detail-phone"
+                ).textContent =
+                    order.phone;
+
+
+                document.getElementById(
+                    "detail-status"
+                ).textContent =
+                    order.status;
+
+
+                const itemsContainer =
+                    document.getElementById(
+                        "detail-items"
+                    );
+
+
+                if (
+                    !items ||
+                    items.length === 0
+                ) {
+
+                    itemsContainer.innerHTML = `
+                        <tr>
+                            <td
+                                colspan="4"
+                                class="empty-state"
+                            >
+                                Tidak ada item.
+                            </td>
+                        </tr>
+                    `;
+
+                } else {
+
+                    itemsContainer.innerHTML =
+                        items.map(item => `
+
+                            <tr>
+
+                                <td>
+                                    ${escapeHTML(
+                                        item.product_name
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${formatPrice(
+                                        item.price
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${Number(
+                                        item.quantity
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${formatPrice(
+                                        item.subtotal
+                                    )}
+                                </td>
+
+                            </tr>
+
+                        `).join("");
+
+                }
+
+
+                document.getElementById(
+                    "detail-total"
+                ).textContent =
+                    formatPrice(
+                        order.total
+                    );
+
+
+            } catch (error) {
+
+                console.error(
+                    "ORDER DETAIL ERROR:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "detail-order-number"
+                ).textContent =
+                    "Gagal memuat detail";
+
+
+                alert(
+                    "Gagal memuat detail pesanan: " +
+                    error.message
+                );
+
+            }
+
+        }
+
+
+        /* =========================================
+           CLOSE DETAIL
+        ========================================= */
+
+        function closeOrderDetail() {
+
+            document.getElementById(
+                "order-detail"
+            ).style.display = "none";
+
+        }
+
+
+        /* =========================================
+           LOGOUT
+        ========================================= */
+
+        async function logoutAdmin() {
+
+            await supabaseClient.auth.signOut();
+
+            window.location.href =
+                "../auth/login.html";
+
+        }
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        (async function () {
+
+            const allowed =
+                await verifyAdminAccess();
+
+
+            if (allowed) {
+
+                await loadOrders();
+
+            }
+
+        })();
+
+    </script>
 
 </body>
 </html>

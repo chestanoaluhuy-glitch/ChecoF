@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Kelola Produk — Checoff</title>
+    <title>Kelola Produk — ARDANA BATIK</title>
 
     <link
         rel="stylesheet"
@@ -19,21 +19,35 @@
 
     <style>
 
+        /* =========================================
+           ADMIN PRODUCTS — ARDANA BATIK
+        ========================================= */
+
         .admin-page {
             padding: 120px 0 80px;
+            min-height: 80vh;
         }
 
         .admin-header {
             margin-bottom: 40px;
         }
 
+        .admin-header .section-label {
+            color: #d4af37;
+        }
+
         .admin-header h1 {
             margin-bottom: 10px;
         }
 
-        .admin-header p {
+        .admin-header p:not(.section-label) {
             opacity: .7;
         }
+
+
+        /* =========================================
+           TOP BAR
+        ========================================= */
 
         .admin-top {
             display: flex;
@@ -44,26 +58,72 @@
             flex-wrap: wrap;
         }
 
+        .admin-top h2 {
+            margin: 0;
+        }
+
+
+        /* =========================================
+           BUTTON
+        ========================================= */
+
         .admin-btn {
             padding: 12px 18px;
-            border: 1px solid rgba(255,255,255,.15);
+
+            border: 1px solid
+                rgba(212, 175, 55, .35);
+
             background: transparent;
+
             color: inherit;
+
             cursor: pointer;
+
+            transition:
+                .25s ease;
+
+            font-family: inherit;
+
+            letter-spacing: .04em;
         }
 
         .admin-btn:hover {
-            background: rgba(255,255,255,.08);
+            border-color: #d4af37;
+
+            color: #d4af37;
+
+            background:
+                rgba(212, 175, 55, .06);
         }
 
         .admin-btn-primary {
-            background: #b52b32;
-            border-color: #b52b32;
+            background: #d4af37;
+
+            border-color: #d4af37;
+
+            color: #080808;
+
+            font-weight: 700;
         }
 
         .admin-btn-primary:hover {
-            background: #96242a;
+            background: #f0d477;
+
+            border-color: #f0d477;
+
+            color: #080808;
         }
+
+        .admin-btn:disabled {
+            opacity: .5;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =========================================
+           PRODUCT GRID
+        ========================================= */
 
         .product-admin-grid {
 
@@ -72,27 +132,57 @@
             grid-template-columns:
                 repeat(3, 1fr);
 
-            gap: 20px;
+            gap: 24px;
 
         }
+
+
+        /* =========================================
+           PRODUCT CARD
+        ========================================= */
 
         .product-admin-card {
 
-            border: 1px solid rgba(255,255,255,.1);
+            border: 1px solid
+                rgba(212, 175, 55, .16);
 
             background:
-                rgba(255,255,255,.03);
+                rgba(255, 255, 255, .025);
 
             overflow: hidden;
 
+            transition:
+                transform .3s ease,
+                border-color .3s ease,
+                box-shadow .3s ease;
+
         }
+
+        .product-admin-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(212, 175, 55, .45);
+
+            box-shadow:
+                0 18px 45px
+                rgba(0, 0, 0, .35);
+
+        }
+
+
+        /* =========================================
+           PRODUCT IMAGE
+        ========================================= */
 
         .product-admin-image {
 
-            height: 220px;
+            height: 260px;
 
             background:
-                rgba(255,255,255,.05);
+                #111;
 
             display: flex;
 
@@ -101,6 +191,8 @@
             justify-content: center;
 
             overflow: hidden;
+
+            position: relative;
 
         }
 
@@ -112,43 +204,82 @@
 
             object-fit: cover;
 
+            display: block;
+
         }
 
         .no-image {
 
-            opacity: .5;
+            width: 100%;
+
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 20px;
+
+            color: #d4af37;
+
+            font-family:
+                "Space Grotesk",
+                sans-serif;
+
+            letter-spacing:
+                .15em;
+
+            font-size: 13px;
 
         }
 
+
+        /* =========================================
+           PRODUCT INFO
+        ========================================= */
+
         .product-admin-info {
 
-            padding: 20px;
+            padding: 22px;
 
         }
 
         .product-admin-category {
 
-            font-size: 12px;
+            font-size: 11px;
 
             text-transform: uppercase;
 
-            opacity: .6;
+            letter-spacing:
+                .15em;
 
-            margin-bottom: 8px;
+            color:
+                #d4af37;
+
+            margin-bottom: 9px;
 
         }
 
         .product-admin-info h3 {
 
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+
+            font-size: 20px;
 
         }
 
         .product-admin-price {
 
-            font-weight: bold;
+            font-weight: 700;
 
             font-size: 18px;
+
+            color:
+                #f0d477;
 
             margin-bottom: 8px;
 
@@ -164,6 +295,18 @@
 
         }
 
+        .product-admin-stock strong {
+
+            color:
+                #f5f0e8;
+
+        }
+
+
+        /* =========================================
+           ACTIONS
+        ========================================= */
+
         .product-admin-actions {
 
             display: flex;
@@ -178,9 +321,10 @@
 
         }
 
-        /* =========================
-           FORM
-        ========================= */
+
+        /* =========================================
+           FORM BOX
+        ========================================= */
 
         .product-form-box {
 
@@ -188,12 +332,13 @@
 
             margin-bottom: 40px;
 
-            padding: 30px;
+            padding: 32px;
 
-            border: 1px solid rgba(255,255,255,.1);
+            border: 1px solid
+                rgba(212, 175, 55, .25);
 
             background:
-                rgba(255,255,255,.03);
+                rgba(255, 255, 255, .025);
 
         }
 
@@ -201,13 +346,46 @@
 
             display: block;
 
+            animation:
+                formReveal .3s ease;
+
+        }
+
+        @keyframes formReveal {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(-10px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
         }
 
         .product-form-box h2 {
 
             margin-bottom: 25px;
 
+            color:
+                #f5f0e8;
+
         }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
 
         .product-form {
 
@@ -229,7 +407,11 @@
 
             font-size: 13px;
 
-            opacity: .7;
+            color:
+                #d4af37;
+
+            letter-spacing:
+                .04em;
 
         }
 
@@ -241,15 +423,58 @@
 
             width: 100%;
 
-            padding: 13px;
+            padding: 14px;
 
-            border: 1px solid rgba(255,255,255,.15);
+            border: 1px solid
+                rgba(212, 175, 55, .2);
 
-            background: rgba(0,0,0,.2);
+            background:
+                rgba(0, 0, 0, .3);
 
-            color: inherit;
+            color:
+                #f5f0e8;
 
             outline: none;
+
+            font-family: inherit;
+
+            transition:
+                border-color .25s ease,
+                box-shadow .25s ease;
+
+        }
+
+        .form-group input:focus,
+
+        .form-group textarea:focus,
+
+        .form-group select:focus {
+
+            border-color:
+                #d4af37;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(212, 175, 55, .08);
+
+        }
+
+        .form-group input::placeholder,
+
+        .form-group textarea::placeholder {
+
+            color:
+                rgba(245, 240, 232, .35);
+
+        }
+
+        .form-group select option {
+
+            background:
+                #141414;
+
+            color:
+                #f5f0e8;
 
         }
 
@@ -257,7 +482,14 @@
 
             resize: vertical;
 
+            min-height: 130px;
+
         }
+
+
+        /* =========================================
+           FORM ACTIONS
+        ========================================= */
 
         .form-actions {
 
@@ -271,17 +503,94 @@
 
         }
 
+
+        /* =========================================
+           LOADING
+        ========================================= */
+
         .loading-admin {
 
-            grid-column: 1 / -1;
+            grid-column:
+                1 / -1;
 
-            padding: 50px;
+            padding: 70px 20px;
 
             text-align: center;
 
             opacity: .7;
 
+            border:
+                1px solid
+                rgba(212, 175, 55, .12);
+
         }
+
+
+        /* =========================================
+           ADMIN ACCESS
+        ========================================= */
+
+        .admin-loading {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 9999;
+
+            background:
+                #080808;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 30px;
+
+        }
+
+        .admin-loading-content {
+
+            max-width: 420px;
+
+        }
+
+        .admin-loading-label {
+
+            color:
+                #d4af37;
+
+            font-size: 12px;
+
+            letter-spacing:
+                .2em;
+
+            margin-bottom: 15px;
+
+        }
+
+        .admin-loading-title {
+
+            font-size: 28px;
+
+            margin-bottom: 10px;
+
+        }
+
+        .admin-loading-text {
+
+            opacity: .6;
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
 
         @media (max-width: 1000px) {
 
@@ -294,17 +603,57 @@
 
         }
 
+
         @media (max-width: 650px) {
 
             .product-admin-grid {
 
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
 
             }
 
             .admin-page {
 
-                padding-top: 100px;
+                padding-top:
+                    100px;
+
+            }
+
+            .product-form-box {
+
+                padding: 22px;
+
+            }
+
+            .product-admin-image {
+
+                height: 240px;
+
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .admin-top {
+
+                align-items:
+                    stretch;
+
+            }
+
+            .admin-top .admin-btn {
+
+                width: 100%;
+
+            }
+
+            .product-admin-actions {
+
+                flex-direction:
+                    column;
 
             }
 
@@ -318,23 +667,61 @@
 <body>
 
 
-<!-- =========================
+<!-- =========================================
+     ADMIN ACCESS LOADING
+========================================= -->
+
+<div
+    id="admin-loading"
+    class="admin-loading"
+>
+
+    <div class="admin-loading-content">
+
+        <div class="admin-loading-label">
+            ARDANA BATIK ADMIN
+        </div>
+
+        <h2 class="admin-loading-title">
+            VERIFYING ACCESS
+        </h2>
+
+        <p class="admin-loading-text">
+            Memeriksa hak akses administrator...
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     ADMIN APP
+========================================= -->
+
+<div
+    id="admin-app"
+    style="display: none;"
+>
+
+
+<!-- =========================================
      NAVBAR
-========================= -->
+========================================= -->
 
 <header class="navbar">
 
-    <div class="container nav-container">
+    <div class="container">
 
         <a
             href="../index.html"
             class="logo"
         >
-            CHE<span>COFF</span>
+            ARDANA
+            <span>BATIK</span>
         </a>
 
-
-        <nav class="nav-menu">
+        <nav class="nav-links">
 
             <a href="../index.html">
                 Website
@@ -351,6 +738,13 @@
                 Produk
             </a>
 
+            <a
+                href="#"
+                onclick="logoutAdmin(); return false;"
+            >
+                Logout
+            </a>
+
         </nav>
 
     </div>
@@ -358,9 +752,9 @@
 </header>
 
 
-<!-- =========================
+<!-- =========================================
      MAIN
-========================= -->
+========================================= -->
 
 <main>
 
@@ -374,7 +768,7 @@
     <div class="admin-header">
 
         <p class="section-label">
-            CHECOFF ADMIN
+            ARDANA BATIK ADMIN
         </p>
 
         <h1>
@@ -382,18 +776,20 @@
         </h1>
 
         <p>
-            Tambahkan, ubah, dan hapus menu Checoff.
+            Kelola koleksi batik luxury ARDANA BATIK.
         </p>
 
     </div>
 
 
-    <!-- TOP -->
+    <!-- =====================================
+         TOP
+    ====================================== -->
 
     <div class="admin-top">
 
         <h2>
-            DAFTAR MENU
+            DAFTAR KOLEKSI
         </h2>
 
         <button
@@ -407,9 +803,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================
          FORM PRODUK
-    ========================= -->
+    ====================================== -->
 
     <div
         id="product-form-box"
@@ -433,6 +829,8 @@
             >
 
 
+            <!-- NAMA -->
+
             <div class="form-group">
 
                 <label for="product-name">
@@ -442,12 +840,14 @@
                 <input
                     type="text"
                     id="product-name"
-                    placeholder="Contoh: Cafe Latte"
+                    placeholder="Contoh: Royal Parang Shirt"
                     required
                 >
 
             </div>
 
+
+            <!-- KATEGORI -->
 
             <div class="form-group">
 
@@ -464,20 +864,24 @@
                         Pilih kategori
                     </option>
 
-                    <option value="Coffee">
-                        Coffee
+                    <option value="Batik Shirt">
+                        Batik Shirt
                     </option>
 
-                    <option value="Non-Coffee">
-                        Non-Coffee
+                    <option value="Batik Dress">
+                        Batik Dress
                     </option>
 
-                    <option value="Snack">
-                        Snack
+                    <option value="Batik Outer">
+                        Batik Outer
                     </option>
 
-                    <option value="Merchandise">
-                        Merchandise
+                    <option value="Batik Set">
+                        Batik Set
+                    </option>
+
+                    <option value="Batik Accessories">
+                        Batik Accessories
                     </option>
 
                 </select>
@@ -485,22 +889,27 @@
             </div>
 
 
+            <!-- HARGA -->
+
             <div class="form-group">
 
                 <label for="product-price">
-                    Harga
+                    Harga (IDR)
                 </label>
 
                 <input
                     type="number"
                     id="product-price"
                     min="0"
-                    placeholder="25000"
+                    step="1000"
+                    placeholder="250000"
                     required
                 >
 
             </div>
 
+
+            <!-- STOK -->
 
             <div class="form-group">
 
@@ -512,12 +921,15 @@
                     type="number"
                     id="product-stock"
                     min="0"
+                    step="1"
                     placeholder="10"
                     required
                 >
 
             </div>
 
+
+            <!-- IMAGE -->
 
             <div class="form-group">
 
@@ -534,20 +946,24 @@
             </div>
 
 
+            <!-- DESCRIPTION -->
+
             <div class="form-group">
 
                 <label for="product-description">
-                    Deskripsi
+                    Deskripsi Produk
                 </label>
 
                 <textarea
                     id="product-description"
                     rows="5"
-                    placeholder="Deskripsi produk..."
+                    placeholder="Deskripsikan material, motif, karakter, dan detail produk..."
                 ></textarea>
 
             </div>
 
+
+            <!-- ACTION -->
 
             <div class="form-actions">
 
@@ -575,9 +991,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================
          PRODUCT LIST
-    ========================= -->
+    ====================================== -->
 
     <div
         id="product-admin-list"
@@ -586,7 +1002,7 @@
 
         <div class="loading-admin">
 
-            Memuat produk...
+            Memuat koleksi ARDANA BATIK...
 
         </div>
 
@@ -600,26 +1016,28 @@
 </main>
 
 
-<!-- =========================
+<!-- =========================================
      FOOTER
-========================= -->
+========================================= -->
 
 <footer class="footer">
 
     <div class="container">
 
         <p>
-            © 2026 Checoff Admin.
+            © 2026 ARDANA BATIK. Luxury Indonesian Batik.
         </p>
 
     </div>
 
 </footer>
 
+</div>
 
-<!-- =========================
+
+<!-- =========================================
      SUPABASE
-========================= -->
+========================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -629,16 +1047,143 @@
 <script>
 
 
-// =====================================
+// =========================================
 // VARIABLES
-// =====================================
+// =========================================
 
 let products = [];
 
 
-// =====================================
+// =========================================
+// ADMIN ACCESS
+// =========================================
+
+async function verifyAdminAccess() {
+
+    try {
+
+        const {
+            data: {
+                user
+            },
+            error: userError
+        } = await supabaseClient
+            .auth
+            .getUser();
+
+
+        if (userError) {
+
+            console.error(
+                "Gagal mengecek user:",
+                userError
+            );
+
+            window.location.href =
+                "../auth/login.html";
+
+            return;
+
+        }
+
+
+        if (!user) {
+
+            window.location.href =
+                "../auth/login.html";
+
+            return;
+
+        }
+
+
+        const {
+            data: profile,
+            error: profileError
+        } = await supabaseClient
+
+            .from("profiles")
+
+            .select("role")
+
+            .eq(
+                "id",
+                user.id
+            )
+
+            .single();
+
+
+        if (profileError) {
+
+            console.error(
+                "Gagal mengecek role:",
+                profileError
+            );
+
+            alert(
+                "Gagal memverifikasi akses admin."
+            );
+
+            window.location.href =
+                "../index.html";
+
+            return;
+
+        }
+
+
+        if (
+            !profile ||
+            profile.role !== "admin"
+        ) {
+
+            alert(
+                "Akses ditolak. Halaman ini hanya untuk administrator."
+            );
+
+            window.location.href =
+                "../index.html";
+
+            return;
+
+        }
+
+
+        // Admin valid
+
+        document.getElementById(
+            "admin-loading"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "admin-app"
+        ).style.display = "block";
+
+
+        await loadProducts();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "ADMIN ACCESS ERROR:",
+            error
+        );
+
+        window.location.href =
+            "../auth/login.html";
+
+    }
+
+}
+
+
+// =========================================
 // FORMAT RUPIAH
-// =====================================
+// =========================================
 
 function formatPrice(price) {
 
@@ -649,14 +1194,16 @@ function formatPrice(price) {
             currency: "IDR",
             maximumFractionDigits: 0
         }
-    ).format(Number(price) || 0);
+    ).format(
+        Number(price) || 0
+    );
 
 }
 
 
-// =====================================
+// =========================================
 // LOAD PRODUCTS
-// =====================================
+// =========================================
 
 async function loadProducts() {
 
@@ -670,7 +1217,7 @@ async function loadProducts() {
 
         <div class="loading-admin">
 
-            Memuat produk...
+            Memuat koleksi ARDANA BATIK...
 
         </div>
 
@@ -678,11 +1225,8 @@ async function loadProducts() {
 
 
     const {
-
         data,
-
         error
-
     } = await supabaseClient
 
         .from("products")
@@ -709,7 +1253,7 @@ async function loadProducts() {
 
             <div class="loading-admin">
 
-                Gagal mengambil produk.
+                Gagal mengambil koleksi.
 
                 <br><br>
 
@@ -732,9 +1276,9 @@ async function loadProducts() {
 }
 
 
-// =====================================
+// =========================================
 // RENDER PRODUCTS
-// =====================================
+// =========================================
 
 function renderProducts() {
 
@@ -750,7 +1294,15 @@ function renderProducts() {
 
             <div class="loading-admin">
 
-                Belum ada produk.
+                Belum ada koleksi produk.
+
+                <br><br>
+
+                Klik
+                <strong>
+                    + TAMBAH PRODUK
+                </strong>
+                untuk membuat produk pertama.
 
             </div>
 
@@ -776,6 +1328,7 @@ function renderProducts() {
                 <img
                     src="${product.image_url}"
                     alt="${product.name}"
+                    loading="lazy"
                 >
 
             `
@@ -783,7 +1336,7 @@ function renderProducts() {
             : `
 
                 <div class="no-image">
-                    CHECOFF
+                    ARDANA BATIK
                 </div>
 
             `;
@@ -871,9 +1424,9 @@ function renderProducts() {
 }
 
 
-// =====================================
+// =========================================
 // SHOW ADD FORM
-// =====================================
+// =========================================
 
 function showAddForm() {
 
@@ -898,6 +1451,11 @@ function showAddForm() {
     ).value = "";
 
 
+    document.getElementById(
+        "product-name"
+    ).focus();
+
+
     window.scrollTo({
 
         top: 300,
@@ -909,9 +1467,9 @@ function showAddForm() {
 }
 
 
-// =====================================
+// =========================================
 // HIDE FORM
-// =====================================
+// =========================================
 
 function hideForm() {
 
@@ -922,9 +1480,9 @@ function hideForm() {
 }
 
 
-// =====================================
+// =========================================
 // EDIT PRODUCT
-// =====================================
+// =========================================
 
 function editProduct(productId) {
 
@@ -1011,9 +1569,9 @@ function editProduct(productId) {
 }
 
 
-// =====================================
+// =========================================
 // SAVE PRODUCT
-// =====================================
+// =========================================
 
 async function saveProduct(event) {
 
@@ -1081,6 +1639,54 @@ async function saveProduct(event) {
             ).value.trim();
 
 
+        // =================================
+        // VALIDASI
+        // =================================
+
+        if (!name) {
+
+            alert(
+                "Nama produk wajib diisi."
+            );
+
+            return;
+
+        }
+
+
+        if (!category) {
+
+            alert(
+                "Kategori produk wajib dipilih."
+            );
+
+            return;
+
+        }
+
+
+        if (price < 0) {
+
+            alert(
+                "Harga tidak boleh kurang dari 0."
+            );
+
+            return;
+
+        }
+
+
+        if (stock < 0) {
+
+            alert(
+                "Stok tidak boleh kurang dari 0."
+            );
+
+            return;
+
+        }
+
+
         const productData = {
 
             name: name,
@@ -1100,9 +1706,9 @@ async function saveProduct(event) {
         };
 
 
-        // =============================
+        // =================================
         // UPDATE
-        // =============================
+        // =================================
 
         if (id) {
 
@@ -1125,15 +1731,15 @@ async function saveProduct(event) {
 
 
             alert(
-                "Produk berhasil diperbarui! ✅"
+                "Produk berhasil diperbarui! ✓"
             );
 
         }
 
 
-        // =============================
+        // =================================
         // INSERT
-        // =============================
+        // =================================
 
         else {
 
@@ -1153,7 +1759,7 @@ async function saveProduct(event) {
 
 
             alert(
-                "Produk berhasil ditambahkan! ✅"
+                "Produk berhasil ditambahkan! ✓"
             );
 
         }
@@ -1164,7 +1770,9 @@ async function saveProduct(event) {
         await loadProducts();
 
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
 
         console.error(
@@ -1174,12 +1782,15 @@ async function saveProduct(event) {
 
 
         alert(
-            "Produk gagal disimpan. Cek Console."
+            "Produk gagal disimpan.\n\n" +
+            "Detail: " +
+            error.message
         );
 
 
-    } finally {
+    }
 
+    finally {
 
         button.disabled = false;
 
@@ -1191,9 +1802,9 @@ async function saveProduct(event) {
 }
 
 
-// =====================================
+// =========================================
 // DELETE PRODUCT
-// =====================================
+// =========================================
 
 async function deleteProduct(productId) {
 
@@ -1211,7 +1822,71 @@ async function deleteProduct(productId) {
 
     const confirmed =
         confirm(
-            `Hapus produk "${product.name}"?`
+            `Hapus produk "${product.name}" dari ARDANA BATIK?`
+        );
+
+
+    if (!confirmed)
+        return;
+
+
+    try {
+
+        const {
+            error
+        } = await supabaseClient
+
+            .from("products")
+
+            .delete()
+
+            .eq(
+                "id",
+                productId
+            );
+
+
+        if (error)
+            throw error;
+
+
+        alert(
+            "Produk berhasil dihapus! ✓"
+        );
+
+
+        await loadProducts();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Gagal menghapus produk:",
+            error
+        );
+
+
+        alert(
+            "Produk gagal dihapus.\n\n" +
+            "Detail: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+// =========================================
+// LOGOUT ADMIN
+// =========================================
+
+async function logoutAdmin() {
+
+    const confirmed =
+        confirm(
+            "Yakin ingin logout dari ARDANA BATIK Admin?"
         );
 
 
@@ -1222,27 +1897,19 @@ async function deleteProduct(productId) {
     const {
         error
     } = await supabaseClient
-
-        .from("products")
-
-        .delete()
-
-        .eq(
-            "id",
-            productId
-        );
+        .auth
+        .signOut();
 
 
     if (error) {
 
         console.error(
-            "Gagal menghapus produk:",
+            "Gagal logout:",
             error
         );
 
-
         alert(
-            "Produk gagal dihapus. Cek Console."
+            "Logout gagal."
         );
 
         return;
@@ -1250,29 +1917,24 @@ async function deleteProduct(productId) {
     }
 
 
-    alert(
-        "Produk berhasil dihapus! 🗑️"
-    );
-
-
-    loadProducts();
+    window.location.href =
+        "../auth/login.html";
 
 }
 
 
-// =====================================
+// =========================================
 // INIT
-// =====================================
+// =========================================
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        loadProducts();
+        verifyAdminAccess();
 
     }
 );
-
 
 </script>
 

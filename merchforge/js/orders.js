@@ -1,5 +1,5 @@
 /* =========================================================
-   CHECOFF - MY ORDERS
+   ARDANA BATIK - MY ORDERS
 ========================================================= */
 
 
@@ -166,9 +166,6 @@ async function loadOrders() {
 
         /* =================================================
            AMBIL ORDER MILIK USER
-           
-           PENTING:
-           user_id harus sama dengan auth.uid()
         ================================================= */
 
         const {
@@ -231,14 +228,14 @@ async function loadOrders() {
 
                     <p>
                         Kamu belum memiliki
-                        pesanan di Checoff.
+                        pesanan di ARDANA BATIK.
                     </p>
 
                     <a
                         href="products.html"
                         class="btn btn-primary"
                     >
-                        LIHAT MENU →
+                        LIHAT COLLECTION →
                     </a>
 
                 </div>
@@ -342,7 +339,9 @@ async function loadOrders() {
                                 </p>
 
                                 <h2>
-                                    ${order.order_number}
+                                    ${escapeHTML(
+                                        order.order_number
+                                    )}
                                 </h2>
 
                             </div>
@@ -418,7 +417,7 @@ async function loadOrders() {
                                 class="btn btn-primary"
                                 onclick="
                                     showInvoice(
-                                        ${order.id}
+                                        ${Number(order.id)}
                                     )
                                 "
                             >
@@ -456,7 +455,9 @@ async function loadOrders() {
                 </h2>
 
                 <p>
-                    ${error.message}
+                    ${escapeHTML(
+                        error.message
+                    )}
                 </p>
 
                 <button
@@ -511,11 +512,15 @@ function renderOrderItems(items) {
                     <div>
 
                         <strong>
-                            ${item.product_name}
+                            ${escapeHTML(
+                                item.product_name
+                            )}
                         </strong>
 
                         <span>
-                            ${item.quantity}
+                            ${Number(
+                                item.quantity
+                            )}
                             ×
                             ${formatOrderPrice(
                                 item.price
@@ -644,14 +649,32 @@ async function showInvoice(orderId) {
 
 
         /* =================================================
-           AMBIL ORDER
+           VALIDASI ORDER ID
+        ================================================= */
+
+        const numericOrderId =
+            Number(orderId);
+
+
+        if (
+            !Number.isInteger(
+                numericOrderId
+            ) ||
+            numericOrderId <= 0
+        ) {
+
+            throw new Error(
+                "ID pesanan tidak valid."
+            );
+
+        }
+
+
+        /* =================================================
+           AMBIL ORDER MILIK USER
            
-           user_id sengaja dicek lagi.
-           
-           Jadi walaupun seseorang mencoba
-           mengganti ID order di URL / browser,
-           dia tetap tidak bisa membuka order
-           milik user lain.
+           user_id dicek lagi agar user tidak
+           dapat membuka invoice milik user lain.
         ================================================= */
 
         const {
@@ -672,7 +695,7 @@ async function showInvoice(orderId) {
             `)
             .eq(
                 "id",
-                orderId
+                numericOrderId
             )
             .eq(
                 "user_id",
@@ -746,11 +769,15 @@ async function showInvoice(orderId) {
                         <div>
 
                             <strong>
-                                ${item.product_name}
+                                ${escapeHTML(
+                                    item.product_name
+                                )}
                             </strong>
 
                             <p>
-                                ${item.quantity}
+                                ${Number(
+                                    item.quantity
+                                )}
                                 ×
                                 ${formatOrderPrice(
                                     item.price
@@ -801,7 +828,7 @@ async function showInvoice(orderId) {
                             <p
                                 class="section-label"
                             >
-                                CHECOFF COFFEE SHOP
+                                ARDANA BATIK
                             </p>
 
                             <h2>
@@ -815,6 +842,7 @@ async function showInvoice(orderId) {
                             type="button"
                             class="invoice-close"
                             onclick="closeInvoice()"
+                            aria-label="Tutup nota"
                         >
                             ×
                         </button>
@@ -836,7 +864,9 @@ async function showInvoice(orderId) {
                             </span>
 
                             <strong>
-                                ${order.order_number}
+                                ${escapeHTML(
+                                    order.order_number
+                                )}
                             </strong>
 
                         </div>
@@ -864,7 +894,9 @@ async function showInvoice(orderId) {
                             </span>
 
                             <strong>
-                                ${order.customer_name}
+                                ${escapeHTML(
+                                    order.customer_name
+                                )}
                             </strong>
 
                         </div>
@@ -877,7 +909,9 @@ async function showInvoice(orderId) {
                             </span>
 
                             <strong>
-                                ${order.phone}
+                                ${escapeHTML(
+                                    order.phone
+                                )}
                             </strong>
 
                         </div>
@@ -961,7 +995,9 @@ async function showInvoice(orderId) {
                             </span>
 
                             <p>
-                                ${order.notes}
+                                ${escapeHTML(
+                                    order.notes
+                                )}
                             </p>
 
                         </div>
@@ -1066,6 +1102,39 @@ function closeInvoice() {
 function printInvoice() {
 
     window.print();
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 

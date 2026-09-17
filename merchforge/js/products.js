@@ -1,7 +1,6 @@
 /* =========================
-   PRODUCTS - Checoff Coffee Shop
+   PRODUCTS - ARDANA BATIK
 ========================= */
-
 
 let allProducts = [];
 
@@ -32,13 +31,12 @@ async function loadProducts() {
 
     productList.innerHTML = `
         <div class="loading">
-            Loading products...
+            Loading collection...
         </div>
     `;
 
 
     try {
-
 
         const {
             data,
@@ -55,20 +53,17 @@ async function loadProducts() {
 
 
         if (error) {
-
             throw error;
-
         }
 
 
         console.log(
-            "Semua produk dari Supabase:",
+            "Semua produk ARDANA BATIK dari Supabase:",
             data
         );
 
 
-        allProducts =
-            data || [];
+        allProducts = data || [];
 
 
         /* =========================
@@ -91,7 +86,6 @@ async function loadProducts() {
 
     } catch (error) {
 
-
         console.error(
             "Gagal mengambil produk:",
             error
@@ -102,12 +96,11 @@ async function loadProducts() {
             <div class="loading">
 
                 <h2>
-                    Gagal memuat produk
+                    Gagal memuat koleksi
                 </h2>
 
                 <p>
-                    Silakan cek koneksi
-                    Supabase.
+                    Silakan cek koneksi Supabase.
                 </p>
 
             </div>
@@ -123,7 +116,6 @@ async function loadProducts() {
 ========================= */
 
 function filterProducts(category) {
-
 
     console.log(
         "Kategori dipilih:",
@@ -146,7 +138,6 @@ function filterProducts(category) {
 
 function searchProducts(keyword) {
 
-
     currentSearch =
         keyword
             .trim()
@@ -154,7 +145,7 @@ function searchProducts(keyword) {
 
 
     console.log(
-        "Search:",
+        "Search collection:",
         currentSearch
     );
 
@@ -165,11 +156,184 @@ function searchProducts(keyword) {
 
 
 /* =========================
+   FORMAT PRICE
+========================= */
+
+function formatPrice(price) {
+
+    return new Intl.NumberFormat(
+        "id-ID",
+        {
+            style: "currency",
+            currency: "IDR",
+            maximumFractionDigits: 0
+        }
+    ).format(
+        Number(price) || 0
+    );
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value) {
+
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================
+   VALIDATE IMAGE URL
+========================= */
+
+function isValidProductImage(imageUrl) {
+
+    if (!imageUrl) {
+
+        return false;
+
+    }
+
+
+    const url =
+        String(imageUrl)
+            .trim()
+            .toLowerCase();
+
+
+    /*
+     * Jangan gunakan logo sebagai
+     * gambar produk.
+     */
+
+    if (
+        url.includes("logo_ardana")
+        ||
+        url.includes("logo-ardana")
+        ||
+        url.includes("ardana-logo")
+        ||
+        url.includes("checoff-logo")
+        ||
+        url.includes("checoff_logo")
+    ) {
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================
+   PRODUCT IMAGE
+========================= */
+
+function createProductImage(product) {
+
+    const imageUrl =
+        product.image_url;
+
+
+    /*
+     * Kalau image_url kosong atau
+     * ternyata URL logo, gunakan
+     * placeholder.
+     */
+
+    if (
+        !isValidProductImage(
+            imageUrl
+        )
+    ) {
+
+        return `
+            <div class="product-placeholder">
+
+                <span>
+                    ARDANA BATIK
+                </span>
+
+            </div>
+        `;
+
+    }
+
+
+    return `
+        <img
+            src="${escapeHTML(imageUrl)}"
+            alt="${escapeHTML(product.name)}"
+            loading="lazy"
+            onerror="
+                this.style.display='none';
+                this.parentElement.innerHTML=
+                '<div class=&quot;product-placeholder&quot;><span>ARDANA BATIK</span></div>';
+            "
+        >
+    `;
+
+}
+
+
+/* =========================
+   STOCK STATUS
+========================= */
+
+function createStockStatus(stock) {
+
+    const quantity =
+        Number(stock) || 0;
+
+
+    if (quantity <= 0) {
+
+        return `
+            <span class="stock-status out">
+                Sold Out
+            </span>
+        `;
+
+    }
+
+
+    if (quantity <= 3) {
+
+        return `
+            <span class="stock-status low">
+                Limited Stock
+            </span>
+        `;
+
+    }
+
+
+    return `
+        <span class="stock-status available">
+            Available
+        </span>
+    `;
+
+}
+
+
+/* =========================
    RENDER PRODUCTS
 ========================= */
 
 function renderProducts() {
-
 
     const productList =
         document.getElementById(
@@ -201,7 +365,6 @@ function renderProducts() {
         &&
         currentCategory
     ) {
-
 
         products =
             products.filter(
@@ -238,11 +401,9 @@ function renderProducts() {
 
     if (currentSearch) {
 
-
         products =
             products.filter(
                 product => {
-
 
                     const name =
                         (
@@ -295,7 +456,7 @@ function renderProducts() {
 
 
     console.log(
-        "Hasil filter/search:",
+        "Hasil filter/search ARDANA BATIK:",
         products
     );
 
@@ -308,18 +469,17 @@ function renderProducts() {
         products.length === 0
     ) {
 
-
         productList.innerHTML = `
 
             <div class="loading">
 
                 <h2>
-                    Menu tidak ditemukan
+                    Collection tidak ditemukan
                 </h2>
 
                 <p>
-                    Tidak ada menu yang
-                    cocok dengan pencarian.
+                    Tidak ada koleksi batik
+                    yang cocok dengan pencarian.
                 </p>
 
             </div>
@@ -347,42 +507,22 @@ function renderProducts() {
         product => {
 
 
-            /* =========================
-               PRICE
-            ========================== */
-
             const price =
-                new Intl.NumberFormat(
-                    "id-ID",
-                    {
-                        style: "currency",
-                        currency: "IDR",
-                        maximumFractionDigits: 0
-                    }
-                ).format(
+                formatPrice(
                     product.price
                 );
 
 
-            /* =========================
-               IMAGE
-            ========================== */
+            const stockStatus =
+                createStockStatus(
+                    product.stock
+                );
+
 
             const imageHTML =
-                product.image_url
-
-                    ? `
-                        <img
-                            src="${product.image_url}"
-                            alt="${product.name}"
-                        >
-                    `
-
-                    : `
-                        <span>
-                            CHECOFF
-                        </span>
-                    `;
+                createProductImage(
+                    product
+                );
 
 
             /* =========================
@@ -402,9 +542,8 @@ function renderProducts() {
             productCard.innerHTML = `
 
                 <a
-                    href="product-detail.html?id=${product.id}"
+                    href="product-detail.html?id=${encodeURIComponent(product.id)}"
                 >
-
 
                     <div
                         class="product-image"
@@ -419,19 +558,22 @@ function renderProducts() {
                         class="product-info"
                     >
 
-
                         <div
                             class="product-category"
                         >
 
-                            ${product.category}
+                            ${escapeHTML(
+                                product.category
+                            )}
 
                         </div>
 
 
                         <h3>
 
-                            ${product.name}
+                            ${escapeHTML(
+                                product.name
+                            )}
 
                         </h3>
 
@@ -446,16 +588,20 @@ function renderProducts() {
 
 
                         <div
-                            class="product-link"
+                            class="product-card-bottom"
                         >
 
-                            View Product →
+                            ${stockStatus}
+
+                            <span
+                                class="product-link"
+                            >
+                                View Product →
+                            </span>
 
                         </div>
 
-
                     </div>
-
 
                 </a>
 
@@ -465,7 +611,6 @@ function renderProducts() {
             productList.appendChild(
                 productCard
             );
-
 
         }
     );
@@ -481,9 +626,8 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-
         console.log(
-            "🔥 PRODUCTS.JS BERHASIL DIMUAT"
+            "🔥 ARDANA BATIK PRODUCTS.JS BERHASIL DIMUAT"
         );
 
 
@@ -501,7 +645,6 @@ document.addEventListener(
 
 
         if (searchInput) {
-
 
             searchInput.addEventListener(
                 "input",

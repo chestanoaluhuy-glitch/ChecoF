@@ -10,12 +10,12 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Detail Menu — Checoff</title>
-
     <meta
         name="description"
-        content="Lihat detail menu Checoff Coffee Shop."
+        content="Product Detail — ARDANA BATIK Luxury Indonesian Batik."
     >
+
+    <title>Product Detail — ARDANA BATIK</title>
 
     <link
         rel="stylesheet"
@@ -28,379 +28,258 @@
 <body>
 
 
-<!-- =========================
-     NAVBAR
-========================== -->
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
 
-<header class="navbar">
-
-    <div class="container nav-container">
-
-
-        <!-- LOGO -->
-
-        <a
-            href="index.html"
-            class="logo"
-        >
-
-            <img
-                src="assets/images/checoff-logo.jpg"
-                alt="Checoff Coffee Shop"
-            >
-
-        </a>
-
-
-        <!-- MENU -->
-
-        <nav class="nav-menu">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a
-                href="products.html"
-                class="active"
-            >
-                Menu
-            </a>
-
-            <a href="index.html#about">
-                About
-            </a>
-
-            <a href="index.html#contact">
-                Contact
-            </a>
-
-            <a href="orders.html">
-                Pesanan Saya
-            </a>
-
-        </nav>
-
-
-        <!-- CART -->
-
-        <a
-            href="cart.html"
-            class="cart-button"
-        >
-
-            Cart
-
-            <span id="cart-count">
-                0
-            </span>
-
-        </a>
-
-
-        <!-- LOGOUT -->
-
-        <button
-            type="button"
-            class="btn btn-outline"
-            id="logout-button"
-            style="
-                padding:12px 18px;
-                font-size:12px;
-            "
-        >
-            LOGOUT
-        </button>
-
-
-    </div>
-
-</header>
-
-
-
-<!-- =========================
-     MAIN
-========================== -->
-
-<main>
-
-
-    <section class="product-detail-section">
+    <header class="navbar">
 
         <div class="container">
 
 
-            <!-- BACK -->
+            <!-- LOGO -->
 
             <a
-                href="products.html"
-                class="back-link"
+                href="index.html"
+                class="logo"
+                aria-label="ARDANA BATIK Home"
             >
-                ← Back to Menu
+
+                <img
+                    src="assets/images/LOGO_ARDANA BATIK.png"
+                    alt="ARDANA BATIK"
+                >
+
             </a>
 
 
-            <!-- PRODUCT DETAIL -->
+            <!-- NAVIGATION -->
 
-            <div
-                id="product-detail"
-                class="product-detail"
+            <nav
+                class="nav-links"
+                aria-label="Main Navigation"
             >
 
-                <div class="loading">
+                <a href="index.html">
+                    Home
+                </a>
 
-                    <p>
-                        Loading menu...
-                    </p>
+                <a href="products.html">
+                    Collection
+                </a>
+
+                <a href="index.html#about">
+                    About
+                </a>
+
+                <a href="index.html#contact">
+                    Contact
+                </a>
+
+                <a href="orders.html">
+                    Pesanan Saya
+                </a>
+
+            </nav>
+
+
+            <!-- CART -->
+
+            <a
+                href="cart.html"
+                class="cart-button"
+                aria-label="Shopping Cart"
+            >
+
+                Cart
+
+                <span id="cart-count">
+                    0
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             PRODUCT DETAIL
+        ================================================== -->
+
+        <section class="section product-detail-section">
+
+            <div class="container">
+
+
+                <!-- BACK TO COLLECTION -->
+
+                <a
+                    href="products.html"
+                    class="text-link"
+                    style="
+                        display:inline-block;
+                        margin-bottom:35px;
+                    "
+                >
+
+                    ← BACK TO COLLECTION
+
+                </a>
+
+
+                <!-- PRODUCT DETAIL -->
+
+                <div id="product-detail">
+
+                    <div class="loading">
+
+                        <h2>
+                            Loading Product
+                        </h2>
+
+                        <p>
+                            Preparing ARDANA BATIK collection...
+                        </p>
+
+                    </div>
 
                 </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer
+        class="footer"
+        id="contact"
+    >
+
+        <div class="container footer-container">
+
+
+            <!-- BRAND -->
+
+            <div>
+
+                <a
+                    href="index.html"
+                    class="logo"
+                    aria-label="ARDANA BATIK Home"
+                >
+
+                    <img
+                        src="assets/images/LOGO_ARDANA BATIK.png"
+                        alt="ARDANA BATIK"
+                    >
+
+                </a>
+
+
+                <p>
+                    Timeless Indonesian heritage,
+                    crafted for modern luxury.
+                </p>
+
+            </div>
+
+
+
+            <!-- FOOTER NAVIGATION -->
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="products.html">
+                    Collection
+                </a>
+
+                <a href="index.html#about">
+                    About
+                </a>
+
+                <a href="index.html#contact">
+                    Contact
+                </a>
+
+                <a href="orders.html">
+                    Pesanan Saya
+                </a>
+
+            </div>
+
+
+
+            <!-- COPYRIGHT -->
+
+            <div class="footer-copy">
+
+                <p>
+                    © 2026 ARDANA BATIK.
+                </p>
+
+                <p>
+                    Luxury Indonesian Batik.
+                </p>
 
             </div>
 
 
         </div>
 
-    </section>
+    </footer>
 
 
-</main>
 
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
 
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
 
-<!-- =========================
-     FOOTER
-========================== -->
 
-<footer
-    class="footer"
-    id="contact"
->
+    <script src="js/supabase.js"></script>
 
-    <div class="container footer-container">
 
 
-        <div>
+    <!-- =====================================================
+         AUTH GUARD
+    ====================================================== -->
 
+    <script src="js/auth-guard.js"></script>
 
-            <a
-                href="index.html"
-                class="logo"
-            >
 
-                <img
-                    src="assets/images/checoff-logo.jpg"
-                    alt="Checoff Coffee Shop"
-                >
 
-            </a>
+    <!-- =====================================================
+         PRODUCT DETAIL
+    ====================================================== -->
 
-
-            <p>
-                Coffee, drinks & good moments.
-            </p>
-
-
-        </div>
-
-
-
-        <div class="footer-links">
-
-
-            <a href="index.html">
-                Home
-            </a>
-
-
-            <a href="products.html">
-                Menu
-            </a>
-
-
-            <a href="index.html#about">
-                About
-            </a>
-
-
-            <a href="index.html#contact">
-                Contact
-            </a>
-
-
-            <a href="orders.html">
-                Pesanan Saya
-            </a>
-
-
-        </div>
-
-
-
-        <div class="footer-copy">
-
-            <p>
-                © 2026 Checoff.
-                All rights reserved.
-            </p>
-
-        </div>
-
-
-    </div>
-
-</footer>
-
-
-
-<!-- =========================
-     SUPABASE
-========================== -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
-
-<script src="js/supabase.js"></script>
-
-
-<!-- AUTH GUARD -->
-
-<script src="js/auth-guard.js"></script>
-
-
-<!-- PRODUCT DETAIL -->
-
-<script src="js/product-detail.js"></script>
-
-
-
-<!-- =========================
-     LOGOUT
-========================== -->
-
-<script>
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async function () {
-
-
-        /*
-         * UPDATE CART COUNT
-         */
-
-        if (
-            typeof updateCartCount ===
-            "function"
-        ) {
-
-            updateCartCount();
-
-        }
-
-
-        /*
-         * LOGOUT
-         */
-
-        const logoutButton =
-            document.getElementById(
-                "logout-button"
-            );
-
-
-        if (!logoutButton) {
-
-            return;
-
-        }
-
-
-        logoutButton.addEventListener(
-            "click",
-            async function () {
-
-
-                const confirmLogout =
-                    confirm(
-                        "Yakin ingin logout dari Checoff?"
-                    );
-
-
-                if (!confirmLogout) {
-
-                    return;
-
-                }
-
-
-                logoutButton.disabled = true;
-
-                logoutButton.textContent =
-                    "LOGOUT...";
-
-
-                try {
-
-
-                    const {
-                        error
-                    } =
-                        await supabaseClient
-                            .auth
-                            .signOut();
-
-
-                    if (error) {
-
-                        throw error;
-
-                    }
-
-
-                    /*
-                     * Kembali ke Login
-                     */
-
-                    window.location.href =
-                        "auth/login.html";
-
-
-                }
-                catch (error) {
-
-
-                    console.error(
-                        "LOGOUT ERROR:",
-                        error
-                    );
-
-
-                    alert(
-                        "Logout gagal: " +
-                        error.message
-                    );
-
-
-                    logoutButton.disabled =
-                        false;
-
-                    logoutButton.textContent =
-                        "LOGOUT";
-
-                }
-
-
-            }
-        );
-
-
-    }
-);
-
-</script>
+    <script src="js/product-detail.js"></script>
 
 
 </body>
