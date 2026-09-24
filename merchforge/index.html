@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta
@@ -14,9 +13,1141 @@
     <title>ARDANA BATIK — Luxury Indonesian Batik</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- =====================================================
+         HOME PAGE OVERRIDE
+         Khusus untuk index.html agar layout tetap rapi.
+    ====================================================== -->
+    <style>
+        /* ==============================
+           HOME RESET
+        ============================== */
+
+        .home-page {
+            background: #0b0b0b;
+            color: #f5f0e8;
+            overflow-x: hidden;
+        }
+
+        .home-page .container {
+            width: min(1320px, calc(100% - 80px));
+            margin: 0 auto;
+        }
+
+
+        /* ==============================
+           NAVBAR
+        ============================== */
+
+        .home-page .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+
+            background: rgba(11, 11, 11, 0.96);
+            border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+            backdrop-filter: blur(14px);
+        }
+
+        .home-page .navbar > .container {
+            min-height: 88px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+        .home-page .navbar .logo {
+            display: flex;
+            align-items: center;
+
+            flex-shrink: 0;
+        }
+
+        .home-page .navbar .logo img {
+            display: block;
+
+            width: auto !important;
+            height: auto !important;
+
+            max-width: 105px !important;
+            max-height: 68px !important;
+
+            object-fit: contain;
+        }
+
+        .home-page .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 30px;
+
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .home-page .nav-links a {
+            position: relative;
+
+            color: rgba(245, 240, 232, 0.68);
+
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+
+            white-space: nowrap;
+        }
+
+        .home-page .nav-links a:hover,
+        .home-page .nav-links a.active {
+            color: #d4af37;
+        }
+
+        .home-page .nav-links a.active::after {
+            content: "";
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -10px;
+
+            height: 1px;
+
+            background: #d4af37;
+        }
+
+        .home-page .navbar-actions {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            flex-shrink: 0;
+        }
+
+        .home-page .cart-button {
+            min-height: 46px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 0 17px;
+
+            background: transparent;
+
+            border: 1px solid rgba(212, 175, 55, 0.45);
+
+            color: #f5f0e8;
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .home-page .cart-button:hover {
+            border-color: #d4af37;
+            color: #d4af37;
+        }
+
+        .home-page #cart-count {
+            width: 22px;
+            height: 22px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #d4af37;
+
+            color: #0b0b0b;
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+
+        /* ==============================
+           HERO
+        ============================== */
+
+        .home-page .hero {
+            min-height: 680px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 80px 0;
+
+            background: #0b0b0b;
+        }
+
+        .home-page .hero-container {
+            display: grid;
+
+            grid-template-columns: minmax(0, 1fr) minmax(400px, 0.8fr);
+
+            align-items: center;
+
+            gap: 80px;
+        }
+
+        .home-page .hero-content {
+            max-width: 700px;
+        }
+
+        .home-page .section-label {
+            margin: 0 0 18px;
+
+            color: #d4af37;
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
+
+        .home-page .hero-content h1 {
+            margin: 0 0 28px;
+
+            color: #f5f0e8;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: clamp(55px, 7vw, 105px);
+            font-weight: 400;
+
+            line-height: 0.9;
+        }
+
+        .home-page .hero-content h1 span {
+            color: #d4af37;
+        }
+
+        .home-page .hero-description {
+            max-width: 600px;
+
+            margin-bottom: 32px;
+
+            color: rgba(245, 240, 232, 0.65);
+
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .home-page .hero-buttons {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        .home-page .hero-buttons .btn {
+            min-height: 48px;
+        }
+
+
+        /* HERO VISUAL */
+
+        .home-page .hero-visual {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .home-page .hero-card {
+            width: min(100%, 520px);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            background: #151515;
+
+            border: 1px solid rgba(212, 175, 55, 0.22);
+        }
+
+        .home-page .hero-card img {
+            display: block;
+
+            width: auto !important;
+            height: auto !important;
+
+            max-width: 100% !important;
+            max-height: 500px !important;
+
+            object-fit: contain !important;
+        }
+
+
+        /* ==============================
+           GENERIC SECTION
+        ============================== */
+
+        .home-page .section {
+            padding: 120px 0;
+        }
+
+        .home-page .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+
+            gap: 30px;
+
+            margin-bottom: 55px;
+        }
+
+        .home-page .section-heading h2 {
+            margin: 0;
+
+            color: #f5f0e8;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: clamp(45px, 5vw, 72px);
+            font-weight: 400;
+
+            line-height: 0.95;
+        }
+
+        .home-page .text-link {
+            color: #d4af37;
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+
+            white-space: nowrap;
+        }
+
+        .home-page .text-link:hover {
+            color: #f5f0e8;
+        }
+
+
+        /* ==============================
+           CATEGORY
+        ============================== */
+
+        .home-page .category-section {
+            background: #101010;
+        }
+
+        .home-page .category-grid {
+            display: grid;
+
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+
+            gap: 14px;
+        }
+
+        .home-page .category-card {
+            min-height: 330px;
+
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            padding: 25px;
+
+            background: #151515;
+
+            border: 1px solid rgba(245, 240, 232, 0.08);
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .home-page .category-card:hover {
+            transform: translateY(-6px);
+
+            background: #1a1a1a;
+
+            border-color: rgba(212, 175, 55, 0.45);
+        }
+
+        .home-page .category-card > span {
+            color: #d4af37;
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .home-page .category-card-content strong {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: rgba(245, 240, 232, 0.45);
+
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+        }
+
+        .home-page .category-card h3 {
+            margin: 0 0 12px;
+
+            color: #f5f0e8;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: 25px;
+            font-weight: 400;
+
+            line-height: 1;
+        }
+
+        .home-page .category-card p {
+            margin: 0;
+
+            color: rgba(245, 240, 232, 0.5);
+
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+
+        /* ==============================
+           FEATURED
+        ============================== */
+
+        .home-page .featured {
+            background: #0b0b0b;
+        }
+
+        .home-page .product-search {
+            width: 100%;
+            max-width: 620px;
+
+            margin: 0 auto 45px;
+        }
+
+        .home-page .product-search input {
+            width: 100%;
+
+            height: 52px;
+
+            padding: 0 18px;
+
+            background: #151515;
+
+            border: 1px solid rgba(245, 240, 232, 0.12);
+
+            outline: none;
+
+            color: #f5f0e8;
+
+            font-size: 13px;
+        }
+
+        .home-page .product-search input:focus {
+            border-color: #d4af37;
+        }
+
+        .home-page .product-search input::placeholder {
+            color: rgba(245, 240, 232, 0.35);
+        }
+
+        .home-page .product-grid {
+            display: grid;
+
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+
+            gap: 22px;
+        }
+
+        .home-page .product-grid .product-card {
+            min-width: 0;
+
+            background: #151515;
+
+            border: 1px solid rgba(245, 240, 232, 0.08);
+
+            overflow: hidden;
+        }
+
+        .home-page .product-grid .product-card img {
+            width: 100%;
+            height: 370px;
+
+            object-fit: cover;
+        }
+
+
+        /* ==============================
+           ABOUT
+        ============================== */
+
+        .home-page .about-section {
+            background: #101010;
+        }
+
+        .home-page .about-container {
+            display: grid;
+
+            grid-template-columns: minmax(380px, 0.9fr) minmax(0, 1.1fr);
+
+            align-items: center;
+
+            gap: 90px;
+        }
+
+        .home-page .about-visual {
+            position: relative;
+
+            max-width: 540px;
+
+            margin: 0 auto;
+
+            padding-bottom: 45px;
+        }
+
+        .home-page .about-image-frame {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            background: #f5f0e8;
+
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .home-page .about-image-frame img {
+            display: block;
+
+            width: auto !important;
+            height: auto !important;
+
+            max-width: 100% !important;
+            max-height: 570px !important;
+
+            object-fit: contain !important;
+        }
+
+        .home-page .about-badge {
+            position: absolute;
+
+            right: -25px;
+            bottom: 0;
+
+            width: 170px;
+            height: 170px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding: 15px;
+
+            background: #0b0b0b;
+
+            border: 1px solid rgba(212, 175, 55, 0.55);
+
+            text-align: center;
+        }
+
+        .home-page .about-badge span {
+            color: rgba(245, 240, 232, 0.55);
+
+            font-size: 9px;
+            letter-spacing: 0.15em;
+        }
+
+        .home-page .about-badge strong {
+            color: #d4af37;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: 28px;
+            font-weight: 400;
+        }
+
+        .home-page .about-badge small {
+            color: rgba(245, 240, 232, 0.55);
+
+            font-size: 8px;
+            letter-spacing: 0.1em;
+        }
+
+        .home-page .about-content {
+            max-width: 680px;
+        }
+
+        .home-page .about-content h2 {
+            margin: 0 0 25px;
+
+            color: #f5f0e8;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: clamp(55px, 6vw, 85px);
+            font-weight: 400;
+
+            line-height: 0.9;
+        }
+
+        .home-page .about-content h2 span {
+            color: #d4af37;
+        }
+
+        .home-page .about-divider {
+            width: 70px;
+            height: 1px;
+
+            margin: 0 0 28px;
+
+            background: #d4af37;
+        }
+
+        .home-page .about-content p {
+            margin-bottom: 20px;
+
+            color: rgba(245, 240, 232, 0.62);
+
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .home-page .about-content .about-lead {
+            color: rgba(245, 240, 232, 0.82);
+
+            font-size: 16px;
+        }
+
+        .home-page .about-highlights {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin: 35px 0;
+        }
+
+        .home-page .about-highlight {
+            display: flex;
+            flex-direction: column;
+
+            gap: 7px;
+
+            padding: 17px;
+
+            border-left: 1px solid #d4af37;
+
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .home-page .about-highlight strong {
+            color: #d4af37;
+
+            font-size: 11px;
+        }
+
+        .home-page .about-highlight span {
+            color: rgba(245, 240, 232, 0.68);
+
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
+
+        /* ==============================
+           CTA
+        ============================== */
+
+        .home-page .cta-section {
+            padding: 120px 0;
+
+            background:
+                radial-gradient(
+                    circle at 80% 50%,
+                    rgba(212, 175, 55, 0.08),
+                    transparent 35%
+                ),
+                #0b0b0b;
+        }
+
+        .home-page .cta-container {
+            min-height: 430px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 50px;
+
+            padding: 70px;
+
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .home-page .cta-container h2 {
+            margin: 0;
+
+            color: #f5f0e8;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: clamp(55px, 7vw, 100px);
+            font-weight: 400;
+
+            line-height: 0.87;
+        }
+
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        .home-page .footer {
+            background: #080808;
+
+            border-top: 1px solid rgba(245, 240, 232, 0.08);
+        }
+
+        .home-page .footer-container {
+            display: grid;
+
+            grid-template-columns: 1.4fr 0.8fr 1fr 1fr;
+
+            gap: 55px;
+
+            padding-top: 90px;
+            padding-bottom: 70px;
+        }
+
+        .home-page .footer-brand {
+            max-width: 360px;
+        }
+
+        .home-page .footer-logo {
+            display: inline-flex;
+
+            margin-bottom: 22px;
+        }
+
+        .home-page .footer-logo img {
+            display: block;
+
+            width: auto !important;
+            height: auto !important;
+
+            max-width: 220px !important;
+            max-height: 130px !important;
+
+            object-fit: contain !important;
+        }
+
+        .home-page .footer-brand-description {
+            margin-bottom: 15px;
+
+            color: rgba(245, 240, 232, 0.5);
+
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .home-page .footer-location {
+            margin: 0;
+
+            color: #d4af37;
+
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.13em;
+        }
+
+        .home-page .footer-title {
+            margin: 0 0 20px;
+
+            color: #d4af37;
+
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .home-page .footer-links {
+            display: flex;
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+        .home-page .footer-links a {
+            color: rgba(245, 240, 232, 0.55);
+
+            font-size: 13px;
+        }
+
+        .home-page .footer-links a:hover {
+            color: #d4af37;
+        }
+
+        .home-page .footer-contact-list {
+            display: flex;
+            flex-direction: column;
+
+            gap: 18px;
+        }
+
+        .home-page .footer-contact-item {
+            display: flex;
+            flex-direction: column;
+
+            gap: 3px;
+        }
+
+        .home-page .footer-contact-label {
+            color: rgba(245, 240, 232, 0.35);
+
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .home-page .footer-contact-item a {
+            color: rgba(245, 240, 232, 0.68);
+
+            font-size: 12px;
+
+            word-break: break-word;
+        }
+
+        .home-page .footer-contact-item a:hover {
+            color: #d4af37;
+        }
+
+        .home-page .footer-hours-list {
+            display: flex;
+            flex-direction: column;
+
+            gap: 14px;
+        }
+
+        .home-page .footer-hours-item {
+            display: flex;
+            flex-direction: column;
+
+            gap: 3px;
+        }
+
+        .home-page .footer-hours-item span {
+            color: rgba(245, 240, 232, 0.4);
+
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .home-page .footer-hours-item strong {
+            color: rgba(245, 240, 232, 0.75);
+
+            font-size: 12px;
+        }
+
+        .home-page .footer-tagline {
+            margin-top: 30px;
+
+            color: rgba(245, 240, 232, 0.5);
+
+            font-size: 10px;
+            letter-spacing: 0.08em;
+        }
+
+        .home-page .footer-tagline strong {
+            color: #d4af37;
+        }
+
+        .home-page .footer-bottom {
+            padding-bottom: 30px;
+        }
+
+        .home-page .footer-bottom-line {
+            width: 100%;
+            height: 1px;
+
+            margin-bottom: 22px;
+
+            background: rgba(245, 240, 232, 0.08);
+        }
+
+        .home-page .footer-bottom-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .home-page .footer-bottom-content p {
+            margin: 0;
+
+            color: rgba(245, 240, 232, 0.35);
+
+            font-size: 9px;
+            letter-spacing: 0.08em;
+        }
+
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 1100px) {
+
+            .home-page .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .home-page .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .home-page .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 850px) {
+
+            .home-page .container {
+                width: calc(100% - 40px);
+            }
+
+            .home-page .navbar > .container {
+                min-height: 76px;
+            }
+
+            .home-page .nav-links {
+                display: none;
+            }
+
+            .home-page .hero {
+                min-height: auto;
+
+                padding: 70px 0 90px;
+            }
+
+            .home-page .hero-container {
+                grid-template-columns: 1fr;
+
+                gap: 55px;
+            }
+
+            .home-page .hero-content {
+                max-width: 700px;
+            }
+
+            .home-page .hero-visual {
+                order: 2;
+            }
+
+            .home-page .hero-card {
+                max-width: 470px;
+            }
+
+            .home-page .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .home-page .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .home-page .about-container {
+                grid-template-columns: 1fr;
+
+                gap: 70px;
+            }
+
+            .home-page .about-visual {
+                width: min(100%, 540px);
+            }
+
+            .home-page .cta-container {
+                padding: 55px;
+
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            .home-page .container {
+                width: calc(100% - 30px);
+            }
+
+            .home-page .navbar > .container {
+                min-height: 68px;
+            }
+
+            .home-page .navbar .logo img {
+                max-width: 78px !important;
+                max-height: 55px !important;
+            }
+
+            .home-page .navbar-actions {
+                gap: 6px;
+            }
+
+            .home-page .cart-button {
+                min-height: 40px;
+
+                padding: 0 11px;
+
+                font-size: 9px;
+            }
+
+            .home-page .navbar-logout {
+                min-height: 40px !important;
+
+                padding: 0 12px !important;
+
+                font-size: 9px !important;
+            }
+
+            .home-page .hero {
+                padding: 60px 0 75px;
+            }
+
+            .home-page .hero-content h1 {
+                font-size: 54px;
+            }
+
+            .home-page .hero-description {
+                font-size: 13px;
+            }
+
+            .home-page .hero-buttons {
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+            .home-page .hero-buttons .btn {
+                width: 100%;
+            }
+
+            .home-page .section {
+                padding: 80px 0;
+            }
+
+            .home-page .section-heading {
+                flex-direction: column;
+                align-items: flex-start;
+
+                margin-bottom: 40px;
+            }
+
+            .home-page .section-heading h2 {
+                font-size: 45px;
+            }
+
+            .home-page .category-grid,
+            .home-page .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-page .category-card {
+                min-height: 280px;
+            }
+
+            .home-page .product-grid .product-card img {
+                height: 400px;
+            }
+
+            .home-page .about-image-frame {
+                padding: 20px;
+            }
+
+            .home-page .about-image-frame img {
+                max-height: 430px !important;
+            }
+
+            .home-page .about-badge {
+                right: 10px;
+
+                width: 130px;
+                height: 130px;
+            }
+
+            .home-page .about-badge strong {
+                font-size: 22px;
+            }
+
+            .home-page .about-highlights {
+                grid-template-columns: 1fr;
+            }
+
+            .home-page .cta-section {
+                padding: 70px 0;
+            }
+
+            .home-page .cta-container {
+                min-height: 360px;
+
+                padding: 35px 25px;
+            }
+
+            .home-page .cta-container h2 {
+                font-size: 55px;
+            }
+
+            .home-page .footer-container {
+                grid-template-columns: 1fr;
+
+                gap: 40px;
+
+                padding-top: 70px;
+                padding-bottom: 50px;
+            }
+
+            .home-page .footer-bottom-content {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 
-<body>
+
+<body class="home-page">
 
     <!-- =====================================================
          NAVBAR
@@ -26,18 +1157,20 @@
 
         <div class="container">
 
-            <!-- LOGO -->
             <a href="index.html" class="logo">
                 <img
-                    src="assets/images/LOGO_ARDANA BATIK.png"
+                    src="assets/images/logo2.png"
                     alt="ARDANA BATIK"
                 >
             </a>
 
-            <!-- NAVIGATION -->
+
             <nav class="nav-links">
 
-                <a href="index.html" class="active">
+                <a
+                    href="index.html"
+                    class="active"
+                >
                     Home
                 </a>
 
@@ -59,13 +1192,20 @@
 
             </nav>
 
-            <!-- ACTIONS -->
+
             <div class="navbar-actions">
 
-                <a href="cart.html" class="cart-button">
-                    Cart
-                    <span id="cart-count">0</span>
+                <a
+                    href="cart.html"
+                    class="cart-button"
+                >
+                    CART
+
+                    <span id="cart-count">
+                        0
+                    </span>
                 </a>
+
 
                 <button
                     type="button"
@@ -88,6 +1228,7 @@
 
     <main>
 
+
         <!-- =================================================
              HERO
         ================================================== -->
@@ -102,6 +1243,7 @@
                         LUXURY INDONESIAN BATIK
                     </p>
 
+
                     <h1>
                         TIMELESS
                         <br>
@@ -110,12 +1252,14 @@
                         <span>MODERN LUXURY.</span>
                     </h1>
 
+
                     <p class="hero-description">
                         Discover refined Indonesian batik crafted
                         into contemporary silhouettes. A timeless
                         expression of heritage, elegance, and
                         modern sophistication.
                     </p>
+
 
                     <div class="hero-buttons">
 
@@ -137,8 +1281,6 @@
 
                 </div>
 
-
-                <!-- HERO VISUAL -->
 
                 <div class="hero-visual">
 
@@ -180,6 +1322,7 @@
 
                     </div>
 
+
                     <a
                         href="products.html"
                         class="text-link"
@@ -192,7 +1335,6 @@
 
                 <div class="category-grid">
 
-                    <!-- CATEGORY 01 -->
 
                     <a
                         href="products.html?category=Batik%20Shirt"
@@ -221,8 +1363,6 @@
                     </a>
 
 
-                    <!-- CATEGORY 02 -->
-
                     <a
                         href="products.html?category=Batik%20Dress"
                         class="category-card"
@@ -249,8 +1389,6 @@
 
                     </a>
 
-
-                    <!-- CATEGORY 03 -->
 
                     <a
                         href="products.html?category=Batik%20Outer"
@@ -279,8 +1417,6 @@
                     </a>
 
 
-                    <!-- CATEGORY 04 -->
-
                     <a
                         href="products.html?category=Batik%20Set"
                         class="category-card"
@@ -307,8 +1443,6 @@
 
                     </a>
 
-
-                    <!-- CATEGORY 05 -->
 
                     <a
                         href="products.html?category=Batik%20Accessories"
@@ -365,6 +1499,7 @@
 
                     </div>
 
+
                     <a
                         href="products.html"
                         class="text-link"
@@ -374,8 +1509,6 @@
 
                 </div>
 
-
-                <!-- SEARCH -->
 
                 <div class="product-search">
 
@@ -388,8 +1521,6 @@
 
                 </div>
 
-
-                <!-- PRODUCTS -->
 
                 <div
                     id="product-list"
@@ -418,48 +1549,22 @@
 
             <div class="container about-container">
 
-                <!-- ABOUT CONTENT -->
 
-                <div class="about-content">
-
-                    <p class="section-label">
-                        ABOUT ARDANA BATIK
-                    </p>
-
-                    <h2>
-                        HERITAGE
-                        <br>
-                        <span>REIMAGINED.</span>
-                    </h2>
-
-                    <p>
-                        ARDANA BATIK merupakan ekspresi kontemporer
-                        dari batik Indonesia, yang menghadirkan seni
-                        tradisional ke dalam gaya busana modern
-                        yang elegan.
-                    </p>
-
-                    <p>
-                        Setiap koleksi merayakan keindahan motif,
-                        keahlian kriya, dan warisan budaya Indonesia
-                        melalui perspektif modern yang elegan.
-                    </p>
-
-                    <a
-                        href="products.html"
-                        class="btn btn-primary"
-                    >
-                        DISCOVER THE COLLECTION →
-                    </a>
-
-                </div>
-
-
-                <!-- ABOUT VISUAL -->
+                <!-- ABOUT IMAGE -->
 
                 <div class="about-visual">
 
-                    <div class="about-box">
+                    <div class="about-image-frame">
+
+                        <img
+                            src="assets/images/LOGO_ARDANA BATIK full.png"
+                            alt="ARDANA BATIK — Luxury Indonesian Batik"
+                        >
+
+                    </div>
+
+
+                    <div class="about-badge">
 
                         <span>
                             EST.
@@ -470,10 +1575,97 @@
                         </strong>
 
                         <small>
-                            LUXURY INDONESIAN BATIK
+                            LUXURY BATIK
                         </small>
 
                     </div>
+
+                </div>
+
+
+                <!-- ABOUT CONTENT -->
+
+                <div class="about-content">
+
+                    <p class="section-label">
+                        ABOUT ARDANA BATIK
+                    </p>
+
+
+                    <h2>
+                        HERITAGE
+                        <br>
+                        <span>REIMAGINED.</span>
+                    </h2>
+
+
+                    <div class="about-divider"></div>
+
+
+                    <p class="about-lead">
+                        ARDANA BATIK merupakan ekspresi kontemporer
+                        dari batik Indonesia yang menghadirkan warisan
+                        budaya ke dalam gaya busana modern.
+                    </p>
+
+
+                    <p>
+                        Setiap koleksi dirancang untuk merayakan
+                        keindahan motif batik, keahlian kriya, dan
+                        karakter budaya Indonesia melalui perspektif
+                        yang elegan dan relevan dengan gaya masa kini.
+                    </p>
+
+
+                    <div class="about-highlights">
+
+                        <div class="about-highlight">
+
+                            <strong>
+                                01
+                            </strong>
+
+                            <span>
+                                INDONESIAN HERITAGE
+                            </span>
+
+                        </div>
+
+
+                        <div class="about-highlight">
+
+                            <strong>
+                                02
+                            </strong>
+
+                            <span>
+                                MODERN SILHOUETTE
+                            </span>
+
+                        </div>
+
+
+                        <div class="about-highlight">
+
+                            <strong>
+                                03
+                            </strong>
+
+                            <span>
+                                TIMELESS CRAFT
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="products.html"
+                        class="btn btn-primary"
+                    >
+                        DISCOVER THE COLLECTION →
+                    </a>
 
                 </div>
 
@@ -506,6 +1698,7 @@
 
                 </div>
 
+
                 <a
                     href="products.html"
                     class="btn btn-primary"
@@ -521,7 +1714,7 @@
 
 
     <!-- =====================================================
-         FOOTER + CONTACT
+         FOOTER / CONTACT
     ====================================================== -->
 
     <footer
@@ -531,13 +1724,14 @@
 
         <div class="container footer-container">
 
+
             <!-- BRAND -->
 
             <div class="footer-brand">
 
                 <a
                     href="index.html"
-                    class="logo"
+                    class="footer-logo"
                 >
 
                     <img
@@ -547,13 +1741,16 @@
 
                 </a>
 
-                <p>
-                    Timeless heritage.
-                    Modern luxury.
+
+                <p class="footer-brand-description">
+                    Luxury Indonesian Batik crafted for
+                    those who appreciate heritage,
+                    elegance, and timeless design.
                 </p>
 
+
                 <p class="footer-location">
-                    Luxury Indonesian Batik
+                    LUXURY INDONESIAN BATIK
                 </p>
 
             </div>
@@ -561,11 +1758,12 @@
 
             <!-- NAVIGATION -->
 
-            <div class="footer-navigation">
+            <div class="footer-column">
 
                 <p class="footer-title">
                     NAVIGATION
                 </p>
+
 
                 <nav class="footer-links">
 
@@ -596,11 +1794,12 @@
 
             <!-- CONTACT -->
 
-            <div class="footer-contact">
+            <div class="footer-column">
 
                 <p class="footer-title">
                     CONTACT
                 </p>
+
 
                 <div class="footer-contact-list">
 
@@ -623,7 +1822,11 @@
                             WHATSAPP
                         </span>
 
-                        <a href="https://wa.me/628816354403">
+                        <a
+                            href="https://wa.me/628816354403"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             08816354403
                         </a>
 
@@ -651,13 +1854,14 @@
             </div>
 
 
-            <!-- BUSINESS HOURS -->
+            <!-- OPERATING HOURS -->
 
-            <div class="footer-hours">
+            <div class="footer-column">
 
                 <p class="footer-title">
                     OPERATING HOURS
                 </p>
+
 
                 <div class="footer-hours-list">
 
@@ -673,6 +1877,7 @@
 
                     </div>
 
+
                     <div class="footer-hours-item">
 
                         <span>
@@ -687,6 +1892,19 @@
 
                 </div>
 
+
+                <div class="footer-tagline">
+
+                    <span>
+                        TRADITION
+                    </span>
+
+                    <strong>
+                        IN EVERY THREAD.
+                    </strong>
+
+                </div>
+
             </div>
 
         </div>
@@ -698,14 +1916,16 @@
 
             <div class="footer-bottom-line"></div>
 
+
             <div class="footer-bottom-content">
 
                 <p>
-                    © 2026 ARDANA BATIK. All Rights Reserved.
+                    © 2026 ARDANA BATIK.
+                    ALL RIGHTS RESERVED.
                 </p>
 
                 <p>
-                    TRADITION IN EVERY THREAD.
+                    LUXURY INDONESIAN BATIK
                 </p>
 
             </div>
@@ -736,24 +1956,22 @@
 
         document.addEventListener(
             "DOMContentLoaded",
-            async function () {
+            function () {
 
-                /* ================================
-                   UPDATE CART COUNT
-                ================================= */
+                /* ==============================
+                   CART COUNT
+                ============================== */
 
                 if (
                     typeof updateCartCount === "function"
                 ) {
-
                     updateCartCount();
-
                 }
 
 
-                /* ================================
+                /* ==============================
                    LOGOUT
-                ================================= */
+                ============================== */
 
                 const logoutButton =
                     document.getElementById(
@@ -832,7 +2050,6 @@
                 );
 
             }
-
         );
 
     </script>

@@ -24,7 +24,7 @@
         ========================================= */
 
         .admin-page {
-            padding: 120px 0 80px;
+            padding: 140px 0 80px;
             min-height: 80vh;
         }
 
@@ -79,8 +79,7 @@
 
             cursor: pointer;
 
-            transition:
-                .25s ease;
+            transition: .25s ease;
 
             font-family: inherit;
 
@@ -126,14 +125,12 @@
         ========================================= */
 
         .product-admin-grid {
-
             display: grid;
 
             grid-template-columns:
                 repeat(3, 1fr);
 
             gap: 24px;
-
         }
 
 
@@ -142,7 +139,6 @@
         ========================================= */
 
         .product-admin-card {
-
             border: 1px solid
                 rgba(212, 175, 55, .16);
 
@@ -155,11 +151,9 @@
                 transform .3s ease,
                 border-color .3s ease,
                 box-shadow .3s ease;
-
         }
 
         .product-admin-card:hover {
-
             transform:
                 translateY(-4px);
 
@@ -169,7 +163,6 @@
             box-shadow:
                 0 18px 45px
                 rgba(0, 0, 0, .35);
-
         }
 
 
@@ -178,11 +171,9 @@
         ========================================= */
 
         .product-admin-image {
-
             height: 260px;
 
-            background:
-                #111;
+            background: #111;
 
             display: flex;
 
@@ -193,11 +184,9 @@
             overflow: hidden;
 
             position: relative;
-
         }
 
         .product-admin-image img {
-
             width: 100%;
 
             height: 100%;
@@ -205,11 +194,9 @@
             object-fit: cover;
 
             display: block;
-
         }
 
         .no-image {
-
             width: 100%;
 
             height: 100%;
@@ -230,11 +217,9 @@
                 "Space Grotesk",
                 sans-serif;
 
-            letter-spacing:
-                .15em;
+            letter-spacing: .15em;
 
             font-size: 13px;
-
         }
 
 
@@ -243,63 +228,47 @@
         ========================================= */
 
         .product-admin-info {
-
             padding: 22px;
-
         }
 
         .product-admin-category {
-
             font-size: 11px;
 
             text-transform: uppercase;
 
-            letter-spacing:
-                .15em;
+            letter-spacing: .15em;
 
-            color:
-                #d4af37;
+            color: #d4af37;
 
             margin-bottom: 9px;
-
         }
 
         .product-admin-info h3 {
-
             margin-bottom: 12px;
 
             font-size: 20px;
-
         }
 
         .product-admin-price {
-
             font-weight: 700;
 
             font-size: 18px;
 
-            color:
-                #f0d477;
+            color: #f0d477;
 
             margin-bottom: 8px;
-
         }
 
         .product-admin-stock {
-
             font-size: 14px;
 
             opacity: .7;
 
             margin-bottom: 20px;
-
         }
 
         .product-admin-stock strong {
-
-            color:
-                #f5f0e8;
-
+            color: #f5f0e8;
         }
 
 
@@ -308,17 +277,13 @@
         ========================================= */
 
         .product-admin-actions {
-
             display: flex;
 
             gap: 10px;
-
         }
 
         .product-admin-actions button {
-
             flex: 1;
-
         }
 
 
@@ -327,7 +292,6 @@
         ========================================= */
 
         .product-form-box {
-
             display: none;
 
             margin-bottom: 40px;
@@ -339,47 +303,37 @@
 
             background:
                 rgba(255, 255, 255, .025);
-
         }
 
         .product-form-box.active {
-
             display: block;
 
             animation:
                 formReveal .3s ease;
-
         }
 
         @keyframes formReveal {
 
             from {
-
                 opacity: 0;
 
                 transform:
                     translateY(-10px);
-
             }
 
             to {
-
                 opacity: 1;
 
                 transform:
                     translateY(0);
-
             }
 
         }
 
         .product-form-box h2 {
-
             margin-bottom: 25px;
 
-            color:
-                #f5f0e8;
-
+            color: #f5f0e8;
         }
 
 
@@ -388,39 +342,28 @@
         ========================================= */
 
         .product-form {
-
             display: grid;
 
             gap: 18px;
-
         }
 
         .form-group {
-
             display: grid;
 
             gap: 8px;
-
         }
 
         .form-group label {
-
             font-size: 13px;
 
-            color:
-                #d4af37;
+            color: #d4af37;
 
-            letter-spacing:
-                .04em;
-
+            letter-spacing: .04em;
         }
 
         .form-group input,
-
         .form-group textarea,
-
         .form-group select {
-
             width: 100%;
 
             padding: 14px;
@@ -431,8 +374,7 @@
             background:
                 rgba(0, 0, 0, .3);
 
-            color:
-                #f5f0e8;
+            color: #f5f0e8;
 
             outline: none;
 
@@ -441,49 +383,35 @@
             transition:
                 border-color .25s ease,
                 box-shadow .25s ease;
-
         }
 
         .form-group input:focus,
-
         .form-group textarea:focus,
-
         .form-group select:focus {
-
             border-color:
                 #d4af37;
 
             box-shadow:
                 0 0 0 3px
                 rgba(212, 175, 55, .08);
-
         }
 
         .form-group input::placeholder,
-
         .form-group textarea::placeholder {
-
             color:
                 rgba(245, 240, 232, .35);
-
         }
 
         .form-group select option {
+            background: #141414;
 
-            background:
-                #141414;
-
-            color:
-                #f5f0e8;
-
+            color: #f5f0e8;
         }
 
         .form-group textarea {
-
             resize: vertical;
 
             min-height: 130px;
-
         }
 
 
@@ -492,7 +420,6 @@
         ========================================= */
 
         .form-actions {
-
             display: flex;
 
             gap: 10px;
@@ -500,7 +427,6 @@
             flex-wrap: wrap;
 
             margin-top: 10px;
-
         }
 
 
@@ -509,9 +435,7 @@
         ========================================= */
 
         .loading-admin {
-
-            grid-column:
-                1 / -1;
+            grid-column: 1 / -1;
 
             padding: 70px 20px;
 
@@ -522,7 +446,32 @@
             border:
                 1px solid
                 rgba(212, 175, 55, .12);
+        }
 
+
+        /* =========================================
+           CATEGORY BADGE
+        ========================================= */
+
+        .category-badge {
+            display: inline-block;
+
+            padding: 5px 8px;
+
+            border:
+                1px solid
+                rgba(212, 175, 55, .2);
+
+            background:
+                rgba(212, 175, 55, .04);
+
+            color: #d4af37;
+
+            font-size: 9px;
+
+            letter-spacing: .08em;
+
+            text-transform: uppercase;
         }
 
 
@@ -531,15 +480,13 @@
         ========================================= */
 
         .admin-loading {
-
             position: fixed;
 
             inset: 0;
 
             z-index: 9999;
 
-            background:
-                #080808;
+            background: #080808;
 
             display: flex;
 
@@ -550,41 +497,30 @@
             text-align: center;
 
             padding: 30px;
-
         }
 
         .admin-loading-content {
-
             max-width: 420px;
-
         }
 
         .admin-loading-label {
-
-            color:
-                #d4af37;
+            color: #d4af37;
 
             font-size: 12px;
 
-            letter-spacing:
-                .2em;
+            letter-spacing: .2em;
 
             margin-bottom: 15px;
-
         }
 
         .admin-loading-title {
-
             font-size: 28px;
 
             margin-bottom: 10px;
-
         }
 
         .admin-loading-text {
-
             opacity: .6;
-
         }
 
 
@@ -595,10 +531,8 @@
         @media (max-width: 1000px) {
 
             .product-admin-grid {
-
                 grid-template-columns:
                     repeat(2, 1fr);
-
             }
 
         }
@@ -607,29 +541,19 @@
         @media (max-width: 650px) {
 
             .product-admin-grid {
-
-                grid-template-columns:
-                    1fr;
-
+                grid-template-columns: 1fr;
             }
 
             .admin-page {
-
-                padding-top:
-                    100px;
-
+                padding-top: 120px;
             }
 
             .product-form-box {
-
                 padding: 22px;
-
             }
 
             .product-admin-image {
-
                 height: 240px;
-
             }
 
         }
@@ -638,23 +562,15 @@
         @media (max-width: 450px) {
 
             .admin-top {
-
-                align-items:
-                    stretch;
-
+                align-items: stretch;
             }
 
             .admin-top .admin-btn {
-
                 width: 100%;
-
             }
 
             .product-admin-actions {
-
-                flex-direction:
-                    column;
-
+                flex-direction: column;
             }
 
         }
@@ -717,9 +633,14 @@
             href="../index.html"
             class="logo"
         >
-            ARDANA
-            <span>BATIK</span>
+
+            <img
+                src="../assets/images/logo2.png"
+                alt="ARDANA BATIK"
+            >
+
         </a>
+
 
         <nav class="nav-links">
 
@@ -738,14 +659,32 @@
                 Produk
             </a>
 
-            <a
-                href="#"
-                onclick="logoutAdmin(); return false;"
-            >
-                Logout
+            <a href="categories.html">
+                Kategori
+            </a>
+
+            <a href="orders.html">
+                Pesanan
+            </a>
+
+            <a href="reports.html">
+                Laporan Penjualan
             </a>
 
         </nav>
+
+
+        <div class="navbar-actions">
+
+            <button
+                type="button"
+                class="btn btn-outline"
+                id="logout-button"
+            >
+                LOGOUT
+            </button>
+
+        </div>
 
     </div>
 
@@ -763,7 +702,9 @@
 <div class="container">
 
 
-    <!-- HEADER -->
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
     <div class="admin-header">
 
@@ -861,27 +802,7 @@
                 >
 
                     <option value="">
-                        Pilih kategori
-                    </option>
-
-                    <option value="Batik Shirt">
-                        Batik Shirt
-                    </option>
-
-                    <option value="Batik Dress">
-                        Batik Dress
-                    </option>
-
-                    <option value="Batik Outer">
-                        Batik Outer
-                    </option>
-
-                    <option value="Batik Set">
-                        Batik Set
-                    </option>
-
-                    <option value="Batik Accessories">
-                        Batik Accessories
+                        Memuat kategori...
                     </option>
 
                 </select>
@@ -902,7 +823,7 @@
                     id="product-price"
                     min="0"
                     step="1000"
-                    placeholder="250000"
+                    placeholder="899000"
                     required
                 >
 
@@ -1053,6 +974,8 @@
 
 let products = [];
 
+let categories = [];
+
 
 // =========================================
 // ADMIN ACCESS
@@ -1072,27 +995,12 @@ async function verifyAdminAccess() {
             .getUser();
 
 
-        if (userError) {
-
-            console.error(
-                "Gagal mengecek user:",
-                userError
-            );
+        if (userError || !user) {
 
             window.location.href =
                 "../auth/login.html";
 
-            return;
-
-        }
-
-
-        if (!user) {
-
-            window.location.href =
-                "../auth/login.html";
-
-            return;
+            return false;
 
         }
 
@@ -1101,16 +1009,9 @@ async function verifyAdminAccess() {
             data: profile,
             error: profileError
         } = await supabaseClient
-
             .from("profiles")
-
             .select("role")
-
-            .eq(
-                "id",
-                user.id
-            )
-
+            .eq("id", user.id)
             .single();
 
 
@@ -1128,7 +1029,7 @@ async function verifyAdminAccess() {
             window.location.href =
                 "../index.html";
 
-            return;
+            return false;
 
         }
 
@@ -1145,12 +1046,10 @@ async function verifyAdminAccess() {
             window.location.href =
                 "../index.html";
 
-            return;
+            return false;
 
         }
 
-
-        // Admin valid
 
         document.getElementById(
             "admin-loading"
@@ -1162,7 +1061,7 @@ async function verifyAdminAccess() {
         ).style.display = "block";
 
 
-        await loadProducts();
+        return true;
 
     }
 
@@ -1175,6 +1074,8 @@ async function verifyAdminAccess() {
 
         window.location.href =
             "../auth/login.html";
+
+        return false;
 
     }
 
@@ -1202,6 +1103,116 @@ function formatPrice(price) {
 
 
 // =========================================
+// LOAD CATEGORIES
+// =========================================
+
+async function loadCategories() {
+
+    const select =
+        document.getElementById(
+            "product-category"
+        );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Memuat kategori...
+        </option>
+
+    `;
+
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("categories")
+            .select(`
+                id,
+                name
+            `)
+            .order(
+                "name",
+                {
+                    ascending: true
+                }
+            );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        categories = data || [];
+
+
+        if (categories.length === 0) {
+
+            select.innerHTML = `
+
+                <option value="">
+                    Belum ada kategori
+                </option>
+
+            `;
+
+            return;
+
+        }
+
+
+        select.innerHTML = `
+
+            <option value="">
+                Pilih kategori
+            </option>
+
+            ${categories
+                .map(category => `
+
+                    <option value="${Number(category.id)}">
+                        ${escapeHTML(category.name)}
+                    </option>
+
+                `)
+                .join("")}
+
+        `;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Gagal mengambil kategori:",
+            error
+        );
+
+
+        select.innerHTML = `
+
+            <option value="">
+                Gagal memuat kategori
+            </option>
+
+        `;
+
+
+        alert(
+            "Gagal memuat kategori.\n\n" +
+            error.message
+        );
+
+    }
+
+}
+
+
+// =========================================
 // LOAD PRODUCTS
 // =========================================
 
@@ -1224,24 +1235,44 @@ async function loadProducts() {
     `;
 
 
-    const {
-        data,
-        error
-    } = await supabaseClient
+    try {
 
-        .from("products")
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("products")
+            .select(`
+                id,
+                name,
+                category_id,
+                price,
+                stock,
+                image_url,
+                description,
+                created_at
+            `)
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
 
-        .select("*")
 
-        .order(
-            "created_at",
-            {
-                ascending: false
-            }
-        );
+        if (error) {
+            throw error;
+        }
 
 
-    if (error) {
+        products = data || [];
+
+
+        renderProducts();
+
+    }
+
+    catch (error) {
 
         console.error(
             "Gagal mengambil produk:",
@@ -1257,21 +1288,54 @@ async function loadProducts() {
 
                 <br><br>
 
-                Cek Console untuk detail error.
+                <small>
+                    ${escapeHTML(
+                        error.message
+                    )}
+                </small>
 
             </div>
 
         `;
 
-        return;
-
     }
 
+}
 
-    products = data || [];
+
+// =========================================
+// ESCAPE HTML
+// =========================================
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
 
 
-    renderProducts();
+// =========================================
+// GET CATEGORY NAME
+// =========================================
+
+function getCategoryName(categoryId) {
+
+    const category =
+        categories.find(
+            item =>
+                Number(item.id) ===
+                Number(categoryId)
+        );
+
+
+    return category
+        ? category.name
+        : "Kategori tidak ditemukan";
 
 }
 
@@ -1318,28 +1382,36 @@ function renderProducts() {
 
     products.forEach(product => {
 
+        const categoryName =
+            getCategoryName(
+                product.category_id
+            );
+
 
         const imageHTML =
-
             product.image_url
 
-            ? `
+                ? `
 
-                <img
-                    src="${product.image_url}"
-                    alt="${product.name}"
-                    loading="lazy"
-                >
+                    <img
+                        src="${escapeHTML(
+                            product.image_url
+                        )}"
+                        alt="${escapeHTML(
+                            product.name
+                        )}"
+                        loading="lazy"
+                    >
 
-            `
+                `
 
-            : `
+                : `
 
-                <div class="no-image">
-                    ARDANA BATIK
-                </div>
+                    <div class="no-image">
+                        ARDANA BATIK
+                    </div>
 
-            `;
+                `;
 
 
         container.innerHTML += `
@@ -1364,29 +1436,48 @@ function renderProducts() {
                     <div
                         class="product-admin-category"
                     >
-                        ${product.category}
+
+                        <span class="category-badge">
+
+                            ${escapeHTML(
+                                categoryName
+                            )}
+
+                        </span>
+
                     </div>
 
 
                     <h3>
-                        ${product.name}
+                        ${escapeHTML(
+                            product.name
+                        )}
                     </h3>
 
 
                     <div
                         class="product-admin-price"
                     >
-                        ${formatPrice(product.price)}
+
+                        ${formatPrice(
+                            product.price
+                        )}
+
                     </div>
 
 
                     <div
                         class="product-admin-stock"
                     >
+
                         Stok:
+
                         <strong>
-                            ${product.stock}
+                            ${Number(
+                                product.stock || 0
+                            )}
                         </strong>
+
                     </div>
 
 
@@ -1397,7 +1488,7 @@ function renderProducts() {
                         <button
                             type="button"
                             class="admin-btn"
-                            onclick="editProduct(${product.id})"
+                            onclick="editProduct(${Number(product.id)})"
                         >
                             EDIT
                         </button>
@@ -1406,7 +1497,7 @@ function renderProducts() {
                         <button
                             type="button"
                             class="admin-btn"
-                            onclick="deleteProduct(${product.id})"
+                            onclick="deleteProduct(${Number(product.id)})"
                         >
                             HAPUS
                         </button>
@@ -1428,7 +1519,7 @@ function renderProducts() {
 // SHOW ADD FORM
 // =========================================
 
-function showAddForm() {
+async function showAddForm() {
 
     document.getElementById(
         "product-form-box"
@@ -1531,7 +1622,7 @@ function editProduct(productId) {
     document.getElementById(
         "product-category"
     ).value =
-        product.category || "";
+        product.category_id || "";
 
 
     document.getElementById(
@@ -1592,7 +1683,6 @@ async function saveProduct(event) {
 
     try {
 
-
         const id =
             document.getElementById(
                 "product-id"
@@ -1605,10 +1695,12 @@ async function saveProduct(event) {
             ).value.trim();
 
 
-        const category =
-            document.getElementById(
-                "product-category"
-            ).value;
+        const categoryId =
+            Number(
+                document.getElementById(
+                    "product-category"
+                ).value
+            );
 
 
         const price =
@@ -1654,7 +1746,7 @@ async function saveProduct(event) {
         }
 
 
-        if (!category) {
+        if (!categoryId) {
 
             alert(
                 "Kategori produk wajib dipilih."
@@ -1665,7 +1757,29 @@ async function saveProduct(event) {
         }
 
 
-        if (price < 0) {
+        const selectedCategory =
+            categories.find(
+                category =>
+                    Number(category.id) ===
+                    Number(categoryId)
+            );
+
+
+        if (!selectedCategory) {
+
+            alert(
+                "Kategori yang dipilih tidak ditemukan."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !Number.isFinite(price) ||
+            price < 0
+        ) {
 
             alert(
                 "Harga tidak boleh kurang dari 0."
@@ -1676,10 +1790,13 @@ async function saveProduct(event) {
         }
 
 
-        if (stock < 0) {
+        if (
+            !Number.isInteger(stock) ||
+            stock < 0
+        ) {
 
             alert(
-                "Stok tidak boleh kurang dari 0."
+                "Stok harus berupa angka 0 atau lebih."
             );
 
             return;
@@ -1687,11 +1804,15 @@ async function saveProduct(event) {
         }
 
 
+        // =================================
+        // DATA PRODUCT
+        // =================================
+
         const productData = {
 
             name: name,
 
-            category: category,
+            category_id: categoryId,
 
             price: price,
 
@@ -1715,19 +1836,17 @@ async function saveProduct(event) {
             const {
                 error
             } = await supabaseClient
-
                 .from("products")
-
                 .update(productData)
-
                 .eq(
                     "id",
                     id
                 );
 
 
-            if (error)
+            if (error) {
                 throw error;
+            }
 
 
             alert(
@@ -1746,16 +1865,15 @@ async function saveProduct(event) {
             const {
                 error
             } = await supabaseClient
-
                 .from("products")
-
                 .insert([
                     productData
                 ]);
 
 
-            if (error)
+            if (error) {
                 throw error;
+            }
 
 
             alert(
@@ -1767,13 +1885,12 @@ async function saveProduct(event) {
 
         hideForm();
 
-        await loadProducts();
 
+        await loadProducts();
 
     }
 
     catch (error) {
-
 
         console.error(
             "Gagal menyimpan produk:",
@@ -1786,7 +1903,6 @@ async function saveProduct(event) {
             "Detail: " +
             error.message
         );
-
 
     }
 
@@ -1816,8 +1932,9 @@ async function deleteProduct(productId) {
         );
 
 
-    if (!product)
+    if (!product) {
         return;
+    }
 
 
     const confirmed =
@@ -1826,8 +1943,9 @@ async function deleteProduct(productId) {
         );
 
 
-    if (!confirmed)
+    if (!confirmed) {
         return;
+    }
 
 
     try {
@@ -1835,19 +1953,17 @@ async function deleteProduct(productId) {
         const {
             error
         } = await supabaseClient
-
             .from("products")
-
             .delete()
-
             .eq(
                 "id",
                 productId
             );
 
 
-        if (error)
+        if (error) {
             throw error;
+        }
 
 
         alert(
@@ -1890,37 +2006,60 @@ async function logoutAdmin() {
         );
 
 
-    if (!confirmed)
+    if (!confirmed) {
         return;
+    }
 
 
-    const {
-        error
-    } = await supabaseClient
-        .auth
-        .signOut();
+    try {
+
+        const {
+            error
+        } = await supabaseClient
+            .auth
+            .signOut();
 
 
-    if (error) {
+        if (error) {
+            throw error;
+        }
+
+
+        window.location.href =
+            "../auth/login.html";
+
+    }
+
+    catch (error) {
 
         console.error(
             "Gagal logout:",
             error
         );
 
-        alert(
-            "Logout gagal."
-        );
 
-        return;
+        alert(
+            "Logout gagal.\n\n" +
+            error.message
+        );
 
     }
 
-
-    window.location.href =
-        "../auth/login.html";
-
 }
+
+
+// =========================================
+// LOGOUT BUTTON
+// =========================================
+
+document
+    .getElementById(
+        "logout-button"
+    )
+    .addEventListener(
+        "click",
+        logoutAdmin
+    );
 
 
 // =========================================
@@ -1929,9 +2068,21 @@ async function logoutAdmin() {
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    async () => {
 
-        verifyAdminAccess();
+        const allowed =
+            await verifyAdminAccess();
+
+
+        if (!allowed) {
+            return;
+        }
+
+
+        await loadCategories();
+
+
+        await loadProducts();
 
     }
 );

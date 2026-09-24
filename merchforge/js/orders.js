@@ -27,6 +27,10 @@ function formatOrderPrice(price) {
 
 function formatOrderDate(date) {
 
+    if (!date) {
+        return "-";
+    }
+
     return new Date(date).toLocaleString(
         "id-ID",
         {
@@ -54,13 +58,9 @@ async function getCurrentUser() {
         .auth
         .getUser();
 
-
     if (error) {
-
         throw error;
-
     }
-
 
     return data.user;
 
@@ -78,7 +78,6 @@ async function requireLogin() {
         const user =
             await getCurrentUser();
 
-
         if (!user) {
 
             window.location.href =
@@ -88,21 +87,18 @@ async function requireLogin() {
 
         }
 
-
         return user;
 
-
-    } catch (error) {
+    }
+    catch (error) {
 
         console.error(
             "LOGIN CHECK ERROR:",
             error
         );
 
-
         window.location.href =
             "auth/login.html";
-
 
         return null;
 
@@ -121,7 +117,6 @@ async function loadOrders() {
         document.getElementById(
             "orders-container"
         );
-
 
     if (!ordersContainer) {
 
@@ -150,11 +145,8 @@ async function loadOrders() {
         const user =
             await requireLogin();
 
-
         if (!user) {
-
             return;
-
         }
 
 
@@ -197,9 +189,7 @@ async function loadOrders() {
 
 
         if (ordersError) {
-
             throw ordersError;
-
         }
 
 
@@ -283,9 +273,7 @@ async function loadOrders() {
 
 
         if (itemsError) {
-
             throw itemsError;
-
         }
 
 
@@ -293,6 +281,192 @@ async function loadOrders() {
             "ORDER ITEMS:",
             orderItems
         );
+
+
+        /* =================================================
+           AMBIL PRODUCT ID
+        ================================================= */
+
+        const productIds = [
+            ...new Set(
+                (orderItems || [])
+                    .map(
+                        item =>
+                            item.product_id
+                    )
+                    .filter(
+                        id =>
+                            id !== null &&
+                            id !== undefined
+                    )
+            )
+        ];
+
+
+        /* =================================================
+           AMBIL PRODUCTS + CATEGORY_ID
+        ================================================= */
+
+        let products = [];
+
+
+        if (productIds.length > 0) {
+
+            const {
+                data,
+                error: productsError
+            } = await supabaseClient
+                .from("products")
+                .select(`
+                    id,
+                    category_id
+                `)
+                .in(
+                    "id",
+                    productIds
+                );
+
+
+            if (productsError) {
+                throw productsError;
+            }
+
+
+            products =
+                data || [];
+
+        }
+
+
+        console.log(
+            "PRODUCTS:",
+            products
+        );
+
+
+        /* =================================================
+           AMBIL CATEGORY ID
+        ================================================= */
+
+        const categoryIds = [
+            ...new Set(
+                products
+                    .map(
+                        product =>
+                            product.category_id
+                    )
+                    .filter(
+                        id =>
+                            id !== null &&
+                            id !== undefined
+                    )
+            )
+        ];
+
+
+        /* =================================================
+           AMBIL CATEGORIES
+        ================================================= */
+
+        let categories = [];
+
+
+        if (categoryIds.length > 0) {
+
+            const {
+                data,
+                error: categoriesError
+            } = await supabaseClient
+                .from("categories")
+                .select(`
+                    id,
+                    name
+                `)
+                .in(
+                    "id",
+                    categoryIds
+                );
+
+
+            if (categoriesError) {
+                throw categoriesError;
+            }
+
+
+            categories =
+                data || [];
+
+        }
+
+
+        console.log(
+            "CATEGORIES:",
+            categories
+        );
+
+
+        /* =================================================
+           GABUNGKAN DATA PRODUCT + CATEGORY
+        ================================================= */
+
+        const productMap =
+            new Map(
+                products.map(
+                    product => [
+                        Number(product.id),
+                        product
+                    ]
+                )
+            );
+
+
+        const categoryMap =
+            new Map(
+                categories.map(
+                    category => [
+                        Number(category.id),
+                        category
+                    ]
+                )
+            );
+
+
+        const enrichedItems =
+            (orderItems || [])
+                .map(
+                    item => {
+
+                        const product =
+                            productMap.get(
+                                Number(
+                                    item.product_id
+                                )
+                            );
+
+
+                        const category =
+                            product
+                                ? categoryMap.get(
+                                    Number(
+                                        product.category_id
+                                    )
+                                )
+                                : null;
+
+
+                        return {
+
+                            ...item,
+
+                            category_name:
+                                category
+                                    ? category.name
+                                    : "Kategori tidak tersedia"
+
+                        };
+
+                    }
+                );
 
 
         /* =================================================
@@ -306,7 +480,7 @@ async function loadOrders() {
             order => {
 
                 const items =
-                    (orderItems || [])
+                    enrichedItems
                         .filter(
                             item =>
                                 Number(
@@ -378,6 +552,44 @@ async function loadOrders() {
                         </div>
 
 
+                        <!-- CUSTOMER -->
+
+                        <div
+                            class="order-customer"
+                        >
+
+                            <div>
+
+                                <span>
+                                    CUSTOMER
+                                </span>
+
+                                <strong>
+                                    ${escapeHTML(
+                                        order.customer_name
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    WHATSAPP
+                                </span>
+
+                                <strong>
+                                    ${escapeHTML(
+                                        order.phone
+                                    )}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
                         <!-- ITEMS -->
 
                         <div
@@ -389,6 +601,33 @@ async function loadOrders() {
                             )}
 
                         </div>
+
+
+                        <!-- NOTES -->
+
+                        ${
+                            order.notes
+                            ?
+                            `
+                            <div
+                                class="order-notes"
+                            >
+
+                                <span>
+                                    CATATAN
+                                </span>
+
+                                <p>
+                                    ${escapeHTML(
+                                        order.notes
+                                    )}
+                                </p>
+
+                            </div>
+                            `
+                            :
+                            ""
+                        }
 
 
                         <!-- FOOTER -->
@@ -438,7 +677,8 @@ async function loadOrders() {
             html;
 
 
-    } catch (error) {
+    }
+    catch (error) {
 
         console.error(
             "ORDERS ERROR:",
@@ -517,6 +757,16 @@ function renderOrderItems(items) {
                             )}
                         </strong>
 
+
+                        <span
+                            class="order-item-category"
+                        >
+                            ${escapeHTML(
+                                item.category_name
+                            )}
+                        </span>
+
+
                         <span>
                             ${Number(
                                 item.quantity
@@ -558,27 +808,18 @@ function getStatusLabel(status) {
     switch (status) {
 
         case "pending":
-
             return "PENDING";
 
-
         case "processing":
-
             return "PROCESSING";
 
-
         case "completed":
-
             return "✓ COMPLETED";
 
-
         case "cancelled":
-
             return "CANCELLED";
 
-
         default:
-
             return String(
                 status || "UNKNOWN"
             ).toUpperCase();
@@ -597,27 +838,18 @@ function getStatusClass(status) {
     switch (status) {
 
         case "pending":
-
             return "status-pending";
 
-
         case "processing":
-
             return "status-processing";
 
-
         case "completed":
-
             return "status-completed";
 
-
         case "cancelled":
-
             return "status-cancelled";
 
-
         default:
-
             return "";
 
     }
@@ -633,24 +865,13 @@ async function showInvoice(orderId) {
 
     try {
 
-        /* =================================================
-           CEK LOGIN
-        ================================================= */
-
         const user =
             await requireLogin();
 
-
         if (!user) {
-
             return;
-
         }
 
-
-        /* =================================================
-           VALIDASI ORDER ID
-        ================================================= */
 
         const numericOrderId =
             Number(orderId);
@@ -671,10 +892,7 @@ async function showInvoice(orderId) {
 
 
         /* =================================================
-           AMBIL ORDER MILIK USER
-           
-           user_id dicek lagi agar user tidak
-           dapat membuka invoice milik user lain.
+           AMBIL ORDER
         ================================================= */
 
         const {
@@ -705,9 +923,7 @@ async function showInvoice(orderId) {
 
 
         if (orderError) {
-
             throw orderError;
-
         }
 
 
@@ -731,6 +947,7 @@ async function showInvoice(orderId) {
             .from("order_items")
             .select(`
                 product_name,
+                product_id,
                 price,
                 quantity,
                 subtotal
@@ -742,10 +959,132 @@ async function showInvoice(orderId) {
 
 
         if (itemsError) {
-
             throw itemsError;
+        }
+
+
+        /* =================================================
+           AMBIL PRODUCTS
+        ================================================= */
+
+        const productIds = [
+            ...new Set(
+                (items || [])
+                    .map(
+                        item =>
+                            item.product_id
+                    )
+                    .filter(
+                        id =>
+                            id !== null &&
+                            id !== undefined
+                    )
+            )
+        ];
+
+
+        let products = [];
+
+
+        if (productIds.length > 0) {
+
+            const {
+                data,
+                error: productsError
+            } = await supabaseClient
+                .from("products")
+                .select(`
+                    id,
+                    category_id
+                `)
+                .in(
+                    "id",
+                    productIds
+                );
+
+
+            if (productsError) {
+                throw productsError;
+            }
+
+
+            products =
+                data || [];
 
         }
+
+
+        /* =================================================
+           AMBIL CATEGORIES
+        ================================================= */
+
+        const categoryIds = [
+            ...new Set(
+                products
+                    .map(
+                        product =>
+                            product.category_id
+                    )
+                    .filter(
+                        id =>
+                            id !== null &&
+                            id !== undefined
+                    )
+            )
+        ];
+
+
+        let categories = [];
+
+
+        if (categoryIds.length > 0) {
+
+            const {
+                data,
+                error: categoriesError
+            } = await supabaseClient
+                .from("categories")
+                .select(`
+                    id,
+                    name
+                `)
+                .in(
+                    "id",
+                    categoryIds
+                );
+
+
+            if (categoriesError) {
+                throw categoriesError;
+            }
+
+
+            categories =
+                data || [];
+
+        }
+
+
+        const productMap =
+            new Map(
+                products.map(
+                    product => [
+                        Number(product.id),
+                        product
+                    ]
+                )
+            );
+
+
+        const categoryMap =
+            new Map(
+                categories.map(
+                    category => [
+                        Number(category.id),
+                        category
+                    ]
+                )
+            );
 
 
         /* =================================================
@@ -760,6 +1099,30 @@ async function showInvoice(orderId) {
         ).forEach(
             item => {
 
+                const product =
+                    productMap.get(
+                        Number(
+                            item.product_id
+                        )
+                    );
+
+
+                const category =
+                    product
+                        ? categoryMap.get(
+                            Number(
+                                product.category_id
+                            )
+                        )
+                        : null;
+
+
+                const categoryName =
+                    category
+                        ? category.name
+                        : "Kategori tidak tersedia";
+
+
                 itemsHTML += `
 
                     <div
@@ -773,6 +1136,12 @@ async function showInvoice(orderId) {
                                     item.product_name
                                 )}
                             </strong>
+
+                            <p>
+                                ${escapeHTML(
+                                    categoryName
+                                )}
+                            </p>
 
                             <p>
                                 ${Number(
@@ -816,9 +1185,6 @@ async function showInvoice(orderId) {
                     class="invoice-modal"
                 >
 
-
-                    <!-- HEADER -->
-
                     <div
                         class="invoice-header"
                     >
@@ -849,9 +1215,6 @@ async function showInvoice(orderId) {
 
                     </div>
 
-
-
-                    <!-- INFO -->
 
                     <div
                         class="invoice-info"
@@ -919,9 +1282,6 @@ async function showInvoice(orderId) {
                     </div>
 
 
-
-                    <!-- ITEMS -->
-
                     <div
                         class="invoice-items"
                     >
@@ -931,8 +1291,30 @@ async function showInvoice(orderId) {
                     </div>
 
 
+                    ${
+                        order.notes
+                        ?
+                        `
+                        <div
+                            class="invoice-notes"
+                        >
 
-                    <!-- TOTAL -->
+                            <span>
+                                CATATAN
+                            </span>
+
+                            <p>
+                                ${escapeHTML(
+                                    order.notes
+                                )}
+                            </p>
+
+                        </div>
+                        `
+                        :
+                        ""
+                    }
+
 
                     <div
                         class="invoice-total"
@@ -950,9 +1332,6 @@ async function showInvoice(orderId) {
 
                     </div>
 
-
-
-                    <!-- STATUS -->
 
                     <div
                         class="invoice-status"
@@ -977,41 +1356,6 @@ async function showInvoice(orderId) {
                     </div>
 
 
-
-                    <!-- NOTES -->
-
-                    ${
-                        order.notes
-
-                        ?
-
-                        `
-                        <div
-                            class="invoice-notes"
-                        >
-
-                            <span>
-                                CATATAN
-                            </span>
-
-                            <p>
-                                ${escapeHTML(
-                                    order.notes
-                                )}
-                            </p>
-
-                        </div>
-                        `
-
-                        :
-
-                        ""
-                    }
-
-
-
-                    <!-- ACTIONS -->
-
                     <div
                         class="invoice-actions"
                     >
@@ -1035,17 +1379,12 @@ async function showInvoice(orderId) {
 
                     </div>
 
-
                 </div>
 
             </div>
 
         `;
 
-
-        /* =================================================
-           HINDARI DUPLICATE MODAL
-        ================================================= */
 
         closeInvoice();
 
@@ -1056,7 +1395,8 @@ async function showInvoice(orderId) {
         );
 
 
-    } catch (error) {
+    }
+    catch (error) {
 
         console.error(
             "INVOICE ERROR:",
@@ -1085,11 +1425,8 @@ function closeInvoice() {
             "invoice-overlay"
         );
 
-
     if (overlay) {
-
         overlay.remove();
-
     }
 
 }
