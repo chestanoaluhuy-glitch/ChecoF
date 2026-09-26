@@ -25,7 +25,7 @@
             );
 
             window.location.href =
-                "auth/login.html";
+                "../auth/login.html";
 
             return;
 
@@ -40,7 +40,7 @@
             );
 
             window.location.href =
-                "auth/login.html";
+                "../auth/login.html";
 
             return;
 
@@ -62,7 +62,7 @@
         );
 
         window.location.href =
-            "auth/login.html";
+            "../auth/login.html";
 
     }
 

@@ -103,7 +103,7 @@
 
         .report-header p {
 
-            max-width: 650px;
+            max-width: 700px;
 
             margin: 0;
 
@@ -115,88 +115,16 @@
 
 
         /* =====================================================
-           FILTER
+           HEADER ACTIONS
         ===================================================== */
 
-        .report-filter {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr auto;
-
-            gap: 15px;
-
-            padding: 22px;
-
-            margin-bottom: 35px;
-
-            border:
-                1px solid rgba(245, 240, 232, 0.10);
-
-            background: rgba(255, 255, 255, 0.025);
-
-        }
-
-
-        .report-filter-group {
+        .report-header-actions {
 
             display: flex;
-
-            flex-direction: column;
-
-            gap: 8px;
-
-        }
-
-
-        .report-filter-group label {
-
-            color: rgba(245, 240, 232, 0.48);
-
-            font-size: 0.66rem;
-
-            letter-spacing: 0.12em;
-
-            text-transform: uppercase;
-
-        }
-
-
-        .report-filter-group input {
-
-            width: 100%;
-
-            box-sizing: border-box;
-
-            padding: 12px 13px;
-
-            border:
-                1px solid rgba(245, 240, 232, 0.16);
-
-            background: #111111;
-
-            color: #f5f0e8;
-
-            outline: none;
-
-        }
-
-
-        .report-filter-group input:focus {
-
-            border-color: #d4af37;
-
-        }
-
-
-        .report-filter-actions {
-
-            display: flex;
-
-            align-items: flex-end;
 
             gap: 10px;
+
+            flex-wrap: wrap;
 
         }
 
@@ -259,6 +187,97 @@
 
 
         /* =====================================================
+           FILTER
+        ===================================================== */
+
+        .report-filter {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 1fr auto;
+
+            gap: 15px;
+
+            padding: 22px;
+
+            margin-bottom: 35px;
+
+            border:
+                1px solid rgba(245, 240, 232, 0.10);
+
+            background:
+                rgba(255, 255, 255, 0.025);
+
+        }
+
+
+        .report-filter-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+        }
+
+
+        .report-filter-group label {
+
+            color:
+                rgba(245, 240, 232, 0.48);
+
+            font-size: 0.66rem;
+
+            letter-spacing: 0.12em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .report-filter-group input,
+        .report-filter-group select {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 12px 13px;
+
+            border:
+                1px solid rgba(245, 240, 232, 0.16);
+
+            background: #111111;
+
+            color: #f5f0e8;
+
+            outline: none;
+
+        }
+
+
+        .report-filter-group input:focus,
+        .report-filter-group select:focus {
+
+            border-color: #d4af37;
+
+        }
+
+
+        .report-filter-actions {
+
+            display: flex;
+
+            align-items: flex-end;
+
+            gap: 10px;
+
+        }
+
+
+        /* =====================================================
            MESSAGE
         ===================================================== */
 
@@ -273,7 +292,8 @@
             border:
                 1px solid rgba(212, 175, 55, 0.35);
 
-            background: rgba(212, 175, 55, 0.08);
+            background:
+                rgba(212, 175, 55, 0.08);
 
             color: #f5f0e8;
 
@@ -336,7 +356,8 @@
 
             margin-bottom: 12px;
 
-            color: rgba(245, 240, 232, 0.50);
+            color:
+                rgba(245, 240, 232, 0.50);
 
             font-size: 0.68rem;
 
@@ -355,7 +376,8 @@
 
             font-family: Georgia, serif;
 
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-size:
+                clamp(1.8rem, 3vw, 2.5rem);
 
             font-weight: 400;
 
@@ -364,7 +386,8 @@
 
         .report-summary-card.revenue strong {
 
-            font-size: clamp(1.5rem, 3vw, 2.3rem);
+            font-size:
+                clamp(1.5rem, 3vw, 2.3rem);
 
         }
 
@@ -410,7 +433,8 @@
 
         .report-section-header span {
 
-            color: rgba(245, 240, 232, 0.45);
+            color:
+                rgba(245, 240, 232, 0.45);
 
             font-size: 0.68rem;
 
@@ -477,7 +501,8 @@
             border-top:
                 1px solid rgba(245, 240, 232, 0.07);
 
-            color: rgba(245, 240, 232, 0.80);
+            color:
+                rgba(245, 240, 232, 0.80);
 
             font-size: 0.86rem;
 
@@ -526,26 +551,37 @@
         }
 
 
+        .report-status {
+
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border:
+                1px solid rgba(212, 175, 55, 0.35);
+
+            color: #d4af37;
+
+            font-size: 0.62rem;
+
+            letter-spacing: 0.08em;
+
+            text-transform: uppercase;
+
+        }
+
+
         /* =====================================================
            EMPTY / LOADING
         ===================================================== */
 
-        .report-empty {
-
-            padding: 50px 20px;
-
-            color: rgba(245, 240, 232, 0.48);
-
-            text-align: center;
-
-        }
-
-
+        .report-empty,
         .report-loading {
 
             padding: 50px 20px;
 
-            color: rgba(245, 240, 232, 0.48);
+            color:
+                rgba(245, 240, 232, 0.48);
 
             text-align: center;
 
@@ -553,14 +589,15 @@
 
 
         /* =====================================================
-           STATUS INFO
+           NOTE
         ===================================================== */
 
         .report-note {
 
             margin-top: 12px;
 
-            color: rgba(245, 240, 232, 0.42);
+            color:
+                rgba(245, 240, 232, 0.42);
 
             font-size: 0.72rem;
 
@@ -573,20 +610,12 @@
            RESPONSIVE
         ===================================================== */
 
-        @media (max-width: 850px) {
-
-            .report-header {
-
-                align-items: flex-start;
-
-                flex-direction: column;
-
-            }
-
+        @media (max-width: 1000px) {
 
             .report-filter {
 
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns:
+                    1fr 1fr;
 
             }
 
@@ -596,6 +625,19 @@
                 grid-column: 1 / -1;
 
                 align-items: center;
+
+            }
+
+        }
+
+
+        @media (max-width: 850px) {
+
+            .report-header {
+
+                align-items: flex-start;
+
+                flex-direction: column;
 
             }
 
@@ -635,7 +677,6 @@
 
 
             .report-button,
-
             .report-reset {
 
                 flex: 1;
@@ -643,11 +684,120 @@
             }
 
 
-            .report-section-header {
+            .report-header-actions {
 
-                align-items: flex-start;
+                width: 100%;
 
-                flex-direction: column;
+            }
+
+        }
+
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @media print {
+
+            body {
+
+                background: white !important;
+
+                color: black !important;
+
+            }
+
+
+            .navbar,
+            .report-filter,
+            .report-header-actions,
+            #report-message {
+
+                display: none !important;
+
+            }
+
+
+            .admin-report-page {
+
+                padding: 20px;
+
+                background: white !important;
+
+                color: black !important;
+
+            }
+
+
+            .admin-report-container {
+
+                width: 100%;
+
+            }
+
+
+            .report-header h1,
+            .report-section-header h2 {
+
+                color: black !important;
+
+            }
+
+
+            .report-header h1 span,
+            .report-label,
+            .report-category,
+            .report-revenue,
+            .report-summary-card strong {
+
+                color: #8c6a32 !important;
+
+            }
+
+
+            .report-header p,
+            .report-summary-card span,
+            .report-section-header span,
+            .report-note {
+
+                color: #444 !important;
+
+            }
+
+
+            .report-summary-card,
+            .report-table-wrapper {
+
+                border-color: #ccc !important;
+
+                background: white !important;
+
+            }
+
+
+            .report-table th {
+
+                background: #eee !important;
+
+                color: #333 !important;
+
+            }
+
+
+            .report-table td {
+
+                color: #222 !important;
+
+                border-color: #ddd !important;
+
+            }
+
+
+            .report-status {
+
+                color: #333 !important;
+
+                border-color: #999 !important;
 
             }
 
@@ -740,7 +890,9 @@
     <div class="admin-report-container">
 
 
-        <!-- HEADER -->
+        <!-- =================================================
+             HEADER
+        ================================================= -->
 
         <header class="report-header">
 
@@ -756,10 +908,23 @@
                 </h1>
 
                 <p>
-                    Lihat ringkasan transaksi, produk terjual,
+                    Lihat transaksi, produk terjual,
                     kategori, dan pendapatan ARDANA BATIK
                     berdasarkan periode penjualan.
                 </p>
+
+            </div>
+
+
+            <div class="report-header-actions">
+
+                <button
+                    type="button"
+                    class="report-button"
+                    id="print-button"
+                >
+                    CETAK LAPORAN
+                </button>
 
             </div>
 
@@ -805,6 +970,23 @@
             </div>
 
 
+            <div class="report-filter-group">
+
+                <label for="category-filter">
+                    Kategori
+                </label>
+
+                <select id="category-filter">
+
+                    <option value="">
+                        Semua Kategori
+                    </option>
+
+                </select>
+
+            </div>
+
+
             <div class="report-filter-actions">
 
                 <button
@@ -833,7 +1015,6 @@
         ================================================= -->
 
         <section class="report-summary">
-
 
             <article class="report-summary-card">
 
@@ -875,6 +1056,76 @@
 
             </article>
 
+        </section>
+
+
+        <!-- =================================================
+             TRANSACTION REPORT
+        ================================================= -->
+
+        <section class="report-section">
+
+            <div class="report-section-header">
+
+                <h2>
+                    Daftar Transaksi
+                </h2>
+
+                <span>
+                    Transaksi penjualan
+                </span>
+
+            </div>
+
+
+            <div class="report-table-wrapper">
+
+                <table class="report-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID Transaksi
+                            </th>
+
+                            <th>
+                                Tanggal
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="transaction-report-body">
+
+                        <tr>
+
+                            <td colspan="4">
+
+                                <div class="report-loading">
+                                    Memuat transaksi...
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </section>
 
@@ -892,7 +1143,7 @@
                 </h2>
 
                 <span>
-                    Berdasarkan transaksi
+                    Berdasarkan produk
                 </span>
 
             </div>
@@ -1018,9 +1269,11 @@
 
 
         <p class="report-note">
+
             Catatan: pesanan dengan status
             <strong>cancelled</strong>
             tidak dihitung sebagai pendapatan penjualan.
+
         </p>
 
 
@@ -1050,25 +1303,26 @@
 
     let reportItems = [];
 
+    let reportProducts = [];
+
+    let reportCategories = [];
+
 
     /* =====================================================
        ELEMENTS
     ===================================================== */
 
     const startDate =
-        document.getElementById(
-            "start-date"
-        );
+        document.getElementById("start-date");
 
     const endDate =
-        document.getElementById(
-            "end-date"
-        );
+        document.getElementById("end-date");
+
+    const categoryFilter =
+        document.getElementById("category-filter");
 
     const messageBox =
-        document.getElementById(
-            "report-message"
-        );
+        document.getElementById("report-message");
 
 
     /* =====================================================
@@ -1142,6 +1396,81 @@
 
 
     /* =====================================================
+       LOAD CATEGORIES
+    ===================================================== */
+
+    async function loadCategories() {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("categories")
+
+            .select(`
+                id,
+                name
+            `)
+
+            .order(
+                "name",
+                {
+                    ascending: true
+                }
+            );
+
+
+        if (error) {
+
+            console.error(
+                "CATEGORY FILTER ERROR:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        reportCategories =
+            data || [];
+
+
+        categoryFilter.innerHTML = `
+
+            <option value="">
+                Semua Kategori
+            </option>
+
+        `;
+
+
+        reportCategories.forEach(
+            function (category) {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    category.id;
+
+                option.textContent =
+                    category.name;
+
+                categoryFilter.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
        GET DATE RANGE
     ===================================================== */
 
@@ -1157,6 +1486,13 @@
             end:
                 endDate.value
                     ? endDate.value
+                    : null,
+
+            category:
+                categoryFilter.value
+                    ? Number(
+                        categoryFilter.value
+                    )
                     : null
 
         };
@@ -1169,6 +1505,25 @@
     ===================================================== */
 
     async function loadReport() {
+
+        document.getElementById(
+            "transaction-report-body"
+        ).innerHTML = `
+
+            <tr>
+
+                <td colspan="4">
+
+                    <div class="report-loading">
+                        Memuat transaksi...
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
 
         document.getElementById(
             "product-report-body"
@@ -1210,12 +1565,13 @@
 
         const {
             start,
-            end
+            end,
+            category
         } = getDateRange();
 
 
         /* =================================================
-           1. AMBIL ORDERS
+           1. ORDERS
         ================================================= */
 
         let ordersQuery =
@@ -1241,8 +1597,7 @@
             ordersQuery =
                 ordersQuery.gte(
                     "created_at",
-                    start +
-                    "T00:00:00"
+                    start + "T00:00:00"
                 );
 
         }
@@ -1250,22 +1605,36 @@
 
         if (end) {
 
-            const nextDay =
+            const endDateObject =
                 new Date(
-                    end +
-                    "T00:00:00"
+                    Number(end.substring(0, 4)),
+                    Number(end.substring(5, 7)) - 1,
+                    Number(end.substring(8, 10)) + 1
                 );
 
-            nextDay.setDate(
-                nextDay.getDate() + 1
-            );
+
+            const year =
+                endDateObject.getFullYear();
+
+            const month =
+                String(
+                    endDateObject.getMonth() + 1
+                ).padStart(2, "0");
+
+            const day =
+                String(
+                    endDateObject.getDate()
+                ).padStart(2, "0");
+
+
+            const nextDay =
+                `${year}-${month}-${day}T00:00:00`;
 
 
             ordersQuery =
                 ordersQuery.lt(
                     "created_at",
                     nextDay
-                        .toISOString()
                 );
 
         }
@@ -1301,7 +1670,7 @@
 
 
         /* =================================================
-           2. AMBIL ORDER ITEMS
+           2. ORDER ITEMS
         ================================================= */
 
         const orderIds =
@@ -1314,6 +1683,8 @@
         if (!orderIds.length) {
 
             reportItems = [];
+
+            reportProducts = [];
 
             renderReport();
 
@@ -1368,6 +1739,72 @@
             items || [];
 
 
+        /* =================================================
+           3. PRODUCTS
+        ================================================= */
+
+        const productIds =
+            [
+                ...new Set(
+                    reportItems
+                        .map(
+                            item =>
+                                item.product_id
+                        )
+                        .filter(
+                            id =>
+                                id !== null &&
+                                id !== undefined
+                        )
+                )
+            ];
+
+
+        if (productIds.length) {
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+
+                .from("products")
+
+                .select(`
+                    id,
+                    name,
+                    price,
+                    category_id
+                `)
+
+                .in(
+                    "id",
+                    productIds
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "REPORT PRODUCTS ERROR:",
+                    error
+                );
+
+                reportProducts = [];
+
+            } else {
+
+                reportProducts =
+                    data || [];
+
+            }
+
+        } else {
+
+            reportProducts = [];
+
+        }
+
+
         renderReport();
 
     }
@@ -1377,7 +1814,108 @@
        RENDER REPORT
     ===================================================== */
 
-    async function renderReport() {
+    function renderReport() {
+
+        const {
+            category
+        } = getDateRange();
+
+
+        /* =================================================
+           MAP PRODUCTS
+        ================================================= */
+
+        const productMap =
+            new Map(
+                reportProducts.map(
+                    product =>
+                        [
+                            Number(product.id),
+                            product
+                        ]
+                )
+            );
+
+
+        /* =================================================
+           MAP CATEGORIES
+        ================================================= */
+
+        const categoryMap =
+            new Map(
+                reportCategories.map(
+                    item =>
+                        [
+                            Number(item.id),
+                            item.name
+                        ]
+                )
+            );
+
+
+        /* =================================================
+           FILTER ITEMS BY CATEGORY
+        ================================================= */
+
+        const filteredItems =
+            reportItems.filter(
+                function (item) {
+
+                    if (!category) {
+
+                        return true;
+
+                    }
+
+
+                    const product =
+                        productMap.get(
+                            Number(
+                                item.product_id
+                            )
+                        );
+
+
+                    return product &&
+                        Number(
+                            product.category_id
+                        ) === Number(
+                            category
+                        );
+
+                }
+            );
+
+
+        /* =================================================
+           FILTER ORDERS
+        ================================================= */
+
+        const filteredOrderIds =
+            new Set(
+                filteredItems.map(
+                    item =>
+                        item.order_id
+                )
+            );
+
+
+        let filteredOrders =
+            reportOrders;
+
+
+        if (category) {
+
+            filteredOrders =
+                reportOrders.filter(
+                    order =>
+                        filteredOrderIds.has(
+                            order.id
+                        )
+                );
+
+        }
+
 
         /* =================================================
            TOTAL TRANSACTIONS
@@ -1386,7 +1924,7 @@
         document.getElementById(
             "total-transactions"
         ).textContent =
-            reportOrders.length;
+            filteredOrders.length;
 
 
         /* =================================================
@@ -1394,7 +1932,7 @@
         ================================================= */
 
         const totalProducts =
-            reportItems.reduce(
+            filteredItems.reduce(
                 function (
                     total,
                     item
@@ -1419,26 +1957,53 @@
 
 
         /* =================================================
-           REVENUE
+           TOTAL REVENUE
         ================================================= */
 
-        const totalRevenue =
-            reportOrders.reduce(
-                function (
-                    total,
-                    order
-                ) {
+        let totalRevenue;
 
-                    return total +
-                        (
-                            Number(
-                                order.total
-                            ) || 0
-                        );
 
-                },
-                0
-            );
+        if (category) {
+
+            totalRevenue =
+                filteredItems.reduce(
+                    function (
+                        total,
+                        item
+                    ) {
+
+                        return total +
+                            (
+                                Number(
+                                    item.subtotal
+                                ) || 0
+                            );
+
+                    },
+                    0
+                );
+
+        } else {
+
+            totalRevenue =
+                filteredOrders.reduce(
+                    function (
+                        total,
+                        order
+                    ) {
+
+                        return total +
+                            (
+                                Number(
+                                    order.total
+                                ) || 0
+                            );
+
+                    },
+                    0
+                );
+
+        }
 
 
         document.getElementById(
@@ -1450,157 +2015,12 @@
 
 
         /* =================================================
-           PRODUCT IDS
+           TRANSACTION REPORT
         ================================================= */
 
-        const productIds =
-            [
-                ...new Set(
-                    reportItems
-                        .map(
-                            item =>
-                                item.product_id
-                        )
-                        .filter(
-                            id =>
-                                id !== null &&
-                                id !== undefined
-                        )
-                )
-            ];
-
-
-        let products = [];
-
-
-        if (productIds.length) {
-
-            const {
-                data,
-                error
-            } = await supabaseClient
-
-                .from("products")
-
-                .select(`
-                    id,
-                    category_id
-                `)
-
-                .in(
-                    "id",
-                    productIds
-                );
-
-
-            if (error) {
-
-                console.error(
-                    "REPORT PRODUCTS ERROR:",
-                    error
-                );
-
-            } else {
-
-                products =
-                    data || [];
-
-            }
-
-        }
-
-
-        /* =================================================
-           CATEGORY IDS
-        ================================================= */
-
-        const categoryIds =
-            [
-                ...new Set(
-                    products
-                        .map(
-                            product =>
-                                product.category_id
-                        )
-                        .filter(
-                            id =>
-                                id !== null &&
-                                id !== undefined
-                        )
-                )
-            ];
-
-
-        let categories = [];
-
-
-        if (categoryIds.length) {
-
-            const {
-                data,
-                error
-            } = await supabaseClient
-
-                .from("categories")
-
-                .select(`
-                    id,
-                    name
-                `)
-
-                .in(
-                    "id",
-                    categoryIds
-                );
-
-
-            if (error) {
-
-                console.error(
-                    "REPORT CATEGORIES ERROR:",
-                    error
-                );
-
-            } else {
-
-                categories =
-                    data || [];
-
-            }
-
-        }
-
-
-        /* =================================================
-           MAP DATA
-        ================================================= */
-
-        const productMap =
-            new Map(
-                products.map(
-                    product =>
-                        [
-                            Number(
-                                product.id
-                            ),
-                            product
-                        ]
-                )
-            );
-
-
-        const categoryMap =
-            new Map(
-                categories.map(
-                    category =>
-                        [
-                            Number(
-                                category.id
-                            ),
-                            category.name
-                        ]
-                )
-            );
+        renderTransactionReport(
+            filteredOrders
+        );
 
 
         /* =================================================
@@ -1611,19 +2031,31 @@
             new Map();
 
 
-        reportItems.forEach(
+        filteredItems.forEach(
             function (item) {
-
-                const key =
-                    Number(
-                        item.product_id
-                    );
-
 
                 const product =
                     productMap.get(
-                        key
+                        Number(
+                            item.product_id
+                        )
                     );
+
+
+                const productKey =
+                    product
+                        ? Number(product.id)
+                        : `orphan-${item.id}`;
+
+
+                const productName =
+                    product &&
+                    product.name
+                        ? product.name
+                        : (
+                            item.product_name ||
+                            "Produk tidak ditemukan"
+                        );
 
 
                 const categoryName =
@@ -1642,19 +2074,21 @@
 
                 if (
                     !productSales.has(
-                        key
+                        productKey
                     )
                 ) {
 
                     productSales.set(
-                        key,
+                        productKey,
                         {
                             productName:
-                                item.product_name ||
-                                "Produk",
+                                productName,
+
                             category:
                                 categoryName,
+
                             quantity: 0,
+
                             revenue: 0
                         }
                     );
@@ -1664,7 +2098,7 @@
 
                 const row =
                     productSales.get(
-                        key
+                        productKey
                     );
 
 
@@ -1796,7 +2230,7 @@
             new Map();
 
 
-        reportItems.forEach(
+        filteredItems.forEach(
             function (item) {
 
                 const product =
@@ -1832,7 +2266,9 @@
                         {
                             category:
                                 categoryName,
+
                             quantity: 0,
+
                             revenue: 0
                         }
                     );
@@ -1956,6 +2392,142 @@
 
 
     /* =====================================================
+       TRANSACTION TABLE
+    ===================================================== */
+
+    function renderTransactionReport(
+        orders
+    ) {
+
+        const body =
+            document.getElementById(
+                "transaction-report-body"
+            );
+
+
+        if (!orders.length) {
+
+            body.innerHTML = `
+
+                <tr>
+
+                    <td colspan="4">
+
+                        <div class="report-empty">
+                            Belum ada transaksi
+                            pada periode ini.
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        const sortedOrders =
+            [...orders].sort(
+                function (
+                    a,
+                    b
+                ) {
+
+                    return new Date(
+                        b.created_at
+                    ) -
+                    new Date(
+                        a.created_at
+                    );
+
+                }
+            );
+
+
+        body.innerHTML =
+            sortedOrders
+                .map(
+                    function (order) {
+
+                        const date =
+                            new Date(
+                                order.created_at
+                            );
+
+
+                        const formattedDate =
+                            date.toLocaleString(
+                                "id-ID",
+                                {
+                                    dateStyle:
+                                        "medium",
+
+                                    timeStyle:
+                                        "short"
+                                }
+                            );
+
+
+                        return `
+
+                            <tr>
+
+                                <td>
+
+                                    <div
+                                        class="report-product-name"
+                                    >
+                                        #${escapeHtml(
+                                            order.id
+                                        )}
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    ${escapeHtml(
+                                        formattedDate
+                                    )}
+                                </td>
+
+
+                                <td>
+
+                                    <span
+                                        class="report-status"
+                                    >
+                                        ${escapeHtml(
+                                            order.status
+                                        )}
+                                    </span>
+
+                                </td>
+
+
+                                <td
+                                    class="report-revenue"
+                                >
+                                    ${formatRupiah(
+                                        order.total
+                                    )}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+    /* =====================================================
        FILTER BUTTON
     ===================================================== */
 
@@ -1966,6 +2538,28 @@
         .addEventListener(
             "click",
             function () {
+
+                const {
+                    start,
+                    end
+                } = getDateRange();
+
+
+                if (
+                    start &&
+                    end &&
+                    start > end
+                ) {
+
+                    showMessage(
+                        "Tanggal mulai tidak boleh lebih besar dari tanggal akhir.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
 
                 loadReport();
 
@@ -1989,7 +2583,27 @@
 
                 endDate.value = "";
 
+                categoryFilter.value = "";
+
                 loadReport();
+
+            }
+        );
+
+
+    /* =====================================================
+       PRINT
+    ===================================================== */
+
+    document
+        .getElementById(
+            "print-button"
+        )
+        .addEventListener(
+            "click",
+            function () {
+
+                window.print();
 
             }
         );
@@ -2066,9 +2680,11 @@
 
     document.addEventListener(
         "DOMContentLoaded",
-        function () {
+        async function () {
 
-            loadReport();
+            await loadCategories();
+
+            await loadReport();
 
         }
     );
